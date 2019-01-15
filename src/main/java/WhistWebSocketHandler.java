@@ -20,5 +20,11 @@ public class WhistWebSocketHandler {
     @OnWebSocketMessage
     public void onMessage(Session user, String message) {
         System.out.println(user + " sent " + message);
+        String[] parts = message.split(":");
+        switch(parts[0]){
+            case "SPEED":
+                ContractWhistOnline.changeSpeed(Integer.parseInt(parts[1]));
+                break;
+        }
     }
 }

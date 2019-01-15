@@ -133,10 +133,10 @@ body {
   width: 30%;
 }
 
-#playerHand{
+.playerHand{
   float: left;
   border-radius: 2px;
-  border: 3px solid #346029;
+  border: 5px solid #346029;
   background-color: #346029;
   height: 200px;
   width: 100%;

@@ -29,7 +29,7 @@
         <div id=lowerGameArea>
         <div id="playerArea">
             <h3 class="playerName">$player1</h3>
-            <div id="playerHand">
+            <div class="playerHand" id="player1">
                 <div id="threeRow"></div>
                 <div id="card"></div>
                 <div id="card"></div>
@@ -39,7 +39,7 @@
         </div>
         <div id="playerArea">
           <h3 class="playerName">$player2</h3>
-          <div id="playerHand">
+          <div class="playerHand" id="player2">
             <div id="threeRow"></div>
             <div id="card"></div>
             <div id="card"></div>
@@ -50,7 +50,7 @@
         </div>
         <div id="playerArea">
           <h3 class="playerName">$player3</h3>
-          <div id="playerHand">
+          <div class="playerHand" id="player3">
             <div id="fourRow"></div>
             <div id="card"></div>
             <div id="card"></div>

@@ -10,9 +10,9 @@ class Trumps {
   private int turn;
   private Stack<Card> playedCards;
   private Deck d;
-  private Stack<Integer> playersToGo = new Stack<Integer>();
+  private Stack<Integer> playersToGo = new Stack<>();
   private int firstPlayer;
-  private ArrayList<Player> players = new ArrayList<Player>();
+  private ArrayList<Player> players = new ArrayList<>();
 
   Player runTrumps(int handSize, ArrayList<Player> p) throws InterruptedException{
      this.HAND_SIZE = handSize;
@@ -26,8 +26,7 @@ class Trumps {
         playersToGo.push(i);
       }
 
-      Player winner = restartGame();
-      return winner;
+      return restartGame();
     } else {
       System.out.println("Error - No Players are Playing!");
       return new RandomPlayer(""); //Null player
@@ -78,15 +77,17 @@ class Trumps {
     int topScorer = -1;
     int playerID;
 
-    playedCards = new Stack<Card>();
+    playedCards = new Stack<>();
 
     for(int i = 0; i<PLAYER_COUNT; i++){
-      playerID = (int) playersToGo.pop();
+      playerID = playersToGo.pop();
       Card cardInPlay = players.get(playerID).makeTurn(leadSuit, trumpSuit, playedCards);
 
       //Phase 1 Delay - Select User
-      Thread.sleep(TIME_DELAY/2);
+
+      ContractWhistOnline.phase1Update(playerID);
       System.out.println(players.get(playerID).getName() + "'s Turn.");
+      Thread.sleep(TIME_DELAY/2);
 
       cardInPlay.setScore(cardInPlay.getValue());
 
@@ -103,8 +104,10 @@ class Trumps {
       }
 
       // Phase 2 Delay - Pick Card
-      Thread.sleep(TIME_DELAY);
+
       System.out.println(players.get(playerID).getName() + " plays " + cardInPlay.toMiniString() + " for " + cardInPlay.getScore() + " points.");
+      Thread.sleep(TIME_DELAY);
+
 
       if(cardInPlay.getScore() > topScore){
         topScore = cardInPlay.getScore();
@@ -113,16 +116,17 @@ class Trumps {
 
       playedCards.push(cardInPlay);
       // Phase 3 Delay - Play Card
-      Thread.sleep(TIME_DELAY/2);
       ContractWhistOnline.updateGame(Integer.toString(getCardsLeft()), cardInPlay.getFilename());
+      Thread.sleep(TIME_DELAY/2);
     }
 
-    // Thread.sleep(1000);
-     //System.out.println(players[topScorer].getName() + " has won this hand.");
+    ContractWhistOnline.showWinner(topScorer);
+    Thread.sleep(TIME_DELAY);
+    System.out.println(players.get(topScorer).getName() + " has won this hand.");
      //System.out.println();
     players.get(topScorer).incrementPoints();
 
-    return endTurn();
+    return endTurn(topScorer);
   }
 
 
@@ -136,26 +140,20 @@ class Trumps {
     return c.getSuit();
   }
 
-  private Player endTurn() throws InterruptedException{
+  private Player endTurn(int turnWinner) throws InterruptedException{
     System.out.println("Cards Left: " + getCardsLeft());
     turn++;
 
     if(turn <= HAND_SIZE){
-      if(firstPlayer < (PLAYER_COUNT) - 1){
-        firstPlayer++;
-      } else {
-        firstPlayer = 0;
-      }
-
-      for(int i = firstPlayer-1; i>-1; i--){
+      for(int i = turnWinner-1; i>-1; i--){
         playersToGo.push(i);
       }
 
-      for(int i = PLAYER_COUNT-1; i>firstPlayer; i--){
+      for(int i = PLAYER_COUNT-1; i>turnWinner; i--){
         playersToGo.push(i);
       }
 
-      playersToGo.push(firstPlayer);
+      playersToGo.push(turnWinner);
       takeTurn();
     }
 
@@ -193,6 +191,28 @@ class Trumps {
 
   int getCardsLeft(){
     return (HAND_SIZE - turn);
+  }
+
+  public void changeSpeed(int level){
+    switch(level){
+      case 1:
+        TIME_DELAY = 4000;
+        break;
+      case 2:
+        TIME_DELAY = 2500;
+        break;
+      case 3:
+        TIME_DELAY = 1250;
+        break;
+      case 4:
+        TIME_DELAY = 300;
+        break;
+      case 5:
+        TIME_DELAY = 10;
+        break;
+      default:
+        System.out.println("Error Changing Speed. Level " + level + " not recognised.");
+    }
   }
 
 }

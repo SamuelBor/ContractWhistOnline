@@ -44,6 +44,46 @@ public class ContractWhistOnline {
         gameResults(players, (t), handSize);
     }
 
+    public static void phase1Update(int playerID) {
+        playerID++; // Account for 0 index
+
+        String newPlayer = Integer.toString(playerID);
+
+        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
+            try {
+                session.getRemote().sendString(String.valueOf(new JSONObject()
+                        .put("phase", 1)
+                        .put("playerID", newPlayer)
+
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void showWinner(int winnerID) {
+        winnerID++; // Account for 0 index
+
+        String winner = Integer.toString(winnerID);
+
+        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
+            try {
+                session.getRemote().sendString(String.valueOf(new JSONObject()
+                        .put("phase", 4)
+                        .put("winnerID", winner)
+
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void changeSpeed(int level){
+        t.changeSpeed(level);
+    }
+
     public static void updateGame(String cardsLeft, String topCardSrc) {
         userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
             try {

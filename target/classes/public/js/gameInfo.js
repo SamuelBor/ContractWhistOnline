@@ -3,17 +3,17 @@ console.log("File Loading Correctly.");
 var webSocket = new WebSocket("ws://localhost:1816/updates");
 var slider = id("speedRange");
 var output = id("speedLabel");
+var newPlayer = "player1";
+var winner = "player1";
 
 webSocket.onmessage = function (msg) {
-
-updateInfo(msg);
-console.log('Server: ' + msg.data);
-
+    console.log('Server: ' + msg.data);
+    updateInfo(msg);
 };
-webSocket.onclose = function () { console.log("WebSocket connection closed"); };
+webSocket.onclose = function () { console.log("WebSocket Connection Closed"); };
 webSocket.onopen = function (event) {
     console.log("Connection established");
-    webSocket.send('Ping');
+    webSocket.send('Connection established');
 };
 
 slider.oninput = function() {
@@ -51,7 +51,9 @@ function updateInfo(msg) {
     var data = JSON.parse(msg.data);
     switch(data.phase) {
         case 1:
-
+            id(winner).style.borderColor='#346029';
+            newPlayer = "player" + data.playerID;
+            id(newPlayer).style.borderColor='#552960';
             break;
         case 2:
 
@@ -59,6 +61,11 @@ function updateInfo(msg) {
         case 3:
             id("cardsLeft").innerHTML = data.cardsLeft;
             id("topCard").src = "/cards/" + data.topCard;
+            id(newPlayer).style.borderColor='#346029';
+            break;
+        case 4:
+            winner = "player" + data.winnerID;
+            id(winner).style.borderColor='#FFD700';
             break;
         default:
             console.log("Error parsing phase data from web socket.");
