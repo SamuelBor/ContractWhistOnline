@@ -121,7 +121,7 @@ class Trumps {
     }
 
     ContractWhistOnline.showWinner(topScorer);
-    Thread.sleep(TIME_DELAY);
+    Thread.sleep(TIME_DELAY/2);
     System.out.println(players.get(topScorer).getName() + " has won this hand.");
      //System.out.println();
     players.get(topScorer).incrementPoints();

@@ -5,13 +5,16 @@ import spark.template.velocity.*;
 import java.util.*;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
+
 
 public class ContractWhistOnline {
     public static Trumps t = new Trumps();
     static Map<Session, String> userUsernameMap = new ConcurrentHashMap<>();
     static int nextUserNumber = 1; //Assign to username for next connecting user
     static ArrayList<Player> players = new ArrayList();
+    static ExecutorService threadPool = Executors.newFixedThreadPool(2);
+    static CompletionService<String> pool = new ExecutorCompletionService<>(threadPool);
 
     public static void main(String[] args){
         System.out.println("Initialising Application");
@@ -30,9 +33,10 @@ public class ContractWhistOnline {
 
         // Render initial game info
         get("/", (req, res) -> renderInfo(req));
+    }
 
-
-
+    public static void startGameTask() throws InterruptedException{
+        pool.submit(new gameTask());
     }
 
     public static void startGame() throws InterruptedException{
@@ -42,6 +46,7 @@ public class ContractWhistOnline {
 
         updateGame(Integer.toString(handSize), "blank.png");
         gameResults(players, (t), handSize);
+        threadPool.shutdown();
     }
 
     public static void phase1Update(int playerID) {
@@ -125,7 +130,7 @@ public class ContractWhistOnline {
     private static void gameResults(ArrayList<Player> players, Trumps t, int handSize) throws InterruptedException{
         int perc = 0;
         float percF;
-        for(int i = 0; i<100000; i++){
+        for(int i = 0; i<10; i++){
             t.runTrumps(handSize, players);
             percF = (float) (((float)( (float) i / (float) 100000)) * (float) 100);
             if(Math.floor(percF)>perc){
@@ -142,5 +147,4 @@ public class ContractWhistOnline {
     private static String renderTemplate(String template, Map model) {
         return new VelocityTemplateEngine().render(new ModelAndView(model, template));
     }
-
 }
