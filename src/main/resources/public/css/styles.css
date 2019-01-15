@@ -1,0 +1,292 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.4em;
+    background: #f5f5f5;
+    color: #4d4d4d;
+    min-width: 230px;
+    max-width: 1350px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    font-weight: 300;
+    width: 100%
+}
+
+#LeftBlock {
+    margin: -20px 0 0 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    font-weight: 300;
+    padding: -10px 0 0 0;
+    float: left;
+    width: 23%;
+    border-radius: 10px;
+    border: 1px solid black;
+    height: 630px;
+}
+
+#LeftBlock h2 {
+    top: -105px;
+    width: 100%;
+    font-size: 25px;
+    font-weight: 200;
+    text-align: center;
+    color: black;
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+}
+
+#LeftBlock p {
+    margin-left: 15px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 150;
+    text-align: left;
+    color: black;
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+}
+
+.slidecontainer {
+  width: 96%;
+  margin-left: 2%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: rgb(39, 119, 20);
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: rgb(39, 119, 20);
+  cursor: pointer;
+}
+
+#RightBlock {
+    background: rgb(39, 119, 20);
+    margin: 20px 0 0 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    font-weight: 300;
+    padding: -10px 0 0 0;
+    float:right;
+    width: 75.5%;
+    border-radius: 10px;
+    border: 2px solid black;
+    height: 550px;
+}
+
+#topCard {
+  margin-top: 20px;
+  width: 13%;
+  float: left;
+  margin-left: 42.5%
+}
+
+#lowerGameArea {
+ margin-top: 280px;
+}
+
+.playerName {
+   color: white;
+   font-size: 1.5vw;
+   font-weight: bold;
+   margin-left: 2%;
+   margin-bottom: 5px;
+}
+
+#playerArea {
+  margin-left: 2%;
+  float: left;
+  width: 30%;
+}
+
+#playerHand{
+  float: left;
+  border-radius: 2px;
+  border: 3px solid #346029;
+  background-color: #346029;
+  height: 200px;
+  width: 100%;
+}
+
+#fourRow {
+  float: left;
+  padding-top: 25%;
+  margin-top: 4%;
+  width: 14%;
+  border-radius: 4px;
+  border: 2px solid black;
+  background-color: white;
+  margin-left: 12%;
+}
+
+#threeRow {
+  float: left;
+  padding-top: 25%;
+  margin-top: 4%;
+  width: 14%;
+  border-radius: 4px;
+  border: 2px solid black;
+  background-color: white;
+  margin-left: 22%;
+}
+
+#twoRow {
+  float: left;
+  padding-top: 25%;
+  margin-top: 4%;
+  width: 14%;
+  border-radius: 4px;
+  border: 2px solid black;
+  background-color: white;
+  margin-left: 32.5%;
+}
+
+#oneRow {
+  float: left;
+  padding-top: 25%;
+  margin-top: 4%;
+  width: 14%;
+  border-radius: 4px;
+  border: 2px solid black;
+  background-color: white;
+  margin-left: 42.5%;
+}
+
+#card {
+  float: left;
+  padding-top: 25%;
+  margin-top: 4%;
+  width: 14%;
+  border-radius: 4px;
+  border: 2px solid black;
+  background-color: white;
+  margin-left: 5%;
+}
+
+button,
+input[type="checkbox"] {
+    outline: none;
+}
+
+.hidden {
+    display: none;
+}
+
+#whistapp {
+    background: #fff;
+    margin: 130px 0 40px 0;
+    position: relative;
+    0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+#whistapp input::-webkit-input-placeholder {
+    font-style: italic;
+    font-weight: 300;
+    color: #e6e6e6;
+}
+
+#whistapp input::-moz-placeholder {
+    font-style: italic;
+    font-weight: 300;
+    color: #e6e6e6;
+}
+
+#whistapp input::input-placeholder {
+    font-style: italic;
+    font-weight: 300;
+    color: #e6e6e6;
+}
+
+#whistapp h1 {
+    position: absolute;
+    top: -155px;
+    width: 100%;
+    font-size: 75px;
+    font-weight: 100;
+    text-align: center;
+    color: black;
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+}
+
+#main {
+    position: relative;
+    z-index: 2;
+    border-top: 0px solid #e6e6e6;
+}
+
+#info {
+    margin: 65px auto 0;
+    color: #dcdcdcR;
+    font-size: 13px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    text-align: center;
+    font-weight: 300;
+}
+
+/*
+	Hack to remove background from Mobile Safari.
+	Can't use it globally since it destroys checkboxes in Firefox
+*/
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    #toggle-all,
+    #todo-list li .toggle {
+        background: none;
+    }
+
+    #todo-list li .toggle {
+        height: 40px;
+    }
+
+    #toggle-all {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+        -webkit-appearance: none;
+        appearance: none;
+    }
+}
+
+@media (max-width: 430px) {
+    footer {
+        height: 50px;
+    }
+
+    #filters {
+        bottom: 10px;
+    }
+}

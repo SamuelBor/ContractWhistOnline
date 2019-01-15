@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" data-framework="intercoolerjs">
+<head>
+    <meta charset="utf-8">
+    <title>Contract Whist Online</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <section id="whistapp" ic-target="this">
+        #parse("/velocity/whist.vm")
+    </section>
+    <div id="info">
+        <p>Samuel Bor 2019</p>
+    </div>
+    <script src="/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/js/vendor/intercooler-0.9.6.min.js"></script>
+    <script src="/js/gameInfo.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

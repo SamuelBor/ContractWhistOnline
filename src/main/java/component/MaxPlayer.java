@@ -1,0 +1,67 @@
+package component;
+
+import java.util.Stack;
+import java.util.Random;
+import java.util.ArrayList;
+
+// Plays the highest legal card from their hand, winning or otherwise
+public class MaxPlayer extends Player {
+  public MaxPlayer(String name){
+    super(name);
+  }
+
+  public Card makeTurn(int leadSuit, int trumpSuit, Stack playedCards){
+    // Valid cards being an array list of legal cards following the lead suit
+    ArrayList<Card> validCards = new ArrayList<Card>();
+    ArrayList<Card> trumps = new ArrayList<Card>();
+    // Initialises the return Card as the Two of Clubs, but this will always be overwritten
+    Card returnCard = new Card(2,1);
+    int highestValue = 0;
+
+    for(int i =0; i<pHand.size(); i++){
+      int currentSuit;
+      Card c = (Card) pHand.get(i);
+      currentSuit = c.getSuit();
+      if(currentSuit==leadSuit){
+        validCards.add(c);
+      }
+
+      if(currentSuit==trumpSuit){
+        trumps.add(c);
+      }
+
+      // Tracks the full set of cards in the first loop in case no lead or trump cards are possessed.
+      if(c.getValue() > highestValue){
+        highestValue = c.getValue();
+        returnCard = c;
+      }
+    }
+    highestValue = 0;
+
+    if(validCards.size()!=0){
+
+      for(int i=0; i<validCards.size(); i++){
+        Card c = (Card) validCards.get(i);
+
+        if(c.getValue() > highestValue){
+          highestValue = c.getValue();
+          returnCard = c;
+        }
+      }
+    } else if (trumps.size()!=0){
+      // Play the highest trump if any exist
+      for(int i=0; i<trumps.size(); i++){
+        Card c = (Card) trumps.get(i);
+
+        if(c.getValue() > highestValue){
+          highestValue = c.getValue();
+          returnCard = c;
+        }
+      }
+    }
+
+    //Removes the selected card from the players hand
+    pHand.remove(returnCard);
+    return returnCard;
+  }
+}
