@@ -13,7 +13,7 @@ console.log('Server: ' + msg.data);
 webSocket.onclose = function () { console.log("WebSocket connection closed"); };
 webSocket.onopen = function (event) {
     console.log("Connection established");
-    webSocket.send('Ping');
+    webSocket.send('Connection established');
 };
 
 slider.oninput = function() {

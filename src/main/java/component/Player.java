@@ -4,11 +4,11 @@ import java.util.Stack;
 import java.util.ArrayList;
 
 public abstract class Player {
-  protected ArrayList<Card> pHand = new ArrayList<Card>();
-  protected String name = "Bob";
+  ArrayList<Card> pHand = new ArrayList<>();
+  protected String name;
   private int points = 0;
 
-  public Player(String name){
+  Player(String name){
     this.name = name;
   }
 

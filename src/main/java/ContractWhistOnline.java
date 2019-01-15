@@ -1,4 +1,3 @@
-import model.*;
 import component.*;
 import spark.*;
 import static spark.Spark.*;
@@ -7,8 +6,6 @@ import java.util.*;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
 import java.util.concurrent.ConcurrentHashMap;
-
-import static j2html.TagCreator.*;
 
 public class ContractWhistOnline {
     public static Trumps t = new Trumps();
@@ -83,10 +80,6 @@ public class ContractWhistOnline {
             return renderTemplate("velocity/whist.vm", model);
         }
         return renderTemplate("velocity/index.vm", model);
-    }
-
-    public static void doinker(){
-        System.out.println("DOINK");
     }
 
     private static void gameResults(ArrayList<Player> players, Trumps t, int handSize) throws InterruptedException{

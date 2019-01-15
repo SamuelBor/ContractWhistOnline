@@ -1,14 +1,11 @@
 import component.*;
 
 ///CHaDS
-import spark.ModelAndView;
-import spark.template.velocity.VelocityTemplateEngine;
-
 import java.util.*;
 
-public class Trumps {
-  public int PLAYER_COUNT = 3;
-  public int HAND_SIZE = 7;
+class Trumps {
+  private int PLAYER_COUNT = 3;
+  private int HAND_SIZE = 7;
   private int TIME_DELAY = 1250;
   private int turn;
   private Stack<Card> playedCards;
@@ -17,7 +14,7 @@ public class Trumps {
   private int firstPlayer;
   private ArrayList<Player> players = new ArrayList<Player>();
 
-  public Player runTrumps(int handSize, ArrayList<Player> p) throws InterruptedException{
+  Player runTrumps(int handSize, ArrayList<Player> p) throws InterruptedException{
      this.HAND_SIZE = handSize;
      this.players = p;
 
@@ -40,7 +37,7 @@ public class Trumps {
 
   private Player restartGame() throws InterruptedException{
     d = new Deck();
-    playedCards = new Stack<Card>();
+    playedCards = new Stack<>();
     turn = 1;
 
     for(int i = PLAYER_COUNT - 1; i>-1; i--){
@@ -71,9 +68,7 @@ public class Trumps {
        //System.out.println(hand);
     }
 
-    Player winner = takeTurn();
-
-    return winner;
+    return takeTurn();
   }
 
   private Player takeTurn() throws InterruptedException{
@@ -90,7 +85,7 @@ public class Trumps {
       Card cardInPlay = players.get(playerID).makeTurn(leadSuit, trumpSuit, playedCards);
 
       //Phase 1 Delay - Select User
-      Thread.sleep(TIME_DELAY);
+      Thread.sleep(TIME_DELAY/2);
       System.out.println(players.get(playerID).getName() + "'s Turn.");
 
       cardInPlay.setScore(cardInPlay.getValue());
@@ -118,7 +113,7 @@ public class Trumps {
 
       playedCards.push(cardInPlay);
       // Phase 3 Delay - Play Card
-      Thread.sleep(TIME_DELAY);
+      Thread.sleep(TIME_DELAY/2);
       ContractWhistOnline.updateGame(Integer.toString(getCardsLeft()), cardInPlay.getFilename());
     }
 
@@ -127,8 +122,7 @@ public class Trumps {
      //System.out.println();
     players.get(topScorer).incrementPoints();
 
-    Player winningPlayer = endTurn();
-    return winningPlayer;
+    return endTurn();
   }
 
 
@@ -165,8 +159,7 @@ public class Trumps {
       takeTurn();
     }
 
-    Player winningPlayer = endGame();
-    return winningPlayer;
+    return endGame();
   }
 
   private Player endGame(){
@@ -198,7 +191,7 @@ public class Trumps {
     }
   }
 
-  public int getCardsLeft(){
+  int getCardsLeft(){
     return (HAND_SIZE - turn);
   }
 
