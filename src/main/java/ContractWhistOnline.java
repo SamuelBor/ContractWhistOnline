@@ -20,7 +20,7 @@ public class ContractWhistOnline {
         System.out.println("Initialising Application");
 
         players.add(new MaxPlayer("Max"));
-        players.add(new MiniWinPlayer("Michael"));
+        players.add(new MiniWinPlayer("Dave"));
         players.add(new RandomPlayer("Random"));
 
         exception(Exception.class, (e, req, res) -> e.printStackTrace()); // print all exceptions

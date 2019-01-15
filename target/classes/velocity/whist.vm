@@ -19,7 +19,7 @@
         <p> Gold Rings: 5 </p>
         <p><strong>Set Speed: </strong> <span id="speedLabel">Normal</span></p>
           <div class="slidecontainer">
-            <input type="range" min="1" max="5" value="3" class="slider" id="speedRange" ic-post-to="/speed">
+            <input type="range" min="1" max="5" value="3" class="slider" id="speedRange">
           </div>
     </div>
     <div id="RightBlock">
@@ -30,34 +30,37 @@
         <div id="playerArea">
             <h3 class="playerName">$player1</h3>
             <div class="playerHand" id="player1">
-                <div id="threeRow"></div>
-                <div id="card"></div>
-                <div id="card"></div>
-                <div id="twoRow"></div>
-                <div id="card"></div>
+              <img class="fourRow" src="/cards/4_of_hearts.png" id="player1card1">
+              <img class="card" src="/cards/ace_of_spades.png" id="player1card2">
+              <img class="card" src="/cards/ace_of_spades.png" id="player1card3">
+              <img class="card" src="/cards/ace_of_spades.png" id="player1card4">
+              <img class="threeRow" src="/cards/3_of_clubs.png" id="player1card5">
+              <img class="card" src="/cards/ace_of_spades.png" id="player1card6">
+              <img class="card" src="/cards/ace_of_spades.png" id="player1card7">
             </div>
         </div>
         <div id="playerArea">
           <h3 class="playerName">$player2</h3>
           <div class="playerHand" id="player2">
-            <div id="threeRow"></div>
-            <div id="card"></div>
-            <div id="card"></div>
-            <div id="threeRow"></div>
-            <div id="card"></div>
-            <div id="card"></div>
+            <img class="fourRow" src="/cards/4_of_hearts.png" id="player2card1">
+            <img class="card" src="/cards/ace_of_spades.png" id="player2card2">
+            <img class="card" src="/cards/ace_of_spades.png" id="player2card3">
+            <img class="card" src="/cards/ace_of_spades.png" id="player2card4">
+            <img class="threeRow" src="/cards/3_of_clubs.png" id="player2card5">
+            <img class="card" src="/cards/ace_of_spades.png" id="player2card6">
+            <img class="card" src="/cards/ace_of_spades.png" id="player2card7">
           </div>
         </div>
         <div id="playerArea">
           <h3 class="playerName">$player3</h3>
           <div class="playerHand" id="player3">
-            <div id="fourRow"></div>
-            <div id="card"></div>
-            <div id="card"></div>
-            <div id="card"></div>
-            <div id="threeRow"></div>
-            <div id="card"></div>
-            <div id="card"></div>
+            <img class="fourRow" src="/cards/4_of_hearts.png" id="player3card1">
+            <img class="card" src="/cards/ace_of_spades.png" id="player3card2">
+            <img class="card" src="/cards/ace_of_spades.png" id="player3card3">
+            <img class="card" src="/cards/ace_of_spades.png" id="player3card4">
+            <img class="threeRow" src="/cards/3_of_clubs.png" id="player3card5">
+            <img class="card" src="/cards/ace_of_spades.png" id="player3card6">
+            <img class="card" src="/cards/ace_of_spades.png" id="player3card7">
           </div>
         </div>
         </div>
