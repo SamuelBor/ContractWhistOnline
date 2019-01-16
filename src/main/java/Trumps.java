@@ -1,4 +1,5 @@
 import component.*;
+import java.lang.Math;
 
 ///CHaDS
 import java.util.*;
@@ -84,11 +85,14 @@ class Trumps {
       playerID = playersToGo.pop();
 
       //Phase 1 Delay - Select Player
-      ContractWhistOnline.phase1Update(playerID);
+      ContractWhistOnline.phase1Update(playerID, trumpSuit);
       System.out.println(players.get(playerID).getName() + "'s Turn.");
       Thread.sleep(TIME_DELAY/2);
 
+      //Get the player's hand before the chosen card is removed
+      List<String> preTurnHand = new ArrayList<>(players.get(playerID).getHand());
       Card cardInPlay = players.get(playerID).makeTurn(leadSuit, trumpSuit, playedCards);
+
       cardInPlay.setScore(cardInPlay.getValue());
 
       if(leadSuit==0){
@@ -104,10 +108,10 @@ class Trumps {
       }
 
       // Phase 2 Delay - Pick Card
-
+      int cardIndex = preTurnHand.indexOf(cardInPlay);
+      ContractWhistOnline.phase2Update(playerID, cardIndex);
       System.out.println(players.get(playerID).getName() + " plays " + cardInPlay.toMiniString() + " for " + cardInPlay.getScore() + " points.");
       Thread.sleep(TIME_DELAY);
-
 
       if(cardInPlay.getScore() > topScore){
         topScore = cardInPlay.getScore();
@@ -121,7 +125,7 @@ class Trumps {
     }
 
     ContractWhistOnline.showWinner(topScorer);
-    Thread.sleep(TIME_DELAY/2);
+    Thread.sleep(TIME_DELAY);
     System.out.println(players.get(topScorer).getName() + " has won this hand.");
      //System.out.println();
     players.get(topScorer).incrementPoints();
@@ -190,7 +194,7 @@ class Trumps {
   }
 
   int getCardsLeft(){
-    return (HAND_SIZE - turn);
+    return Math.min((HAND_SIZE - turn) + 1, HAND_SIZE);
   }
 
   public void changeSpeed(int level){

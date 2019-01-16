@@ -5,6 +5,7 @@ var slider = id("speedRange");
 var output = id("speedLabel");
 var newPlayer = "player1";
 var winner = "player1";
+var chosenCard;
 
 webSocket.onmessage = function (msg) {
     console.log('Server: ' + msg.data);
@@ -51,16 +52,35 @@ function updateInfo(msg) {
     var data = JSON.parse(msg.data);
     switch(data.phase) {
         case 1:
+            id("trumpLabel").innerHTML = data.trump;
+            switch(data.trump){
+                case "♣":
+                    id("trumpLabel").style.color = "black";
+                    break;
+                case "♠":
+                    id("trumpLabel").style.color = "black";
+                    break;
+                case "♥":
+                    id("trumpLabel").style.color = "red";
+                    break;
+                case "♦":
+                    id("trumpLabel").style.color = "red";
+                    break;
+            }
+
             id(winner).style.borderColor='#346029';
             newPlayer = "player" + data.playerID;
             id(newPlayer).style.borderColor='#552960';
             break;
         case 2:
-
+            var idString = "player" + data.playerID + "card" + data.cardID;
+            chosenCard = id(idString);
+            chosenCard.classList.add("selectedCard");
             break;
         case 3:
             id("cardsLeft").innerHTML = data.cardsLeft;
             id("topCard").src = "/cards/" + data.topCard;
+            chosenCard.classList.remove("selectedCard");
 
             var hand = data.hand;
             switch(hand.length) {
@@ -291,6 +311,8 @@ function showCards() {
         for (var i = 1; i < 8; i++) {
             id = "player" + player + "card" + i;
             element = document.getElementById(id);
+            element.style.borderColor='#346029';
+            element.style.borderWidth = '2px';
             element.style.display = 'block';
             element.style.marginTop = "4%";
         }

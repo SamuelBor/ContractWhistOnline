@@ -62,6 +62,11 @@ body {
   margin-left: 2%;
 }
 
+#trumpLabel {
+    font-size: 35px;
+    margin-top: 10px;
+}
+
 .slider {
   -webkit-appearance: none;
   width: 100%;
@@ -194,6 +199,17 @@ body {
   background-color: white;
   margin-left: 4%;
 }
+
+.selectedCard {
+     outline: 5px solid #552960;
+     outline-offset: -3px;
+ }
+
+ .unSelectedCard {
+     -webkit-box-shadow:inset 0px 0px 0px 0px #f00;
+     -moz-box-shadow:inset 0px 0px 0px 0px #f00;
+     box-shadow:inset 0px 0px 0px 0px #f00;
+ }
 
 button,
 input[type="checkbox"] {

@@ -2,9 +2,9 @@ package component;
 
 public class Card {
   // Value is between 2 and 14 when assigned
-  private int value = 0;
+  private int value;
   // Suit is between 1 and 4 when assigned
-  private int suit = 0;
+  private int suit;
   private int score = 0;
 
   public Card(int value, int suit){

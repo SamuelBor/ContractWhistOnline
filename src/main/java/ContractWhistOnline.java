@@ -48,8 +48,22 @@ public class ContractWhistOnline {
         threadPool.shutdown();
     }
 
-    public static void phase1Update(int playerID) {
+    public static void phase1Update(int playerID, int trump) {
         playerID++; // Account for 0 index
+        String trumpString;
+
+        switch(trump){
+            case 1:  trumpString = "♣";
+                break;
+            case 2:  trumpString = "♥";
+                break;
+            case 3:  trumpString = "♦";
+                break;
+            case 4:  trumpString = "♠";
+                break;
+            default:
+                trumpString = "#";
+        }
 
         String newPlayer = Integer.toString(playerID);
 
@@ -58,7 +72,27 @@ public class ContractWhistOnline {
                 session.getRemote().sendString(String.valueOf(new JSONObject()
                         .put("phase", 1)
                         .put("playerID", newPlayer)
+                        .put("trump", trumpString)
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
+    public static void phase2Update(int playerID, int cardID) {
+        playerID++; // Account for 0 index
+        cardID++;
+
+        String playerStr = Integer.toString(playerID);
+        String cardStr = Integer.toString(cardID);
+
+        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
+            try {
+                session.getRemote().sendString(String.valueOf(new JSONObject()
+                        .put("phase", 2)
+                        .put("playerID", playerStr)
+                        .put("cardID", cardStr)
                 ));
             } catch (Exception e) {
                 e.printStackTrace();
