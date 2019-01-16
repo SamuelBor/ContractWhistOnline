@@ -78,9 +78,10 @@ function updateInfo(msg) {
             chosenCard.classList.add("selectedCard");
             break;
         case 3:
+            chosenCard.classList.remove("selectedCard");
             id("cardsLeft").innerHTML = data.cardsLeft;
             id("topCard").src = "/cards/" + data.topCard;
-            chosenCard.classList.remove("selectedCard");
+            id("topCard").style.display = 'block';
 
             var hand = data.hand;
             switch(hand.length) {
@@ -112,7 +113,7 @@ function updateInfo(msg) {
             id(newPlayer).style.borderColor='#346029';
             break;
         case 4:
-            id("topCard").src = "/cards/blank.png";
+            id("topCard").style.display = 'none';
             winner = "player" + data.winnerID;
             id(winner).style.borderColor='#FFD700';
             break;

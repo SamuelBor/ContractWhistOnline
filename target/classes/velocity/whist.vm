@@ -24,7 +24,7 @@
     </div>
     <div id="RightBlock">
         <div>
-        <img id="topCard" class="topCard" src="/cards/blank.png" alt="Top Card">
+        <img id="topCard" class="topCard" src="/cards/blank.png" alt="Top Card" style="display:none;">
         </div>
         <div id=lowerGameArea>
         <div id="playerArea">
