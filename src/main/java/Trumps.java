@@ -46,6 +46,7 @@ class Trumps {
     firstPlayer = 0;
 
     dealCards(d);
+    ContractWhistOnline.newHand();
 
     //Outputs all the players along with their newly dealt cards
     for(int i = 0; i<PLAYER_COUNT; i++){
@@ -81,14 +82,13 @@ class Trumps {
 
     for(int i = 0; i<PLAYER_COUNT; i++){
       playerID = playersToGo.pop();
-      Card cardInPlay = players.get(playerID).makeTurn(leadSuit, trumpSuit, playedCards);
 
-      //Phase 1 Delay - Select User
-
+      //Phase 1 Delay - Select Player
       ContractWhistOnline.phase1Update(playerID);
       System.out.println(players.get(playerID).getName() + "'s Turn.");
       Thread.sleep(TIME_DELAY/2);
 
+      Card cardInPlay = players.get(playerID).makeTurn(leadSuit, trumpSuit, playedCards);
       cardInPlay.setScore(cardInPlay.getValue());
 
       if(leadSuit==0){
@@ -116,7 +116,7 @@ class Trumps {
 
       playedCards.push(cardInPlay);
       // Phase 3 Delay - Play Card
-      ContractWhistOnline.updateGame(Integer.toString(getCardsLeft()), cardInPlay.getFilename());
+      ContractWhistOnline.updateGame(Integer.toString(getCardsLeft()), cardInPlay.getFilename(), playerID, players.get(playerID).getHand());
       Thread.sleep(TIME_DELAY/2);
     }
 
@@ -215,4 +215,7 @@ class Trumps {
     }
   }
 
+  public ArrayList getHand(int playerID){
+    return players.get(playerID).getHand();
+  }
 }

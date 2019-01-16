@@ -44,7 +44,6 @@ public class ContractWhistOnline {
 
         int handSize = 7;
 
-        updateGame(Integer.toString(handSize), "blank.png");
         gameResults(players, (t), handSize);
         threadPool.shutdown();
     }
@@ -77,7 +76,6 @@ public class ContractWhistOnline {
                 session.getRemote().sendString(String.valueOf(new JSONObject()
                         .put("phase", 4)
                         .put("winnerID", winner)
-
                 ));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -89,13 +87,61 @@ public class ContractWhistOnline {
         t.changeSpeed(level);
     }
 
-    public static void updateGame(String cardsLeft, String topCardSrc) {
+    public static void newHand() {
+        //Account for 0 index
+        int playerID;
+        ArrayList hand;
+
+        for(playerID = 0; playerID < 3; playerID++) {
+            hand = t.getHand(playerID);
+            int pID = playerID + 1; //0 index accounting
+
+            String playerStr = Integer.toString(pID);
+            String[] handPaths = new String[7];
+            int i = 0;
+
+            for (Object o : hand) {
+                Card c = (Card) o;
+                handPaths[i] = c.getFilename();
+                i++;
+            }
+
+            userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
+                try {
+                    session.getRemote().sendString(String.valueOf(new JSONObject()
+                            .put("phase", 5)
+                            .put("playerID", playerStr)
+                            .put("hand", handPaths)
+                    ));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+    }
+
+    public static void updateGame(String cardsLeft, String topCardSrc, int playerID, ArrayList hand) {
+        //Account for 0 index
+        playerID++;
+
+        String playerStr = Integer.toString(playerID);
+        String[] handPaths = new String[hand.size()];
+        int i =0;
+
+        for (Object o : hand) {
+            Card c = (Card) o;
+            handPaths[i] = c.getFilename();
+            i++;
+        }
+
         userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
             try {
                 session.getRemote().sendString(String.valueOf(new JSONObject()
                         .put("phase", 3)
                         .put("cardsLeft", cardsLeft)
                         .put("topCard", topCardSrc)
+                        .put("playerID", playerStr)
+                        .put("hand", handPaths)
                 ));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -116,11 +162,6 @@ public class ContractWhistOnline {
         model.put("player2", playerNames.get(1));
         model.put("player3", playerNames.get(2));
 
-        /* model.put("filter", Optional.ofNullable(statusStr).orElse(""));
-        model.put("activeCount", TodoDao.ofStatus(Status.ACTIVE).size());
-        model.put("anyCompleteTodos", TodoDao.ofStatus(Status.COMPLETE).size() > 0);
-        model.put("allComplete", TodoDao.all().size() == TodoDao.ofStatus(Status.COMPLETE).size());
-        model.put("status", Optional.ofNullable(statusStr).orElse("")); */
         if ("true".equals(req.queryParams("ic-request"))) {
             return renderTemplate("velocity/whist.vm", model);
         }
