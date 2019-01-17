@@ -13,13 +13,13 @@ public class WhistWebSocketHandler {
     }
 
     @OnWebSocketClose
-    public void onClose(Session user, int statusCode, String reason) {
+    public void onClose(Session user) {
         ContractWhistOnline.userUsernameMap.remove(user);
     }
 
     @OnWebSocketMessage
     public void onMessage(Session user, String message) {
-        System.out.println(user + " sent " + message);
+        System.out.println(user + "WebApp sent [" + message + "]");
         String[] parts = message.split(":");
         switch(parts[0]){
             case "SPEED":

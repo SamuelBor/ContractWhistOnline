@@ -12,7 +12,6 @@ class Trumps {
   private Stack<Card> playedCards;
   private Deck d;
   private Stack<Integer> playersToGo = new Stack<>();
-  private int firstPlayer;
   private ArrayList<Player> players = new ArrayList<>();
 
   Player runTrumps(int handSize, ArrayList<Player> p) throws InterruptedException{
@@ -44,8 +43,6 @@ class Trumps {
       playersToGo.push(i);
     }
 
-    firstPlayer = 0;
-
     dealCards(d);
     ContractWhistOnline.newHand();
 
@@ -58,7 +55,7 @@ class Trumps {
       //players[i].setPoints(0);
       p = players.get(i);
       hand = "";
-       //System.out.println(p.getName() + ":");
+      System.out.println(p.getName() + ":");
       h = p.getHand();
 
       for(int j=0; j<h.size();j++){
@@ -66,7 +63,7 @@ class Trumps {
         hand += c.toMiniString() + " ";
       }
 
-       //System.out.println(hand);
+       System.out.println(hand);
     }
 
     return takeTurn();
@@ -90,7 +87,7 @@ class Trumps {
       Thread.sleep(TIME_DELAY/2);
 
       //Get the player's hand before the chosen card is removed
-      List<String> preTurnHand = new ArrayList<>(players.get(playerID).getHand());
+      ArrayList preTurnHand = new ArrayList<>(players.get(playerID).getHand());
       Card cardInPlay = players.get(playerID).makeTurn(leadSuit, trumpSuit, playedCards);
 
       cardInPlay.setScore(cardInPlay.getValue());
@@ -137,10 +134,7 @@ class Trumps {
   private int getTrump(){
     // Removes a card from the top of the deck and takes its suit to be the trump card
     Card c = d.getTopCard();
-    String suit;
-    suit = c.suitToString(true);
 
-    //System.out.println("The Trump is [" + suit + "]");
     return c.getSuit();
   }
 
@@ -197,7 +191,7 @@ class Trumps {
     return Math.min((HAND_SIZE - turn) + 1, HAND_SIZE);
   }
 
-  public void changeSpeed(int level){
+  void changeSpeed(int level){
     switch(level){
       case 1:
         TIME_DELAY = 4000;
@@ -219,7 +213,7 @@ class Trumps {
     }
   }
 
-  public ArrayList getHand(int playerID){
+  ArrayList getHand(int playerID){
     return players.get(playerID).getHand();
   }
 }
