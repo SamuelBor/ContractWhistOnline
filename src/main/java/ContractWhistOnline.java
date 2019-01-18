@@ -36,7 +36,7 @@ public class ContractWhistOnline {
     }
 
     public static void startGameTask() throws InterruptedException{
-        pool.submit(new gameTask());
+        pool.submit(new GameTask());
     }
 
     public static void startGame() throws InterruptedException{

@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="2ac8c16a-9f4a-424c-9aa9-6287f6fa746f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Trumps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Trumps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/WhistWebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WhistWebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ContractWhistOnline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ContractWhistOnline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/cards/blank.png" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -16,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ContractWhistOnline.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-12">
-              <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+            <state relative-caret-position="161">
+              <caret line="37" column="53" lean-forward="true" selection-start-line="37" selection-start-column="53" selection-end-line="37" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#phase1Update#0;class#ContractWhistOnline#0" />
@@ -34,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Trumps.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
+            <state relative-caret-position="99">
+              <caret line="74" column="21" lean-forward="true" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#endGame#0;class#Trumps#0" />
@@ -64,6 +65,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2745">
               <caret line="183" column="14" selection-start-line="183" selection-start-column="14" selection-end-line="183" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/GameTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="40" lean-forward="true" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -139,12 +149,13 @@
         <option value="$PROJECT_DIR$/src/main/java/component/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/gameTask.java" />
         <option value="$PROJECT_DIR$/src/main/java/component/Card.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ContractWhistOnline.java" />
         <option value="$PROJECT_DIR$/src/main/resources/public/css/styles.css" />
         <option value="$PROJECT_DIR$/src/main/resources/velocity/whist.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/public/js/gameInfo.js" />
         <option value="$PROJECT_DIR$/src/main/java/WhistWebSocketHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/Trumps.java" />
+        <option value="$PROJECT_DIR$/src/main/java/GameTask.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ContractWhistOnline.java" />
       </list>
     </option>
   </component>
@@ -197,6 +208,14 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="component" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ContractWhistOnline" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ContractWhistOnline" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ContractWhistOnline" type="b2602c69:ProjectViewProjectNode" />
@@ -337,7 +356,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23462088" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -517,13 +535,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/gameTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/velocity/index.vm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -565,20 +576,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/velocity/whist.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/public/css/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2745">
-          <caret line="183" column="14" selection-start-line="183" selection-start-column="14" selection-end-line="183" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/public/js/gameInfo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1462">
@@ -598,10 +595,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/velocity/whist.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/public/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2745">
+          <caret line="183" column="14" selection-start-line="183" selection-start-column="14" selection-end-line="183" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/GameTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="40" lean-forward="true" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Trumps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="74" column="21" lean-forward="true" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#endGame#0;class#Trumps#0" />
+            <element signature="e#5307#5308#0" expanded="true" />
+            <element signature="e#5367#5368#0" expanded="true" />
+            <element signature="method#changeSpeed#0;class#Trumps#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ContractWhistOnline.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12">
-          <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+        <state relative-caret-position="161">
+          <caret line="37" column="53" lean-forward="true" selection-start-line="37" selection-start-column="53" selection-end-line="37" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#phase1Update#0;class#ContractWhistOnline#0" />
@@ -610,20 +642,6 @@
             <element signature="method#updateGame#0;class#ContractWhistOnline#0" />
             <element signature="method#renderInfo#0;class#ContractWhistOnline#0" />
             <element signature="method#gameResults#0;class#ContractWhistOnline#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Trumps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#endGame#0;class#Trumps#0" />
-            <element signature="e#5307#5308#0" expanded="true" />
-            <element signature="e#5367#5368#0" expanded="true" />
-            <element signature="method#changeSpeed#0;class#Trumps#0" />
           </folding>
         </state>
       </provider>
