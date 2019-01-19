@@ -13,10 +13,6 @@ public class Deck {
     init();
   }
 
-  public void shuffle(){
-    init();
-  }
-
   //Initialises a randomised 52 card deck
   public void init(){
     deckStack = new Stack<Card>();
@@ -48,7 +44,7 @@ public class Deck {
   }
 
   public Card getTopCard(){
-    Card c = (Card) deckStack.pop();
+    Card c = deckStack.pop();
 
     return c;
   }

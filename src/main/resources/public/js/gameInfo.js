@@ -84,32 +84,7 @@ function updateInfo(msg) {
             id("topCard").style.display = 'block';
 
             var hand = data.hand;
-            switch(hand.length) {
-                case 0:
-                    EmptyLayout(data.playerID, hand);
-                    break;
-                case 1:
-                    oneCardLayout(data.playerID, hand);
-                    break;
-                case 2:
-                    twoCardLayout(data.playerID, hand);
-                    break;
-                case 3:
-                    threeCardLayout(data.playerID, hand);
-                    break;
-                case 4:
-                    fourCardLayout(data.playerID, hand);
-                    break;
-                case 5:
-                    fiveCardLayout(data.playerID, hand);
-                    break;
-                case 6:
-                    sixCardLayout(data.playerID, hand);
-                    break;
-                case 7:
-                    sevenCardLayout(data.playerID, hand);
-                    break;
-            }
+            handLayout(hand.length, hand, data);
             id(newPlayer).style.borderColor='#346029';
             break;
         case 4:
@@ -119,11 +94,44 @@ function updateInfo(msg) {
             break;
         case 5:
             // New Hand - Display all the cards and the hands
-            sevenCardLayout(data.playerID, data.hand);
-            showCards();
+            console.log("New Hand Generating..");
+            var hand = data.hand;
+            handLayout(hand.length, hand, data);
+            console.log("Cards laid out..");
+            showCards(hand.length);
+            console.log("Cards shown..");
             break;
         default:
             console.log("Error parsing phase data from web socket.");
+    }
+}
+
+function handLayout(numberOfCards, hand, data) {
+    switch(numberOfCards) {
+        case 0:
+            EmptyLayout(data.playerID, hand);
+            break;
+        case 1:
+            oneCardLayout(data.playerID, hand);
+            break;
+        case 2:
+            twoCardLayout(data.playerID, hand);
+            break;
+        case 3:
+            threeCardLayout(data.playerID, hand);
+            break;
+        case 4:
+            fourCardLayout(data.playerID, hand);
+            break;
+        case 5:
+            fiveCardLayout(data.playerID, hand);
+            break;
+        case 6:
+            sixCardLayout(data.playerID, hand);
+            break;
+        case 7:
+            sevenCardLayout(data.playerID, hand);
+            break;
     }
 }
 
@@ -134,30 +142,37 @@ function sevenCardLayout(player, hand) {
     element = id("player" + player + "card1");
     element.src = "/cards/" + hand[0];
     element.className = "fourRow";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card2");
     element.src = "/cards/" + hand[1];
     element.className = "card";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card3");
     element.src = "/cards/" + hand[2];
     element.className = "card";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card4");
     element.src = "/cards/" + hand[3];
     element.className = "card";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card5");
     element.src = "/cards/" + hand[4];
     element.className = "threeRow";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card6");
     element.src = "/cards/" + hand[5];
     element.className = "card";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card7");
     element.src = "/cards/" + hand[6];
     element.className = "card";
+    element.style.marginTop = "4%";
 }
 
 //Layout function for organising a hand with 6 cards
@@ -168,26 +183,32 @@ function sixCardLayout(player, hand) {
     element = id("player" + player + "card1");
     element.src = "/cards/" + hand[0];
     element.className = "threeRow";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card2");
     element.src = "/cards/" + hand[1];
     element.className = "card";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card3");
     element.src = "/cards/" + hand[2];
     element.className = "card";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card4");
     element.src = "/cards/" + hand[3];
     element.className = "threeRow";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card5");
     element.src = "/cards/" + hand[4];
     element.className = "card";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card6");
     element.src = "/cards/" + hand[5];
     element.className = "card";
+    element.style.marginTop = "4%";
 }
 
 //Layout function for organising a hand with 5 cards
@@ -198,22 +219,27 @@ function fiveCardLayout(player, hand) {
     element = id("player" + player + "card1");
     element.src = "/cards/" + hand[0];
     element.className = "threeRow";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card2");
     element.src = "/cards/" + hand[1];
     element.className = "card";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card3");
     element.src = "/cards/" + hand[2];
     element.className = "card";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card4");
     element.src = "/cards/" + hand[3];
     element.className = "twoRow";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card5");
     element.src = "/cards/" + hand[4];
     element.className = "card";
+    element.style.marginTop = "4%";
 }
 
 //Layout function for organising a hand with 4 cards
@@ -224,18 +250,22 @@ function fourCardLayout(player, hand) {
     element = id("player" + player + "card1");
     element.src = "/cards/" + hand[0];
     element.className = "twoRow";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card2");
     element.src = "/cards/" + hand[1];
     element.className = "card";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card3");
     element.src = "/cards/" + hand[2];
     element.className = "twoRow";
+    element.style.marginTop = "4%";
 
     element = id("player" + player + "card4");
     element.src = "/cards/" + hand[3];
     element.className = "card";
+    element.style.marginTop = "4%";
 }
 
 //Layout function for organising a hand with 3 cards
@@ -304,18 +334,17 @@ function hideCards(player, hand) {
 }
 
 //Shows card elements at the start of each new round
-function showCards() {
+function showCards(cardCount) {
     var id;
     var element;
 
     for(var player= 1; player<4; player++){
-        for (var i = 1; i < 8; i++) {
+        for (var i = 1; i < (cardCount+1); i++) {
             id = "player" + player + "card" + i;
             element = document.getElementById(id);
             element.style.borderColor='#346029';
             element.style.borderWidth = '2px';
             element.style.display = 'block';
-            element.style.marginTop = "4%";
         }
     }
 }

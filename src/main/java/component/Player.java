@@ -6,7 +6,9 @@ import java.util.ArrayList;
 public abstract class Player {
   ArrayList<Card> pHand = new ArrayList<>();
   protected String name;
+  private int prediction = 0;
   private int points = 0;
+  private int score = 0;
 
   Player(String name){
     this.name = name;
@@ -24,12 +26,32 @@ public abstract class Player {
     return pHand;
   }
 
+  public int getPrediction(){
+    return prediction;
+  }
+
+  public int getScore(){
+    return score;
+  }
+
+  public void increaseScore(int amount){
+    score += amount;
+  }
+
+  public void setPrediction(int p) {
+    prediction = p;
+  }
+
   public void addToHand(Card c){
     pHand.add(c);
   }
 
   public void incrementPoints(){
     points++;
+  }
+
+  public void resetPoints(){
+    points = 0;
   }
 
   public void setPoints(int points){

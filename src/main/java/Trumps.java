@@ -5,12 +5,11 @@ import java.lang.Math;
 import java.util.*;
 
 class Trumps {
-  private int PLAYER_COUNT = 3;
-  private int HAND_SIZE = 7;
   private int TIME_DELAY = 1250;
+  private static int HAND_SIZE;
+  private static int PLAYER_COUNT = 3;
   private int turn;
   private Stack<Card> playedCards;
-  private Deck d;
   private Stack<Integer> playersToGo = new Stack<>();
   private ArrayList<Player> players = new ArrayList<>();
 
@@ -24,6 +23,7 @@ class Trumps {
     if(players.size() > 0){
       for(int i = PLAYER_COUNT - 1; i>-1; i--){
         playersToGo.push(i);
+        players.get(i).resetPoints();
       }
 
       return restartGame();
@@ -35,16 +35,12 @@ class Trumps {
 
 
   private Player restartGame() throws InterruptedException{
-    d = new Deck();
     playedCards = new Stack<>();
     turn = 1;
 
     for(int i = PLAYER_COUNT - 1; i>-1; i--){
       playersToGo.push(i);
     }
-
-    dealCards(d);
-    ContractWhistOnline.newHand();
 
     //Outputs all the players along with their newly dealt cards
     for(int i = 0; i<PLAYER_COUNT; i++){
@@ -133,7 +129,8 @@ class Trumps {
 
   private int getTrump(){
     // Removes a card from the top of the deck and takes its suit to be the trump card
-    Card c = d.getTopCard();
+    Card c = ContractWhistRunner.getDeck().getTopCard();
+
 
     return c.getSuit();
   }
@@ -176,17 +173,6 @@ class Trumps {
     return winningPlayer;
   }
 
-  private void dealCards(Deck d){
-    Card c;
-
-    for(int i = 0; i<HAND_SIZE; i++){
-      for(int j=0; j<PLAYER_COUNT; j++){
-        c = d.getTopCard();
-        players.get(j).addToHand(c);
-      }
-    }
-  }
-
   int getCardsLeft(){
     return Math.min((HAND_SIZE - turn) + 1, HAND_SIZE);
   }
@@ -194,7 +180,7 @@ class Trumps {
   void changeSpeed(int level){
     switch(level){
       case 1:
-        TIME_DELAY = 4000;
+        TIME_DELAY = 8000;
         break;
       case 2:
         TIME_DELAY = 2500;
@@ -206,7 +192,7 @@ class Trumps {
         TIME_DELAY = 300;
         break;
       case 5:
-        TIME_DELAY = 10;
+        TIME_DELAY = 5;
         break;
       default:
         System.out.println("Error Changing Speed. Level " + level + " not recognised.");

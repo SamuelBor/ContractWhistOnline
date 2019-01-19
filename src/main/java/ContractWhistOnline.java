@@ -7,14 +7,14 @@ import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
 import java.util.concurrent.*;
 
-
 public class ContractWhistOnline {
     public static Trumps t = new Trumps();
     static Map<Session, String> userUsernameMap = new ConcurrentHashMap<>();
     static int nextUserNumber = 1; //Assign to username for next connecting user
-    static ArrayList<Player> players = new ArrayList();
     static ExecutorService threadPool = Executors.newFixedThreadPool(2);
     static CompletionService<String> pool = new ExecutorCompletionService<>(threadPool);
+    static ContractWhistRunner c = new ContractWhistRunner();
+    static ArrayList<Player> players = new ArrayList();
 
     public static void main(String[] args){
         System.out.println("Initialising Application");
@@ -42,10 +42,7 @@ public class ContractWhistOnline {
     public static void startGame() throws InterruptedException{
         System.out.println("STARTING GAME");
 
-        int handSize = 7;
-
-        gameResults(players, (t), handSize);
-        threadPool.shutdown();
+        ContractWhistRunner.playContractWhist(t, players);
     }
 
     public static void phase1Update(int playerID, int trump) {
@@ -127,11 +124,12 @@ public class ContractWhistOnline {
         ArrayList hand;
 
         for(playerID = 0; playerID < 3; playerID++) {
-            hand = t.getHand(playerID);
+            hand = players.get(playerID).getHand();
+
             int pID = playerID + 1; //0 index accounting
 
             String playerStr = Integer.toString(pID);
-            String[] handPaths = new String[7];
+            String[] handPaths = new String[hand.size()];
             int i = 0;
 
             for (Object o : hand) {
@@ -200,23 +198,6 @@ public class ContractWhistOnline {
             return renderTemplate("velocity/whist.vm", model);
         }
         return renderTemplate("velocity/index.vm", model);
-    }
-
-    private static void gameResults(ArrayList<Player> players, Trumps t, int handSize) throws InterruptedException{
-        int perc = 0;
-        float percF;
-        for(int i = 0; i<10; i++){
-            t.runTrumps(handSize, players);
-            percF = (float) (((float)( (float) i / (float) 100000)) * (float) 100);
-            if(Math.floor(percF)>perc){
-                perc++;
-                // System.out.println(perc + "%");
-            }
-        }
-
-        for(int i = 0; i<players.size(); i++){
-            System.out.println(players.get(i).getName() + ": " + players.get(i).getPoints());
-        }
     }
 
     private static String renderTemplate(String template, Map model) {
