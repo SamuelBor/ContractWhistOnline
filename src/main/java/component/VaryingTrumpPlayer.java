@@ -9,8 +9,8 @@ public class VaryingTrumpPlayer extends Player {
   // Trump Chance Percentage:
   double TRUMP_PLAY = 0.7;
 
-  public VaryingTrumpPlayer(String name){
-    super(name);
+  public VaryingTrumpPlayer(String name, int id){
+    super(name, id, "VAR");
     // Allows the option to set a trump variance percentage
     // TRUMP_PLAY = trumpPerc;
   }

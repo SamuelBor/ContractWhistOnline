@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 // Plays a random legal card from their hand
 public class RandomPlayer extends Player {
-  public RandomPlayer(String name){
-    super(name);
+  public RandomPlayer(String name, int id){
+    super(name, id, "RAN");
   }
 
   public Card makeTurn(int leadSuit, int trumpSuit, Stack playedCards){

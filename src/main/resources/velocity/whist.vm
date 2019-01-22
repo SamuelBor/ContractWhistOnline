@@ -8,15 +8,19 @@
 
     <div id="LeftBlock">
         <h2> Game Information </h2>
-        <hr><br>
+        <hr>
         <p> Cards Left: <strong id="cardsLeft">$cardsLeft</strong> </p>
         <p> Trump: <strong id="trumpLabel"></strong> </p>
-        <p> Lords a'Leaping: 10 </p>
-        <p> Ladies Dancing: 9 </p>
-        <p> Maids a'Milking: 8 </p>
-        <p> Swans a'Swimming: 7 </p>
-        <p> Geese a'Laying: 6 </p>
-        <p> Gold Rings: 5 </p>
+        <p> Player 1 Prediction: <strong id="player1Prediction"></strong> </p>
+        <p> Player 1 Current Hands Won: <strong id="player1Current">0</strong> </p>
+        <p> Player 1 Score: <strong id="player1Score">0</strong> </p>
+        <p> Player 2 Prediction: <strong id="player2Prediction"></strong> </p>
+        <p> Player 2 Current Hands Won: <strong id="player2Current">0</strong> </p>
+        <p> Player 2 Score: <strong id="player2Score">0</strong> </p>
+        <p> Player 3 Prediction: <strong id="player3Prediction"></strong> </p>
+        <p> Player 3 Current Hands Won: <strong id="player3Current">0</strong> </p>
+        <p> Player 3 Score: <strong id="player3Score">0</strong> </p>
+
         <p><strong>Set Speed: </strong> <span id="speedLabel">Normal</span></p>
           <div class="slidecontainer">
             <input type="range" min="1" max="5" value="3" class="slider" id="speedRange">

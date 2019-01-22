@@ -7,8 +7,8 @@ import java.util.ArrayList;
 // Plays the lowest legal card that will win the round
 // Takes the played cards into account and saves high cards if a loss is inevitable
 public class MiniWinPlayer extends Player {
-  public MiniWinPlayer(String name){
-    super(name);
+  public MiniWinPlayer(String name, int id){
+    super(name, id, "MIN");
   }
 
   public Card makeTurn(int leadSuit, int trumpSuit, Stack playedCards){

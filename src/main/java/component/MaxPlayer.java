@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 // Plays the highest legal card from their hand, winning or otherwise
 public class MaxPlayer extends Player {
-  public MaxPlayer(String name){
-    super(name);
+  public MaxPlayer(String name, int id){
+    super(name, id, "MAX");
   }
 
   public Card makeTurn(int leadSuit, int trumpSuit, Stack playedCards){

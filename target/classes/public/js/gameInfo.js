@@ -46,7 +46,6 @@ slider.oninput = function() {
   console.log(socketString);
 };
 
-
 //Update the info-panel
 function updateInfo(msg) {
     var data = JSON.parse(msg.data);
@@ -68,6 +67,7 @@ function updateInfo(msg) {
                     break;
             }
 
+            id("cardsLeft").innerHTML = data.cardsLeft;
             id(winner).style.borderColor='#346029';
             newPlayer = "player" + data.playerID;
             id(newPlayer).style.borderColor='#552960';
@@ -79,7 +79,7 @@ function updateInfo(msg) {
             break;
         case 3:
             chosenCard.classList.remove("selectedCard");
-            id("cardsLeft").innerHTML = data.cardsLeft;
+
             id("topCard").src = "/cards/" + data.topCard;
             id("topCard").style.display = 'block';
 
@@ -94,15 +94,37 @@ function updateInfo(msg) {
             break;
         case 5:
             // New Hand - Display all the cards and the hands
-            console.log("New Hand Generating..");
             var hand = data.hand;
             handLayout(hand.length, hand, data);
-            console.log("Cards laid out..");
             showCards(hand.length);
-            console.log("Cards shown..");
+            break;
+        case 6:
+            // Player Submitting a prediction
+            var playerID = data.playerID;
+            var prediction = data.prediction;
+            var spanLabel = "player" + playerID + "Prediction";
+
+            id(spanLabel).innerHTML = prediction;
+            break;
+        case 7:
+            // Updating the current hands won
+            var playerID = data.playerID;
+            var current = data.current;
+            var spanLabel = "player" + playerID + "Current";
+
+
+            id(spanLabel).innerHTML = current;
+            break;
+        case 8:
+            // Updating a Player's Score
+            var playerID = data.playerID;
+            var score = data.score;
+            var spanLabel = "player" + playerID + "Score";
+
+            id(spanLabel).innerHTML = score;
             break;
         default:
-            console.log("Error parsing phase data from web socket.");
+            console.log("Error parsing phase data from web socket - Have you missed a break in the case statement?");
     }
 }
 

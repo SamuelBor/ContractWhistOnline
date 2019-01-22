@@ -7,11 +7,15 @@ public abstract class Player {
   ArrayList<Card> pHand = new ArrayList<>();
   protected String name;
   private int prediction = 0;
-  private int points = 0;
-  private int score = 0;
+  private int points = 0; // Points earned round by round in the gameplay stage
+  private int score = 0; // Score based on the accuracy of the agent's prediction
+  private int id;
+  private String agentType;
 
-  Player(String name){
+  Player(String name, int id, String type){
     this.name = name;
+    this.id = id;
+    this.agentType = type;
   }
 
   public String getName(){
@@ -32,6 +36,14 @@ public abstract class Player {
 
   public int getScore(){
     return score;
+  }
+
+  public String getAgentType() {
+    return agentType;
+  }
+
+  public int getID(){
+    return id;
   }
 
   public void increaseScore(int amount){

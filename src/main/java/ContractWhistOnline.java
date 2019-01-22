@@ -19,9 +19,9 @@ public class ContractWhistOnline {
     public static void main(String[] args){
         System.out.println("Initialising Application");
 
-        players.add(new MaxPlayer("Max"));
-        players.add(new MiniWinPlayer("Dave"));
-        players.add(new RandomPlayer("Random"));
+        players.add(new MaxPlayer("Max", 0));
+        players.add(new MiniWinPlayer("Dave", 1));
+        players.add(new RandomPlayer("Random", 2));
 
         exception(Exception.class, (e, req, res) -> e.printStackTrace()); // print all exceptions
         staticFiles.location("/public");
@@ -45,7 +45,7 @@ public class ContractWhistOnline {
         ContractWhistRunner.playContractWhist(t, players);
     }
 
-    public static void phase1Update(int playerID, int trump) {
+    public static void phase1Update(int playerID, int trump, String cardsLeft) {
         playerID++; // Account for 0 index
         String trumpString;
 
@@ -68,6 +68,7 @@ public class ContractWhistOnline {
             try {
                 session.getRemote().sendString(String.valueOf(new JSONObject()
                         .put("phase", 1)
+                        .put("cardsLeft", cardsLeft)
                         .put("playerID", newPlayer)
                         .put("trump", trumpString)
                 ));
@@ -152,7 +153,64 @@ public class ContractWhistOnline {
         }
     }
 
-    public static void updateGame(String cardsLeft, String topCardSrc, int playerID, ArrayList hand) {
+    public static void makePrediction(int playerID, int prediction) {
+        playerID++; // Account for 0 index
+
+        String playerStr = Integer.toString(playerID);
+        String predictStr = Integer.toString(prediction);
+
+        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
+            try {
+                session.getRemote().sendString(String.valueOf(new JSONObject()
+                        .put("phase", 6)
+                        .put("playerID", playerStr)
+                        .put("prediction", predictStr)
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void updateCurrentHands(int playerID, int currentHands) {
+        playerID++; // Account for 0 index
+
+        String playerStr = Integer.toString(playerID);
+        String currentHandsStr = Integer.toString(currentHands);
+
+        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
+            try {
+                session.getRemote().sendString(String.valueOf(new JSONObject()
+                        .put("phase", 7)
+                        .put("playerID", playerStr)
+                        .put("current", currentHandsStr)
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void updateScore(int playerID, int score) {
+        playerID++; // Account for 0 index
+
+        String playerStr = Integer.toString(playerID);
+        String scoreStr = Integer.toString(score);
+
+        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
+            try {
+                session.getRemote().sendString(String.valueOf(new JSONObject()
+                        .put("phase", 8)
+                        .put("playerID", playerStr)
+                        .put("score", scoreStr)
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void updateGame(String topCardSrc, int playerID, ArrayList hand) {
         //Account for 0 index
         playerID++;
 
@@ -170,7 +228,6 @@ public class ContractWhistOnline {
             try {
                 session.getRemote().sendString(String.valueOf(new JSONObject()
                         .put("phase", 3)
-                        .put("cardsLeft", cardsLeft)
                         .put("topCard", topCardSrc)
                         .put("playerID", playerStr)
                         .put("hand", handPaths)

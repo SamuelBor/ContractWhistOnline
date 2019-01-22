@@ -29,7 +29,7 @@ class Trumps {
       return restartGame();
     } else {
       System.out.println("Error - No Players are Playing!");
-      return new RandomPlayer(""); //Null player
+      return new RandomPlayer("", -1); //Null player
     }
   }
 
@@ -78,7 +78,7 @@ class Trumps {
       playerID = playersToGo.pop();
 
       //Phase 1 Delay - Select Player
-      ContractWhistOnline.phase1Update(playerID, trumpSuit);
+      ContractWhistOnline.phase1Update(playerID, trumpSuit, Integer.toString(getCardsLeft()));
       System.out.println(players.get(playerID).getName() + "'s Turn.");
       Thread.sleep(TIME_DELAY/2);
 
@@ -113,7 +113,7 @@ class Trumps {
 
       playedCards.push(cardInPlay);
       // Phase 3 Delay - Play Card
-      ContractWhistOnline.updateGame(Integer.toString(getCardsLeft()), cardInPlay.getFilename(), playerID, players.get(playerID).getHand());
+      ContractWhistOnline.updateGame(cardInPlay.getFilename(), playerID, players.get(playerID).getHand());
       Thread.sleep(TIME_DELAY/2);
     }
 
@@ -122,6 +122,7 @@ class Trumps {
     System.out.println(players.get(topScorer).getName() + " has won this hand.");
      //System.out.println();
     players.get(topScorer).incrementPoints();
+    ContractWhistOnline.updateCurrentHands(topScorer, players.get(topScorer).getPoints());
 
     return endTurn(topScorer);
   }
@@ -136,7 +137,6 @@ class Trumps {
   }
 
   private Player endTurn(int turnWinner) throws InterruptedException{
-    System.out.println("Cards Left: " + getCardsLeft());
     turn++;
 
     if(turn <= HAND_SIZE){
@@ -157,7 +157,7 @@ class Trumps {
 
   private Player endGame(){
     // Initialise with a blank random player to be overwritten
-    Player winningPlayer = new RandomPlayer("");
+    Player winningPlayer = new RandomPlayer("", -1);
     int highestPoints = 0;
 
     for(int i = 0; i<PLAYER_COUNT; i++){
