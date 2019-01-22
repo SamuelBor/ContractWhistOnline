@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public abstract class Player {
   ArrayList<Card> pHand = new ArrayList<>();
-  protected String name;
+  private String name;
   private int prediction = 0;
   private int points = 0; // Points earned round by round in the gameplay stage
   private int score = 0; // Score based on the accuracy of the agent's prediction
@@ -71,4 +71,43 @@ public abstract class Player {
   }
 
   public abstract Card makeTurn(int leadSuit, int trumpSuit, Stack playedCards);
+
+  protected Card getLowest(ArrayList<Card> cardSet){
+    Card lowest = cardSet.get(0);
+
+    for(Card card : cardSet){
+      if(card.getScore()<lowest.getScore()){
+        lowest = card;
+      }
+    }
+
+    return lowest;
+  }
+
+  protected Card getHighest(ArrayList<Card> cardSet){
+    Card highest = cardSet.get(0);
+
+    for(Card card : cardSet){
+      if(card.getScore()>highest.getScore()){
+        highest = card;
+      }
+    }
+
+    return highest;
+  }
+
+  protected void assignCardScore(ArrayList<Card> hand, boolean first, int trumpSuit){
+    for (Card card : hand) {
+      card.setScore(card.getValue());
+      if(first){
+        // Lead Card so extra points for setting suit
+        card.setScore(card.getScore()+13);
+      }
+      if(card.getSuit()==trumpSuit){
+        card.setScore(card.getScore()+26);
+      }
+    }
+  }
+
+
 }

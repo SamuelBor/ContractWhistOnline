@@ -70,7 +70,6 @@ class ContractWhistRunner {
             for(int j=0; j<PLAYER_COUNT; j++){
                 c = d.getTopCard();
                 players.get(j).addToHand(c);
-                System.out.println(players.get(j).getHand());
             }
         }
     }
@@ -97,6 +96,11 @@ class ContractWhistRunner {
             System.out.println(player.getName() + " scored " + incrementAmount + " points.");
             System.out.println("Giving them a total of " + player.getScore() + " points.");
             ContractWhistOnline.updateScore(player.getID(), player.getScore());
+
+            // Updates the on screen current hand winnings to 0 at the end of each game round
+            ContractWhistOnline.updateCurrentHands(0,0);
+            ContractWhistOnline.updateCurrentHands(1,0);
+            ContractWhistOnline.updateCurrentHands(2,0);
         }
 
     }

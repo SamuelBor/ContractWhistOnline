@@ -96,7 +96,7 @@ function updateInfo(msg) {
             // New Hand - Display all the cards and the hands
             var hand = data.hand;
             handLayout(hand.length, hand, data);
-            showCards(hand.length);
+            showCards(hand.length);9
             break;
         case 6:
             // Player Submitting a prediction

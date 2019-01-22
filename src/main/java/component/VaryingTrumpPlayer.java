@@ -22,61 +22,88 @@ public class VaryingTrumpPlayer extends Player {
     // Initialises the return Card as an unreachable value, but this will always be overwritten
     Card returnCard = new Card(9,9);
     int highestValue = 0;
+    // Flag showing whether or not the agent should aim to win or not, based on a comparison between current score and predicted winning
+    boolean win = getPrediction() > getPoints();
 
     // Random object
     double randCall = Math.random();
     Boolean chooseTrump = (randCall<=TRUMP_PLAY);
 
-    for(int i =0; i<pHand.size(); i++){
+    for (Card card : pHand) {
       int currentSuit;
-      Card c = (Card) pHand.get(i);
-      currentSuit = c.getSuit();
+
+      currentSuit = card.getSuit();
+
       if(currentSuit==leadSuit){
-        validCards.add(c);
+        validCards.add(card);
       }
 
       if(currentSuit==trumpSuit){
-        trumps.add(c);
+        trumps.add(card);
       }
 
       // Tracks the full set of cards in the first loop in case no lead or trump cards are possessed.
-      if(c.getValue() > highestValue && currentSuit != trumpSuit){
-        highestValue = c.getValue();
-        returnCard = c;
+      if(card.getValue() > highestValue && currentSuit != trumpSuit){
+        highestValue = card.getValue();
+        returnCard = card;
       }
     }
+
     highestValue = 0;
+    int lowestValue = 100;
 
     if(validCards.size()!=0){
 
-      for(int i=0; i<validCards.size(); i++){
-        Card c = (Card) validCards.get(i);
-
-        if(c.getValue() > highestValue){
-          highestValue = c.getValue();
-          returnCard = c;
+      for (Card validCard : validCards) {
+        if(win){
+          if (validCard.getValue() > highestValue) {
+            highestValue = validCard.getValue();
+            returnCard = validCard;
+          }
+        } else {
+          if (validCard.getValue() < lowestValue) {
+            lowestValue = validCard.getValue();
+            returnCard = validCard;
+          }
         }
-      }
-    } else if (trumps.size()!=0 && chooseTrump){
-      // Play the highest trump if any exist
-      for(int i=0; i<trumps.size(); i++){
-        Card c = (Card) trumps.get(i);
 
-        if(c.getValue() > highestValue){
-          highestValue = c.getValue();
-          returnCard = c;
-        }
       }
+
+    } else if (trumps.size() != 0 && chooseTrump){
+
+      // Play the highest trump if any exist and trying to win, otherwise picks the lowest trump
+      for (Card trump : trumps) {
+        if(win){
+          if(trump.getValue() > highestValue){
+            highestValue = trump.getValue();
+            returnCard = trump;
+          }
+        } else {
+          if(trump.getValue() < lowestValue){
+            lowestValue = trump.getValue();
+            returnCard = trump;
+          }
+        }
+
+      }
+
     } else if (returnCard.getSuit()==9) {
       // If it gets to this point with the default value still stored in c then only trump cards remain
       // No other option exists, so choose one of the remaining trumps
-      for(int i=0; i<trumps.size(); i++){
-        Card c = (Card) trumps.get(i);
-
-        if(c.getValue() > highestValue){
-          highestValue = c.getValue();
-          returnCard = c;
+      for(Card trump : trumps){
+        // If trying to win pick the highest trump, otherwise pick the lowest
+        if(win){
+          if(trump.getValue() > highestValue){
+            highestValue = trump.getValue();
+            returnCard = trump;
+          }
+        } else {
+          if(trump.getValue() < lowestValue){
+            lowestValue = trump.getValue();
+            returnCard = trump;
+          }
         }
+
       }
     }
 
@@ -84,5 +111,7 @@ public class VaryingTrumpPlayer extends Player {
     pHand.remove(returnCard);
     return returnCard;
   }
+
+
 
 }

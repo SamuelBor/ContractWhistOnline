@@ -1,7 +1,6 @@
 package component;
 
 import java.util.Stack;
-import java.util.Random;
 import java.util.ArrayList;
 
 // Plays the highest legal card from their hand, winning or otherwise
@@ -15,49 +14,45 @@ public class MaxPlayer extends Player {
     ArrayList<Card> validCards = new ArrayList<Card>();
     ArrayList<Card> trumps = new ArrayList<Card>();
     // Initialises the return Card as the Two of Clubs, but this will always be overwritten
-    Card returnCard = new Card(2,1);
-    int highestValue = 0;
+    Card returnCard;
+    // Flag showing whether or not the agent should aim to win or not, based on a comparison between current score and predicted winning
+    boolean win = getPrediction() > getPoints();
+    boolean first = playedCards.empty();
 
-    for(int i =0; i<pHand.size(); i++){
+    if(!win){
+      System.out.println(getName() + " is now trying to lose!");
+    }
+
+    //First Assign Card Scores
+    assignCardScore(pHand, first, trumpSuit);
+
+    // New loop with card scores in place to assign into sets of valid cards and trumps
+    for (Card card : pHand) {
       int currentSuit;
-      Card c = (Card) pHand.get(i);
-      currentSuit = c.getSuit();
-      if(currentSuit==leadSuit){
-        validCards.add(c);
+
+      currentSuit = card.getSuit();
+      if (currentSuit == leadSuit || first) {
+        validCards.add(card);
       }
 
-      if(currentSuit==trumpSuit){
-        trumps.add(c);
-      }
-
-      // Tracks the full set of cards in the first loop in case no lead or trump cards are possessed.
-      if(c.getValue() > highestValue){
-        highestValue = c.getValue();
-        returnCard = c;
+      if (currentSuit == trumpSuit) {
+        trumps.add(card);
       }
     }
-    highestValue = 0;
+
+    Card highestCard = getHighest(pHand);
+    Card lowestCard = getLowest(pHand);
 
     if(validCards.size()!=0){
-
-      for(int i=0; i<validCards.size(); i++){
-        Card c = (Card) validCards.get(i);
-
-        if(c.getValue() > highestValue){
-          highestValue = c.getValue();
-          returnCard = c;
-        }
-      }
+      // Ternery statement to either assign the highest or lowest card to the return card
+      returnCard = (win) ? getHighest(validCards) : getLowest(validCards);
     } else if (trumps.size()!=0){
-      // Play the highest trump if any exist
-      for(int i=0; i<trumps.size(); i++){
-        Card c = (Card) trumps.get(i);
-
-        if(c.getValue() > highestValue){
-          highestValue = c.getValue();
-          returnCard = c;
-        }
-      }
+      // Play the highest trump if any exist if trying to win
+      // If trying to lose play the lowest card in the hand
+      returnCard = (win) ? getHighest(trumps) : lowestCard;
+    } else {
+      // Play either the highest non-trump, non-lead card in the hand if winning or lowest if not
+      returnCard = (win) ? highestCard : lowestCard;
     }
 
     //Removes the selected card from the players hand

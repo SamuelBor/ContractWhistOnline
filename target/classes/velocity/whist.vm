@@ -11,15 +11,15 @@
         <hr>
         <p> Cards Left: <strong id="cardsLeft">$cardsLeft</strong> </p>
         <p> Trump: <strong id="trumpLabel"></strong> </p>
-        <p> Player 1 Prediction: <strong id="player1Prediction"></strong> </p>
-        <p> Player 1 Current Hands Won: <strong id="player1Current">0</strong> </p>
-        <p> Player 1 Score: <strong id="player1Score">0</strong> </p>
-        <p> Player 2 Prediction: <strong id="player2Prediction"></strong> </p>
-        <p> Player 2 Current Hands Won: <strong id="player2Current">0</strong> </p>
-        <p> Player 2 Score: <strong id="player2Score">0</strong> </p>
-        <p> Player 3 Prediction: <strong id="player3Prediction"></strong> </p>
-        <p> Player 3 Current Hands Won: <strong id="player3Current">0</strong> </p>
-        <p> Player 3 Score: <strong id="player3Score">0</strong> </p>
+        <p> $player1's Prediction: <strong id="player1Prediction"></strong> </p>
+        <p> $player1's Current Hands Won: <strong id="player1Current">0</strong> </p>
+        <p> $player1's Score: <strong id="player1Score">0</strong> </p>
+        <p> $player2's Prediction: <strong id="player2Prediction"></strong> </p>
+        <p> $player2's Current Hands Won: <strong id="player2Current">0</strong> </p>
+        <p> $player2's Score: <strong id="player2Score">0</strong> </p>
+        <p> $player3's Prediction: <strong id="player3Prediction"></strong> </p>
+        <p> $player3's Current Hands Won: <strong id="player3Current">0</strong> </p>
+        <p> $player3's Score: <strong id="player3Score">0</strong> </p>
 
         <p><strong>Set Speed: </strong> <span id="speedLabel">Normal</span></p>
           <div class="slidecontainer">

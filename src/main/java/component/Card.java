@@ -5,11 +5,12 @@ public class Card {
   private int value;
   // Suit is between 1 and 4 when assigned
   private int suit;
-  private int score = 0;
+  private int score;
 
   public Card(int value, int suit){
     this.value = value;
     this.suit = suit;
+    score = value;
   }
 
   public int getValue(){
@@ -29,7 +30,7 @@ public class Card {
   }
 
   public String toString(){
-    String returnString = "";
+    String returnString;
 
     returnString = valueToString(false) + " of " + suitToString(false);
     return returnString;

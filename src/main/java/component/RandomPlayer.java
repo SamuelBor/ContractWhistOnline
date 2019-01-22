@@ -10,6 +10,7 @@ public class RandomPlayer extends Player {
     super(name, id, "RAN");
   }
 
+  // No intentional losing attribute is implemented in the random agent as this would remove from its randomness, left to do what it wants
   public Card makeTurn(int leadSuit, int trumpSuit, Stack playedCards){
     ArrayList<Card> validCards = new ArrayList<Card>();
     Random rand = new Random();

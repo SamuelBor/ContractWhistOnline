@@ -14,7 +14,7 @@ class Trumps {
   private ArrayList<Player> players = new ArrayList<>();
 
   Player runTrumps(int handSize, ArrayList<Player> p) throws InterruptedException{
-     this.HAND_SIZE = handSize;
+     HAND_SIZE = handSize;
      this.players = p;
 
      PLAYER_COUNT = players.size();
@@ -47,19 +47,19 @@ class Trumps {
       Player p;
       ArrayList h; //Stores the players' hand
       Card c;
-      String hand;
+      // String hand;
       //players[i].setPoints(0);
       p = players.get(i);
-      hand = "";
+      // hand = "";
       System.out.println(p.getName() + ":");
       h = p.getHand();
 
       for(int j=0; j<h.size();j++){
         c = (Card) h.get(j);
-        hand += c.toMiniString() + " ";
+        // hand += c.toMiniString() + " ";
       }
 
-       System.out.println(hand);
+       // System.out.println(hand);
     }
 
     return takeTurn();
@@ -132,7 +132,6 @@ class Trumps {
     // Removes a card from the top of the deck and takes its suit to be the trump card
     Card c = ContractWhistRunner.getDeck().getTopCard();
 
-
     return c.getSuit();
   }
 
@@ -180,10 +179,10 @@ class Trumps {
   void changeSpeed(int level){
     switch(level){
       case 1:
-        TIME_DELAY = 8000;
+        TIME_DELAY = 15000;
         break;
       case 2:
-        TIME_DELAY = 2500;
+        TIME_DELAY = 3500;
         break;
       case 3:
         TIME_DELAY = 1250;
@@ -197,9 +196,5 @@ class Trumps {
       default:
         System.out.println("Error Changing Speed. Level " + level + " not recognised.");
     }
-  }
-
-  ArrayList getHand(int playerID){
-    return players.get(playerID).getHand();
   }
 }
