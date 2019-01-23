@@ -1,38 +1,38 @@
 package component;
-
 import java.util.Stack;
-import java.util.Random;
 import java.util.ArrayList;
 
-// Plays the lowest legal card that will win the round
-// Takes the played cards into account and saves high cards if a loss is inevitable
-
+// Builds upon the minimax agent but adds probability theory on top, keeping track of past cards and calculating probability that a played card will beat unseen cards.
 @SuppressWarnings("Duplicates")
-public class MiniWinPlayer extends Player {
-    public MiniWinPlayer(String name, int id){
-        super(name, id, "MIN");
+public class MonteCarloPlayer extends Player {
+    ArrayList<Card> seenCards;
+    double PROB_THRESHOLD = 0.7;
+
+    public MonteCarloPlayer(String name, int id){
+        super(name, id, "MONTE");
     }
 
     public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards){
-        //If the player plays first then should play the highest card possible
-        boolean first = playedCards.empty();
-        // Valid cards being an array list of legal cards following the lead suit
+        Card returnCard = new Card(1,1); // Error case, shouldn't ever hit this point
         ArrayList<Card> validCards;
         ArrayList<Card> nonLeadCards;
         ArrayList<Card> winningCards = new ArrayList<Card>();
-        // Initialises the return Card as the Two of Clubs, but this will always be overwritten
-        Card returnCard = pHand.get(0);
-        int highestPlayedScore = 0;
         // Flag showing whether or not the agent should aim to win or not, based on a comparison between current score and predicted winning
         boolean win = getPrediction() > getPoints();
-        //Used for selecting a non winning card to throw away
+        boolean first = playedCards.empty();
+        int highestPlayedScore = 0;
+
+        //First Assign Card Scores
+        assignCardScore(pHand, first, trumpSuit, leadSuit);
 
         if(!win){
             System.out.println(getName() + " is now trying to lose!");
         }
 
-        //First Assign Card Scores
-        assignCardScore(pHand, first, trumpSuit, leadSuit);
+        // Compiles two array list of lead suit cards and non lead suit cards
+        ArrayList[] cardSets = getValidCards(leadSuit, first);
+        validCards = cardSets[0];
+        nonLeadCards = cardSets[1];
 
         // Finds the score of the current highest card that has been played
         while(!playedCards.empty()){
@@ -49,14 +49,6 @@ public class MiniWinPlayer extends Player {
                 highestPlayedScore = c.getScore();
             }
         }
-
-        // Compiles two array list of lead suit cards and non lead suit cards
-        ArrayList[] cardSets = getValidCards(leadSuit, first);
-        validCards = cardSets[0];
-        nonLeadCards = cardSets[1];
-
-        // System.out.println("Valid Cards: " + validCards);
-        // System.out.println("Non-Valid Cards: " + nonLeadCards);
 
         // First case is if the AI has lead suit cards in its hand to play with
         if(validCards.size()>0){
@@ -87,8 +79,6 @@ public class MiniWinPlayer extends Player {
             }
         }
 
-        // System.out.println("Winning Cards: " + winningCards);
-
         if(winningCards.size()>0){
             //Selects the highest card if playing first, otherwise the lowest winning card
             if(first){
@@ -106,8 +96,54 @@ public class MiniWinPlayer extends Player {
             }
         }
 
+        if(playedCards.size()<2){
+            if (first){
+                boolean existsTrump = false;
+                for(Card card : pHand){
+                    // Checks for a card in the trump suit in the hand
+                    if(card.getSuit() == trumpSuit){
+                        existsTrump = true;
+                    }
+                }
+
+                if(existsTrump){
+                    // trumpSuit == leadSuit
+                    returnCard = trumpIsLead();
+                } else {
+                    // trumpSuit != leadSuit
+                    returnCard = trumpNotLead();
+                }
+
+            } else if (trumpSuit == leadSuit){
+                returnCard = trumpIsLead();
+
+            } else {
+                // Not playing first and trumpSuit != leadSuit
+                returnCard = trumpNotLead();
+            }
+        }
+
+
         //Removes the selected card from the players hand
         pHand.remove(returnCard);
+        seenCards.add(returnCard);
+        seenCards.addAll(playedCards);
         return returnCard;
     }
+
+    private Card trumpIsLead(){
+        return (new Card(2,4));
+        // trumpSuit == leadSuit
+        // 75% of cards have a value between 2 and 14
+        // 25% of cards have a value between 41 and 53
+    }
+
+    private Card trumpNotLead(){
+        return (new Card(2,4));
+        // trumpSuit != leadSuit
+        // 50% of cards have a value between 2 and 14
+        // 25% of cards have a value between 15 and 27
+        // 25% of cards have a value between 41 and 53
+    }
+
 }

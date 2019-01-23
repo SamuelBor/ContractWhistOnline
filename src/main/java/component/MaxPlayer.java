@@ -4,12 +4,12 @@ import java.util.Stack;
 import java.util.ArrayList;
 
 // Plays the highest legal card from their hand, winning or otherwise
-public class MaxPlayer extends Player {
-  public MaxPlayer(String name, int id){
-    super(name, id, "MAX");
-  }
+    public class MaxPlayer extends Player {
+      public MaxPlayer(String name, int id){
+        super(name, id, "MAX");
+      }
 
-  public Card makeTurn(int leadSuit, int trumpSuit, Stack playedCards){
+      public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards){
     // Valid cards being an array list of legal cards following the lead suit
     ArrayList<Card> validCards = new ArrayList<Card>();
     ArrayList<Card> trumps = new ArrayList<Card>();
@@ -24,7 +24,7 @@ public class MaxPlayer extends Player {
     }
 
     //First Assign Card Scores
-    assignCardScore(pHand, first, trumpSuit);
+    assignCardScore(pHand, first, trumpSuit, leadSuit);
 
     // New loop with card scores in place to assign into sets of valid cards and trumps
     for (Card card : pHand) {

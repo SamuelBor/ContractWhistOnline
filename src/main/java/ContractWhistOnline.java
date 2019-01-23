@@ -21,7 +21,7 @@ public class ContractWhistOnline {
 
         players.add(new MaxPlayer("Max", 0));
         players.add(new MiniWinPlayer("Dave", 1));
-        players.add(new RandomPlayer("Random", 2));
+        players.add(new MonteCarloPlayer("Monte", 2));
 
         exception(Exception.class, (e, req, res) -> e.printStackTrace()); // print all exceptions
         staticFiles.location("/public");

@@ -70,9 +70,9 @@ public abstract class Player {
     this.points = points;
   }
 
-  public abstract Card makeTurn(int leadSuit, int trumpSuit, Stack playedCards);
+  public abstract Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards);
 
-  protected Card getLowest(ArrayList<Card> cardSet){
+  Card getLowest(ArrayList<Card> cardSet){
     Card lowest = cardSet.get(0);
 
     for(Card card : cardSet){
@@ -84,7 +84,7 @@ public abstract class Player {
     return lowest;
   }
 
-  protected Card getHighest(ArrayList<Card> cardSet){
+  Card getHighest(ArrayList<Card> cardSet){
     Card highest = cardSet.get(0);
 
     for(Card card : cardSet){
@@ -96,10 +96,10 @@ public abstract class Player {
     return highest;
   }
 
-  protected void assignCardScore(ArrayList<Card> hand, boolean first, int trumpSuit){
+  void assignCardScore(ArrayList<Card> hand, boolean first, int trumpSuit, int leadSuit){
     for (Card card : hand) {
       card.setScore(card.getValue());
-      if(first){
+      if(first || card.getSuit() == leadSuit){
         // Lead Card so extra points for setting suit
         card.setScore(card.getScore()+13);
       }
@@ -109,5 +109,22 @@ public abstract class Player {
     }
   }
 
+  ArrayList[] getValidCards(int leadSuit, boolean first){
+    ArrayList[] cardSets = new ArrayList[2];
+
+    for(Card card : pHand){
+      int currentSuit;
+
+      currentSuit = card.getSuit();
+      if(currentSuit==leadSuit || first){
+        // Valid Cards
+        cardSets[0].add(card);
+      } else {
+        cardSets[1].add(card);
+      }
+    }
+
+    return cardSets;
+  }
 
 }
