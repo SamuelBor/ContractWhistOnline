@@ -15,7 +15,7 @@ public class VaryingTrumpPlayer extends Player {
     // TRUMP_PLAY = trumpPerc;
   }
 
-  public Card makeTurn(int leadSuit, int trumpSuit, Stack playedCards){
+  public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards){
     // Valid cards being an array list of legal cards following the lead suit
     ArrayList<Card> validCards = new ArrayList<Card>();
     ArrayList<Card> trumps = new ArrayList<Card>();

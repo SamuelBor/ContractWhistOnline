@@ -10,6 +10,7 @@ class Trumps {
   private static int PLAYER_COUNT = 3;
   private int turn;
   private Stack<Card> playedCards;
+  private ArrayList<Card> allPlayedCards;
   private Stack<Integer> playersToGo = new Stack<>();
   private ArrayList<Player> players = new ArrayList<>();
 
@@ -36,6 +37,7 @@ class Trumps {
 
   private Player restartGame() throws InterruptedException{
     playedCards = new Stack<>();
+    allPlayedCards = new ArrayList<Card>();
     turn = 1;
 
     for(int i = PLAYER_COUNT - 1; i>-1; i--){
@@ -84,7 +86,7 @@ class Trumps {
 
       //Get the player's hand before the chosen card is removed
       ArrayList preTurnHand = new ArrayList<>(players.get(playerID).getHand());
-      Card cardInPlay = players.get(playerID).makeTurn(leadSuit, trumpSuit, playedCards);
+      Card cardInPlay = players.get(playerID).makeTurn(leadSuit, trumpSuit, playedCards, getAllPlayedCards());
 
       cardInPlay.setScore(cardInPlay.getValue());
 
@@ -104,6 +106,7 @@ class Trumps {
       int cardIndex = preTurnHand.indexOf(cardInPlay);
       ContractWhistOnline.phase2Update(playerID, cardIndex);
       System.out.println(players.get(playerID).getName() + " plays " + cardInPlay.toMiniString() + " for " + cardInPlay.getScore() + " points.");
+      allPlayedCards.add(cardInPlay);
       Thread.sleep(TIME_DELAY);
 
       if(cardInPlay.getScore() > topScore){
@@ -196,5 +199,9 @@ class Trumps {
       default:
         System.out.println("Error Changing Speed. Level " + level + " not recognised.");
     }
+  }
+
+  ArrayList<Card> getAllPlayedCards(){
+    return allPlayedCards;
   }
 }

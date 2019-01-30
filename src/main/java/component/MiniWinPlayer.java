@@ -13,7 +13,7 @@ public class MiniWinPlayer extends Player {
         super(name, id, "MIN");
     }
 
-    public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards){
+    public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards){
         //If the player plays first then should play the highest card possible
         boolean first = playedCards.empty();
         // Valid cards being an array list of legal cards following the lead suit
@@ -31,12 +31,18 @@ public class MiniWinPlayer extends Player {
             System.out.println(getName() + " is now trying to lose!");
         }
 
+        // Creates a reference of the playedCards Stack
+        Stack<Card> refPlayedCards = new Stack<Card>();
+        refPlayedCards.addAll(playedCards);
+
         //First Assign Card Scores
         assignCardScore(pHand, first, trumpSuit, leadSuit);
 
+        // System.out.println("Assigned Card Scores");
+
         // Finds the score of the current highest card that has been played
-        while(!playedCards.empty()){
-            Card c = playedCards.pop();
+        while(!refPlayedCards.empty()){
+            Card c = refPlayedCards.pop();
             c.setScore(c.getValue());
 
             if(c.getSuit()==leadSuit){
@@ -49,6 +55,8 @@ public class MiniWinPlayer extends Player {
                 highestPlayedScore = c.getScore();
             }
         }
+
+        // System.out.println("Determined highest card played");
 
         // Compiles two array list of lead suit cards and non lead suit cards
         ArrayList[] cardSets = getValidCards(leadSuit, first);

@@ -12,7 +12,7 @@ public class MonteCarloPlayer extends Player {
         super(name, id, "MONTE");
     }
 
-    public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards){
+    public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards){
         Card returnCard = new Card(1,1); // Error case, shouldn't ever hit this point
         ArrayList<Card> validCards;
         ArrayList<Card> nonLeadCards;
@@ -22,8 +22,14 @@ public class MonteCarloPlayer extends Player {
         boolean first = playedCards.empty();
         int highestPlayedScore = 0;
 
-        //First Assign Card Scores
-        assignCardScore(pHand, first, trumpSuit, leadSuit);
+        // Creates a reference of the playedCards Stack
+        Stack<Card> refPlayedCards = new Stack<Card>();
+        refPlayedCards.addAll(playedCards);
+
+        // Assign all played cards and cards in hand to seenCards
+        seenCards = new ArrayList<Card>(allPlayedCards);
+        seenCards.addAll(pHand);
+
 
         if(!win){
             System.out.println(getName() + " is now trying to lose!");
@@ -35,8 +41,8 @@ public class MonteCarloPlayer extends Player {
         nonLeadCards = cardSets[1];
 
         // Finds the score of the current highest card that has been played
-        while(!playedCards.empty()){
-            Card c = playedCards.pop();
+        while(!refPlayedCards.empty()){
+            Card c = refPlayedCards.pop();
             c.setScore(c.getValue());
 
             if(c.getSuit()==leadSuit){
@@ -96,6 +102,8 @@ public class MonteCarloPlayer extends Player {
             }
         }
 
+        /*
+
         if(playedCards.size()<2){
             if (first){
                 boolean existsTrump = false;
@@ -124,10 +132,11 @@ public class MonteCarloPlayer extends Player {
         }
 
 
+        */
+
+
         //Removes the selected card from the players hand
         pHand.remove(returnCard);
-        seenCards.add(returnCard);
-        seenCards.addAll(playedCards);
         return returnCard;
     }
 
@@ -136,6 +145,10 @@ public class MonteCarloPlayer extends Player {
         // trumpSuit == leadSuit
         // 75% of cards have a value between 2 and 14
         // 25% of cards have a value between 41 and 53
+        // Using a 6 of Trump for example, there are only 8/52 cards in the deck that could beat it
+        // Some of these might be in Monte's hand, some might have already been played
+        // Lets say this takes it down to 5/52
+        // At
     }
 
     private Card trumpNotLead(){

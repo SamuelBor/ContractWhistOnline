@@ -70,8 +70,6 @@ public abstract class Player {
     this.points = points;
   }
 
-  public abstract Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards);
-
   Card getLowest(ArrayList<Card> cardSet){
     Card lowest = cardSet.get(0);
 
@@ -112,8 +110,16 @@ public abstract class Player {
   ArrayList[] getValidCards(int leadSuit, boolean first){
     ArrayList[] cardSets = new ArrayList[2];
 
+    // Initialises arraylists so they can actually be used
+    cardSets[0] = new ArrayList<Card>();
+    cardSets[1] = new ArrayList<Card>();
+
+    // System.out.println("Getting valid cards.");
+
     for(Card card : pHand){
       int currentSuit;
+
+      // System.out.println("Looking at " + card.toMiniString());
 
       currentSuit = card.getSuit();
       if(currentSuit==leadSuit || first){
@@ -127,4 +133,5 @@ public abstract class Player {
     return cardSets;
   }
 
+  public abstract Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards);
 }

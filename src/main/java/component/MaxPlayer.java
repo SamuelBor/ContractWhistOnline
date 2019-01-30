@@ -9,54 +9,54 @@ import java.util.ArrayList;
         super(name, id, "MAX");
       }
 
-      public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards){
-    // Valid cards being an array list of legal cards following the lead suit
-    ArrayList<Card> validCards = new ArrayList<Card>();
-    ArrayList<Card> trumps = new ArrayList<Card>();
-    // Initialises the return Card as the Two of Clubs, but this will always be overwritten
-    Card returnCard;
-    // Flag showing whether or not the agent should aim to win or not, based on a comparison between current score and predicted winning
-    boolean win = getPrediction() > getPoints();
-    boolean first = playedCards.empty();
+    public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards){
+        // Valid cards being an array list of legal cards following the lead suit
+        ArrayList<Card> validCards = new ArrayList<Card>();
+        ArrayList<Card> trumps = new ArrayList<Card>();
+        // Initialises the return Card as the Two of Clubs, but this will always be overwritten
+        Card returnCard;
+        // Flag showing whether or not the agent should aim to win or not, based on a comparison between current score and predicted winning
+        boolean win = getPrediction() > getPoints();
+        boolean first = playedCards.empty();
 
-    if(!win){
-      System.out.println(getName() + " is now trying to lose!");
-    }
+        if(!win){
+          System.out.println(getName() + " is now trying to lose!");
+        }
 
-    //First Assign Card Scores
-    assignCardScore(pHand, first, trumpSuit, leadSuit);
+        //First Assign Card Scores
+        assignCardScore(pHand, first, trumpSuit, leadSuit);
 
-    // New loop with card scores in place to assign into sets of valid cards and trumps
-    for (Card card : pHand) {
-      int currentSuit;
+        // New loop with card scores in place to assign into sets of valid cards and trumps
+        for (Card card : pHand) {
+          int currentSuit;
 
-      currentSuit = card.getSuit();
-      if (currentSuit == leadSuit || first) {
-        validCards.add(card);
-      }
+          currentSuit = card.getSuit();
+          if (currentSuit == leadSuit || first) {
+            validCards.add(card);
+          }
 
-      if (currentSuit == trumpSuit) {
-        trumps.add(card);
-      }
-    }
+          if (currentSuit == trumpSuit) {
+            trumps.add(card);
+          }
+        }
 
-    Card highestCard = getHighest(pHand);
-    Card lowestCard = getLowest(pHand);
+        Card highestCard = getHighest(pHand);
+        Card lowestCard = getLowest(pHand);
 
-    if(validCards.size()!=0){
-      // Ternery statement to either assign the highest or lowest card to the return card
-      returnCard = (win) ? getHighest(validCards) : getLowest(validCards);
-    } else if (trumps.size()!=0){
-      // Play the highest trump if any exist if trying to win
-      // If trying to lose play the lowest card in the hand
-      returnCard = (win) ? getHighest(trumps) : lowestCard;
-    } else {
-      // Play either the highest non-trump, non-lead card in the hand if winning or lowest if not
-      returnCard = (win) ? highestCard : lowestCard;
-    }
+        if(validCards.size()!=0){
+          // Ternery statement to either assign the highest or lowest card to the return card
+          returnCard = (win) ? getHighest(validCards) : getLowest(validCards);
+        } else if (trumps.size()!=0){
+          // Play the highest trump if any exist if trying to win
+          // If trying to lose play the lowest card in the hand
+          returnCard = (win) ? getHighest(trumps) : lowestCard;
+        } else {
+          // Play either the highest non-trump, non-lead card in the hand if winning or lowest if not
+          returnCard = (win) ? highestCard : lowestCard;
+        }
 
-    //Removes the selected card from the players hand
-    pHand.remove(returnCard);
-    return returnCard;
+        //Removes the selected card from the players hand
+        pHand.remove(returnCard);
+        return returnCard;
   }
 }
