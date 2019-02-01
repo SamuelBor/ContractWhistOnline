@@ -81,15 +81,15 @@ class ContractWhistRunner {
             incrementAmount = 0;
 
             if(player.getPoints() == player.getPrediction()){
-                System.out.println("Adding 10 for matching prediction");
+                // System.out.println("Adding 10 for matching prediction");
                 incrementAmount += 10;
             } else if(player.getPoints() < player.getPrediction()) {
-                System.out.println("Removing " + (player.getPrediction() - player.getPoints()) + " for not making prediction");
+                // System.out.println("Removing " + (player.getPrediction() - player.getPoints()) + " for not making prediction");
                 incrementAmount -= (player.getPrediction() - player.getPoints());
             }
 
             incrementAmount += (2* player.getPoints());
-            System.out.println("Adding " + (2* player.getPoints()) + " for 2* number of hands.");
+            // System.out.println("Adding " + (2* player.getPoints()) + " for 2* number of hands.");
 
             player.increaseScore(incrementAmount);
 
@@ -98,9 +98,7 @@ class ContractWhistRunner {
             ContractWhistOnline.updateScore(player.getID(), player.getScore());
 
             // Updates the on screen current hand winnings to 0 at the end of each game round
-            ContractWhistOnline.updateCurrentHands(0,0);
-            ContractWhistOnline.updateCurrentHands(1,0);
-            ContractWhistOnline.updateCurrentHands(2,0);
+            ContractWhistOnline.updateCurrentHands(player.getID(),0);
         }
 
     }

@@ -22,6 +22,8 @@ public class MonteCarloPlayer extends Player {
         boolean first = playedCards.empty();
         int highestPlayedScore = 0;
 
+        assignCardScore(pHand, first, trumpSuit, leadSuit);
+
         // Creates a reference of the playedCards Stack
         Stack<Card> refPlayedCards = new Stack<Card>();
         refPlayedCards.addAll(playedCards);
@@ -56,6 +58,9 @@ public class MonteCarloPlayer extends Player {
             }
         }
 
+        // System.out.println("Valid Cards: " + validCards);
+        // System.out.println("Non-Valid Cards: " + nonLeadCards);
+
         // First case is if the AI has lead suit cards in its hand to play with
         if(validCards.size()>0){
             for(Card card : validCards){
@@ -85,6 +90,8 @@ public class MonteCarloPlayer extends Player {
             }
         }
 
+        System.out.println("Winning Cards: " + winningCards);
+
         if(winningCards.size()>0){
             //Selects the highest card if playing first, otherwise the lowest winning card
             if(first){
@@ -99,6 +106,12 @@ public class MonteCarloPlayer extends Player {
                     losingCards.removeAll(winningCards);
                     returnCard = getHighest(losingCards);
                 }
+            }
+
+            for (Card c : winningCards) {
+                double winChance = getWinChance(getBetterCards(c, trumpSuit, leadSuit), getPlayersLeft());
+                winChance = winChance * 100;
+                System.out.println("Chance of " + c.toMiniString() + " winning is " + String.format("%.2f", winChance) + "%");
             }
         }
 
@@ -140,23 +153,67 @@ public class MonteCarloPlayer extends Player {
         return returnCard;
     }
 
-    private Card trumpIsLead(){
-        return (new Card(2,4));
-        // trumpSuit == leadSuit
-        // 75% of cards have a value between 2 and 14
-        // 25% of cards have a value between 41 and 53
-        // Using a 6 of Trump for example, there are only 8/52 cards in the deck that could beat it
-        // Some of these might be in Monte's hand, some might have already been played
-        // Lets say this takes it down to 5/52
-        // At
+    private ArrayList<Card> getBetterCards(Card c, int trumpSuit, int leadSuit){
+        ArrayList<Card> betterCards = new ArrayList<Card>();
+        ArrayList<Card> deckList = new ArrayList<Card>();
+        Deck pointsDeck = new Deck();
+        int queryScore = c.getScore();
+
+        for (int i = 0; i<52; i++){
+            Card card = pointsDeck.getTopCard();
+            deckList.add(card);
+        }
+
+        // First value assigned as false as analysing cards to be played after Monte
+        // Meaning they will never be first
+        // If leadSuit = 0 then Monte is going first, so test the better cards using the potential lead suit value
+        if (leadSuit == 0){
+            assignCardScore(deckList, false, trumpSuit, c.getSuit());
+        } else {
+            assignCardScore(deckList, false, trumpSuit, leadSuit);
+        }
+
+
+        for (Card deckCard : deckList) {
+            int currentCardScore = deckCard.getScore();
+            // System.out.println(deckCard.toMiniString() + " : " + deckCard.getScore());
+
+            if ( currentCardScore > queryScore ) {
+                betterCards.add(deckCard);
+            }
+        }
+
+        // System.out.println("The cards better than " + c.toMiniString() + " are: ");
+        // System.out.println(betterCards);
+
+        return betterCards;
     }
 
-    private Card trumpNotLead(){
-        return (new Card(2,4));
-        // trumpSuit != leadSuit
-        // 50% of cards have a value between 2 and 14
-        // 25% of cards have a value between 15 and 27
-        // 25% of cards have a value between 41 and 53
+    private int getPlayersLeft () {
+        int playersLeft;
+        int otherCardsSeen = seenCards.size() - 7;
+        int turnsTaken = 7 - pHand.size();
+        int playersPlayed = otherCardsSeen - (2*turnsTaken);
+
+        playersLeft = 2 - playersPlayed;
+
+        return playersLeft;
+    }
+
+    private double getWinChance (ArrayList<Card> betterCards, int playersLeft) {
+        ArrayList<Card> unseenBetterCards = new ArrayList<Card>(betterCards);
+        unseenBetterCards.removeAll(seenCards);
+
+        int unseenBetterCardsCount = unseenBetterCards.size();
+        double chanceOfBetterCard = (double) unseenBetterCardsCount / (double) (52-seenCards.size());
+        // System.out.println("The chance of a better card coming out is: " + chanceOfBetterCard);
+        // Calculates the number of possible cards that could be played this round
+        int possibleCards = pHand.size() * playersLeft;
+
+        // 1 - losing chance
+        double winChance = Math.pow((1 - (chanceOfBetterCard)),(possibleCards));
+
+        return winChance;
     }
 
 }

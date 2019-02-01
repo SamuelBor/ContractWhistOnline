@@ -13,6 +13,7 @@ class Trumps {
   private ArrayList<Card> allPlayedCards;
   private Stack<Integer> playersToGo = new Stack<>();
   private ArrayList<Player> players = new ArrayList<>();
+  private int trumpSuit;
 
   Player runTrumps(int handSize, ArrayList<Player> p) throws InterruptedException{
      HAND_SIZE = handSize;
@@ -38,6 +39,7 @@ class Trumps {
   private Player restartGame() throws InterruptedException{
     playedCards = new Stack<>();
     allPlayedCards = new ArrayList<Card>();
+    trumpSuit = getTrump();
     turn = 1;
 
     for(int i = PLAYER_COUNT - 1; i>-1; i--){
@@ -69,7 +71,6 @@ class Trumps {
 
   private Player takeTurn() throws InterruptedException{
     int leadSuit = 0;
-    int trumpSuit = getTrump();
     int topScore = 0;
     int topScorer = -1;
     int playerID;
@@ -123,7 +124,8 @@ class Trumps {
     ContractWhistOnline.showWinner(topScorer);
     Thread.sleep(TIME_DELAY);
     System.out.println(players.get(topScorer).getName() + " has won this hand.");
-     //System.out.println();
+    System.out.println();
+
     players.get(topScorer).incrementPoints();
     ContractWhistOnline.updateCurrentHands(topScorer, players.get(topScorer).getPoints());
 

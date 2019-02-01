@@ -25,6 +25,10 @@ public class Card {
     return score;
   }
 
+  public String getFilename(){
+        return valueToString(false).toLowerCase() + "_of_" + suitToString(false) + ".png";
+    }
+
   public void setScore(int score){
     this.score = score;
   }
@@ -36,15 +40,27 @@ public class Card {
     return returnString;
   }
 
+    @Override
+    public boolean equals(Object anObject) {
+        if (!(anObject instanceof Card)) {
+            return false;
+        }
+
+        boolean isEqual = true;
+        Card testCard = (Card) anObject;
+
+        if (this.value != testCard.getValue() || this.suit != testCard.getSuit()) {
+            isEqual = false;
+        }
+
+        return isEqual;
+    }
+
   public String toMiniString(){
     String returnString = "";
 
     returnString = "[" + valueToString(true) + suitToString(true) + "]";
     return returnString;
-  }
-
-  public String getFilename(){
-      return valueToString(false).toLowerCase() + "_of_" + suitToString(false) + ".png";
   }
 
   public String suitToString(Boolean mini){

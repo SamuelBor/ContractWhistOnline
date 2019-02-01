@@ -112,7 +112,6 @@ function updateInfo(msg) {
             var current = data.current;
             var spanLabel = "player" + playerID + "Current";
 
-
             id(spanLabel).innerHTML = current;
             break;
         case 8:
