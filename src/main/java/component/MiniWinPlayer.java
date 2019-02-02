@@ -82,7 +82,6 @@ public class MiniWinPlayer extends Player {
                 returnCard = (win) ? getLowest(validCards) : getHighest(validCards);
             }
         } else {
-
             // Otherwise deal with the non lead set, find any cards in the hand that can beat the highest played score
             for(Card card : nonLeadCards){
                 if(card.getScore()>highestPlayedScore){
@@ -95,7 +94,7 @@ public class MiniWinPlayer extends Player {
             }
         }
 
-        // System.out.println("Winning Cards: " + winningCards);
+        System.out.println("Winning Cards: " + winningCards);
 
         if(winningCards.size()>0){
             //Selects the highest card if playing first, otherwise the lowest winning card
@@ -107,9 +106,15 @@ public class MiniWinPlayer extends Player {
                 if(win){
                     returnCard = getLowest(winningCards);
                 } else {
-                    ArrayList<Card> losingCards = new ArrayList<Card>(pHand);
-                    losingCards.removeAll(winningCards);
-                    returnCard = getHighest(losingCards);
+                    if( winningCards.size() < pHand.size()){
+                        ArrayList<Card> losingCards = new ArrayList<Card>(pHand);
+                        losingCards.removeAll(winningCards);
+                        returnCard = getHighest(losingCards);
+                    } else {
+                        // A win here is guaranteed but the agent is still trying to lose
+                        // Therefore play the highest card to throw it out before the next turn.
+                        returnCard = getHighest(winningCards);
+                    }
                 }
             }
         }

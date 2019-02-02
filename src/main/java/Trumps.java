@@ -5,7 +5,6 @@ import java.lang.Math;
 import java.util.*;
 
 class Trumps {
-  private int TIME_DELAY = 1250;
   private static int HAND_SIZE;
   private static int PLAYER_COUNT = 3;
   private int turn;
@@ -83,7 +82,7 @@ class Trumps {
       //Phase 1 Delay - Select Player
       ContractWhistOnline.phase1Update(playerID, trumpSuit, Integer.toString(getCardsLeft()));
       System.out.println(players.get(playerID).getName() + "'s Turn.");
-      Thread.sleep(TIME_DELAY/2);
+      Thread.sleep(ContractWhistRunner.TIME_DELAY/2);
 
       //Get the player's hand before the chosen card is removed
       ArrayList preTurnHand = new ArrayList<>(players.get(playerID).getHand());
@@ -108,7 +107,7 @@ class Trumps {
       ContractWhistOnline.phase2Update(playerID, cardIndex);
       System.out.println(players.get(playerID).getName() + " plays " + cardInPlay.toMiniString() + " for " + cardInPlay.getScore() + " points.");
       allPlayedCards.add(cardInPlay);
-      Thread.sleep(TIME_DELAY);
+      Thread.sleep(ContractWhistRunner.TIME_DELAY);
 
       if(cardInPlay.getScore() > topScore){
         topScore = cardInPlay.getScore();
@@ -118,11 +117,11 @@ class Trumps {
       playedCards.push(cardInPlay);
       // Phase 3 Delay - Play Card
       ContractWhistOnline.updateGame(cardInPlay.getFilename(), playerID, players.get(playerID).getHand());
-      Thread.sleep(TIME_DELAY/2);
+      Thread.sleep(ContractWhistRunner.TIME_DELAY/2);
     }
 
     ContractWhistOnline.showWinner(topScorer);
-    Thread.sleep(TIME_DELAY);
+    Thread.sleep(ContractWhistRunner.TIME_DELAY);
     System.out.println(players.get(topScorer).getName() + " has won this hand.");
     System.out.println();
 
@@ -184,19 +183,19 @@ class Trumps {
   void changeSpeed(int level){
     switch(level){
       case 1:
-        TIME_DELAY = 15000;
+        ContractWhistRunner.TIME_DELAY = 15000;
         break;
       case 2:
-        TIME_DELAY = 3500;
+        ContractWhistRunner.TIME_DELAY = 3500;
         break;
       case 3:
-        TIME_DELAY = 1250;
+        ContractWhistRunner.TIME_DELAY = 1250;
         break;
       case 4:
-        TIME_DELAY = 300;
+        ContractWhistRunner.TIME_DELAY = 300;
         break;
       case 5:
-        TIME_DELAY = 5;
+        ContractWhistRunner.TIME_DELAY = 4;
         break;
       default:
         System.out.println("Error Changing Speed. Level " + level + " not recognised.");

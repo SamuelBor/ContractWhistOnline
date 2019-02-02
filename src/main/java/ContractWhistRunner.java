@@ -7,6 +7,7 @@ class ContractWhistRunner {
     private static int PLAYER_COUNT = 3;
     private static int HAND_SIZE = 7;
     private static ArrayList<Player> players;
+    static int TIME_DELAY = 1250;
 
     static void playContractWhist(Trumps t, ArrayList p) throws InterruptedException {
         System.out.println("Playing Contract whist");
@@ -23,7 +24,7 @@ class ContractWhistRunner {
                 ContractWhistOnline.newHand();
 
                 // Prediction
-                Predictor.newPrediction(players);
+                Predictor.newPrediction(players, TIME_DELAY);
 
                 // Game Stage
                 t.runTrumps(handSize, players);
@@ -44,7 +45,7 @@ class ContractWhistRunner {
                 ContractWhistOnline.newHand();
 
                 // Prediction
-                Predictor.newPrediction(players);
+                Predictor.newPrediction(players, TIME_DELAY);
 
                 // Game Stage
                 t.runTrumps(handSize, players);

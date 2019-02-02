@@ -1,4 +1,7 @@
 package component;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Stack;
 import java.util.ArrayList;
 
@@ -90,7 +93,7 @@ public class MonteCarloPlayer extends Player {
             }
         }
 
-        System.out.println("Winning Cards: " + winningCards);
+        // System.out.println("Winning Cards: " + winningCards);
 
         if(winningCards.size()>0){
             //Selects the highest card if playing first, otherwise the lowest winning card
@@ -102,9 +105,15 @@ public class MonteCarloPlayer extends Player {
                 if(win){
                     returnCard = getLowest(winningCards);
                 } else {
-                    ArrayList<Card> losingCards = new ArrayList<Card>(pHand);
-                    losingCards.removeAll(winningCards);
-                    returnCard = getHighest(losingCards);
+                    if( winningCards.size() < pHand.size()){
+                        ArrayList<Card> losingCards = new ArrayList<Card>(pHand);
+                        losingCards.removeAll(winningCards);
+                        returnCard = getHighest(losingCards);
+                    } else {
+                        // A win here is guaranteed but the agent is still trying to lose
+                        // Therefore play the highest card to throw it out before the next turn.
+                        returnCard = getHighest(winningCards);
+                    }
                 }
             }
 
@@ -112,6 +121,23 @@ public class MonteCarloPlayer extends Player {
                 double winChance = getWinChance(getBetterCards(c, trumpSuit, leadSuit), getPlayersLeft());
                 winChance = winChance * 100;
                 System.out.println("Chance of " + c.toMiniString() + " winning is " + String.format("%.2f", winChance) + "%");
+                BufferedWriter writer = null;
+                try {
+                    //create a temporary file
+                    String outputString = c.toMiniString() + " , " + (c.getSuit()==trumpSuit) + " , " + String.format("%.2f", winChance) + "%\n";
+                    File logFile = new File("winChanceLog.txt");
+
+                    writer = new BufferedWriter(new FileWriter(logFile, true));
+                    writer.write(outputString);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        // Close the writer regardless of what happens...
+                        writer.close();
+                    } catch (Exception e) {
+                    }
+                }
             }
         }
 
@@ -183,8 +209,8 @@ public class MonteCarloPlayer extends Player {
             }
         }
 
-        // System.out.println("The cards better than " + c.toMiniString() + " are: ");
-        // System.out.println(betterCards);
+        System.out.println("The cards better than " + c.toMiniString() + " are: ");
+        System.out.println(betterCards);
 
         return betterCards;
     }
@@ -206,9 +232,10 @@ public class MonteCarloPlayer extends Player {
 
         int unseenBetterCardsCount = unseenBetterCards.size();
         double chanceOfBetterCard = (double) unseenBetterCardsCount / (double) (52-seenCards.size());
-        // System.out.println("The chance of a better card coming out is: " + chanceOfBetterCard);
+         System.out.println("The chance of a better card coming out is: " + chanceOfBetterCard);
         // Calculates the number of possible cards that could be played this round
         int possibleCards = pHand.size() * playersLeft;
+
 
         // 1 - losing chance
         double winChance = Math.pow((1 - (chanceOfBetterCard)),(possibleCards));

@@ -112,7 +112,6 @@ function updateInfo(msg) {
             var current = data.current;
             var spanLabel = "player" + playerID + "Current";
 
-
             id(spanLabel).innerHTML = current;
             break;
         case 8:
@@ -122,6 +121,12 @@ function updateInfo(msg) {
             var spanLabel = "player" + playerID + "Score";
 
             id(spanLabel).innerHTML = score;
+
+            for (var i = 1; i < 4; i++) {
+                spanLabel = "player" + i + "Prediction";
+                element = document.getElementById(spanLabel);
+                element.innerHTML = '';
+            }
             break;
         default:
             console.log("Error parsing phase data from web socket - Have you missed a break in the case statement?");
