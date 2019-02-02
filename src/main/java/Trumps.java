@@ -86,7 +86,7 @@ class Trumps {
 
       //Get the player's hand before the chosen card is removed
       ArrayList preTurnHand = new ArrayList<>(players.get(playerID).getHand());
-      Card cardInPlay = players.get(playerID).makeTurn(leadSuit, trumpSuit, playedCards, getAllPlayedCards());
+      Card cardInPlay = players.get(playerID).makeTurn(leadSuit, trumpSuit, playedCards, getAllPlayedCards(), HAND_SIZE);
 
       cardInPlay.setScore(cardInPlay.getValue());
 
@@ -195,7 +195,7 @@ class Trumps {
         ContractWhistRunner.TIME_DELAY = 300;
         break;
       case 5:
-        ContractWhistRunner.TIME_DELAY = 4;
+        ContractWhistRunner.TIME_DELAY = 1;
         break;
       default:
         System.out.println("Error Changing Speed. Level " + level + " not recognised.");

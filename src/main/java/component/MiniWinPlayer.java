@@ -13,7 +13,7 @@ public class MiniWinPlayer extends Player {
         super(name, id, "MIN");
     }
 
-    public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards){
+    public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards, int handSize){
         //If the player plays first then should play the highest card possible
         boolean first = playedCards.empty();
         // Valid cards being an array list of legal cards following the lead suit
@@ -94,7 +94,7 @@ public class MiniWinPlayer extends Player {
             }
         }
 
-        System.out.println("Winning Cards: " + winningCards);
+        // System.out.println("Winning Cards: " + winningCards);
 
         if(winningCards.size()>0){
             //Selects the highest card if playing first, otherwise the lowest winning card
@@ -111,9 +111,9 @@ public class MiniWinPlayer extends Player {
                         losingCards.removeAll(winningCards);
                         returnCard = getHighest(losingCards);
                     } else {
-                        // A win here is guaranteed but the agent is still trying to lose
-                        // Therefore play the highest card to throw it out before the next turn.
-                        returnCard = getHighest(winningCards);
+                        // A win here is guaranteed so even though the agent has met their trick they might as well
+                        // Aim for as many hands as they can, so pick the lowest of the winning cards
+                        returnCard = getLowest(winningCards);
                     }
                 }
             }

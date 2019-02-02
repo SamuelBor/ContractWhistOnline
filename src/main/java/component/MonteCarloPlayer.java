@@ -1,22 +1,30 @@
 package component;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.Stack;
-import java.util.ArrayList;
+import java.util.*;
 
 // Builds upon the minimax agent but adds probability theory on top, keeping track of past cards and calculating probability that a played card will beat unseen cards.
 @SuppressWarnings("Duplicates")
 public class MonteCarloPlayer extends Player {
-    ArrayList<Card> seenCards;
+    private ArrayList<Card> myPlayedLeadCards = new ArrayList<Card>();
+    private ArrayList<Card> seenCards;
+    private ArrayList<Card> allPlayedCards;
+    private int handSize;
+
     double PROB_THRESHOLD = 0.7;
 
     public MonteCarloPlayer(String name, int id){
         super(name, id, "MONTE");
     }
 
-    public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards){
-        Card returnCard = new Card(1,1); // Error case, shouldn't ever hit this point
+    public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards, int handSize){
+        Card returnCard = new Card(-1,-1); // Error case, shouldn't ever hit this point
+        this.handSize = handSize;
+
+        if(allPlayedCards.size() < 3) {
+            myPlayedLeadCards = new ArrayList<Card>();
+        }
+
+        this.allPlayedCards = new ArrayList<Card>(allPlayedCards);
+
         ArrayList<Card> validCards;
         ArrayList<Card> nonLeadCards;
         ArrayList<Card> winningCards = new ArrayList<Card>();
@@ -35,6 +43,16 @@ public class MonteCarloPlayer extends Player {
         seenCards = new ArrayList<Card>(allPlayedCards);
         seenCards.addAll(pHand);
 
+        for (Card c : myPlayedLeadCards){
+            int indexOfC = allPlayedCards.indexOf(c);
+            int cSuit = c.getSuit();
+
+            // Checks the 2 cards after c in the playedCards arraylist to see if the suits match
+            // If not then the other players do not possess any of the leadSuit, so the entire suit can be added to seenCards
+            if (allPlayedCards.get(indexOfC+1).getSuit() != cSuit && allPlayedCards.get(indexOfC+2).getSuit() != cSuit){
+                addSuitToSeen(cSuit, first, trumpSuit, leadSuit);
+            }
+        }
 
         if(!win){
             System.out.println(getName() + " is now trying to lose!");
@@ -64,7 +82,7 @@ public class MonteCarloPlayer extends Player {
         // System.out.println("Valid Cards: " + validCards);
         // System.out.println("Non-Valid Cards: " + nonLeadCards);
 
-        // First case is if the AI has lead suit cards in its hand to play with
+        // First case is if the agent has lead suit cards in its hand to play with
         if(validCards.size()>0){
             for(Card card : validCards){
                 if(card.getScore()>highestPlayedScore){
@@ -80,7 +98,6 @@ public class MonteCarloPlayer extends Player {
                 returnCard = (win) ? getLowest(validCards) : getHighest(validCards);
             }
         } else {
-
             // Otherwise deal with the non lead set, find any cards in the hand that can beat the highest played score
             for(Card card : nonLeadCards){
                 if(card.getScore()>highestPlayedScore){
@@ -94,7 +111,6 @@ public class MonteCarloPlayer extends Player {
         }
 
         // System.out.println("Winning Cards: " + winningCards);
-
         if(winningCards.size()>0){
             //Selects the highest card if playing first, otherwise the lowest winning card
             if(first){
@@ -103,76 +119,81 @@ public class MonteCarloPlayer extends Player {
                 // Either play the lowest winning card if trying to win
                 // Or the highest losing card to destroy future chances
                 if(win){
-                    returnCard = getLowest(winningCards);
+                    /*
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    Calculate probability of each winning card winning against future played cards, using cards seen and chance of better cards being used
+                    First split the winning cards into 4 bands
+                    Band1: 0%-25% , Band2: 25%-50% , Band3: 50% - 75% , Band4: 75%+
+                    As agent is trying to win the bottom band should be avoided if possible, otherwise pick the highest
+                    If there are multiple cards in the top band pick the lowest, otherwise pick the lowest in band 2 if one exists
+                    If none exist in band 2, pick the highest in band 3
+                    If choosing between band 1 and band 4, pick band 1 to maximise win chance and build knowledge base
+                    Aim to get the probability as close to 50% as possible, these are reasonable odds given the randomness and number of cards not dealt
+                    */
+
+                    HashMap<Card, Double> band1 = new HashMap<>();
+                    HashMap<Card, Double> band2 = new HashMap<>();
+                    HashMap<Card, Double> band3 = new HashMap<>();
+                    HashMap<Card, Double> band4 = new HashMap<>();
+
+                    for (Card c : winningCards) {
+                        double winChance = getWinChance(getBetterCards(c, trumpSuit, leadSuit), getPlayersLeft());
+                        winChance = winChance * 100;
+                        System.out.println("Chance of " + c.toMiniString() + " winning is " + String.format("%.2f", winChance) + "%");
+
+                        if ( winChance >= 0.00 && winChance < 25.00 ) {
+                            band1.put(c, winChance);
+                        } else if ( winChance >= 25.00 && winChance < 50.00 ) {
+                            band1.put(c, winChance);
+                        } else if ( winChance >= 50.00 && winChance < 75.00 ) {
+                            band1.put(c, winChance);
+                        } else if ( winChance >= 75.00 && winChance <= 100.00 ) {
+                            band1.put(c, winChance);
+                        } else {
+                            System.out.println("WinChance is not between 0 and 100.");
+                        }
+                    }
+
+                    returnCard = getLowestFromHashMap(band1);
+
+                    /*
+                        if ( band4.size() > 1 ) {
+                            returnCard = getLowestFromHashMap(band4);
+                        } else if ( band3.size() > 0 ) {
+                            returnCard = getLowestFromHashMap(band3);
+                        } else if ( band2.size() > 0 ) {
+                            returnCard = getHighestFromHashMap(band2);
+                        } else if ( band4.size() > 0 ) {
+                            returnCard = getLowestFromHashMap(band4);
+                        } else if ( band1.size() > 0 ) {
+                            returnCard = getHighestFromHashMap(band1);
+                        } else {
+                            System.out.println("Unknown scenario.");
+                        }
+                    */
                 } else {
-                    if( winningCards.size() < pHand.size()){
+                    if( winningCards.size() < pHand.size() ) {
                         ArrayList<Card> losingCards = new ArrayList<Card>(pHand);
                         losingCards.removeAll(winningCards);
                         returnCard = getHighest(losingCards);
                     } else {
-                        // A win here is guaranteed but the agent is still trying to lose
-                        // Therefore play the highest card to throw it out before the next turn.
-                        returnCard = getHighest(winningCards);
+                        // A win here is guaranteed so even though the agent has met their trick they might as well
+                        // Aim for as many hands as they can, so pick the lowest of the winning cards
+                        returnCard = getLowest(winningCards);
                     }
                 }
             }
 
-            for (Card c : winningCards) {
-                double winChance = getWinChance(getBetterCards(c, trumpSuit, leadSuit), getPlayersLeft());
-                winChance = winChance * 100;
-                System.out.println("Chance of " + c.toMiniString() + " winning is " + String.format("%.2f", winChance) + "%");
-                BufferedWriter writer = null;
-                try {
-                    //create a temporary file
-                    String outputString = c.toMiniString() + " , " + (c.getSuit()==trumpSuit) + " , " + String.format("%.2f", winChance) + "%\n";
-                    File logFile = new File("winChanceLog.txt");
-
-                    writer = new BufferedWriter(new FileWriter(logFile, true));
-                    writer.write(outputString);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        // Close the writer regardless of what happens...
-                        writer.close();
-                    } catch (Exception e) {
-                    }
-                }
-            }
         }
 
-        /*
-
-        if(playedCards.size()<2){
-            if (first){
-                boolean existsTrump = false;
-                for(Card card : pHand){
-                    // Checks for a card in the trump suit in the hand
-                    if(card.getSuit() == trumpSuit){
-                        existsTrump = true;
-                    }
-                }
-
-                if(existsTrump){
-                    // trumpSuit == leadSuit
-                    returnCard = trumpIsLead();
-                } else {
-                    // trumpSuit != leadSuit
-                    returnCard = trumpNotLead();
-                }
-
-            } else if (trumpSuit == leadSuit){
-                returnCard = trumpIsLead();
-
-            } else {
-                // Not playing first and trumpSuit != leadSuit
-                returnCard = trumpNotLead();
-            }
+        if(first){
+            myPlayedLeadCards.add(returnCard);
         }
 
-
-        */
-
+        // Error checking
+        if ( returnCard.getValue() > 14 || returnCard.getValue() < 2) {
+            System.out.println("Invalid return card.");
+        }
 
         //Removes the selected card from the players hand
         pHand.remove(returnCard);
@@ -209,19 +230,22 @@ public class MonteCarloPlayer extends Player {
             }
         }
 
-        System.out.println("The cards better than " + c.toMiniString() + " are: ");
-        System.out.println(betterCards);
+        // System.out.println("The cards better than " + c.toMiniString() + " are: ");
+        // System.out.println(betterCards);
 
         return betterCards;
     }
 
     private int getPlayersLeft () {
         int playersLeft;
-        int otherCardsSeen = seenCards.size() - 7;
-        int turnsTaken = 7 - pHand.size();
-        int playersPlayed = otherCardsSeen - (2*turnsTaken);
+        int turnsTaken = handSize - pHand.size();
+        int playersPlayed = allPlayedCards.size() - (3*turnsTaken);
 
         playersLeft = 2 - playersPlayed;
+
+        if(playersLeft != 0 && playersLeft != 1 && playersLeft != 2){
+            System.out.println("Erroneous scenario");
+        }
 
         return playersLeft;
     }
@@ -232,15 +256,62 @@ public class MonteCarloPlayer extends Player {
 
         int unseenBetterCardsCount = unseenBetterCards.size();
         double chanceOfBetterCard = (double) unseenBetterCardsCount / (double) (52-seenCards.size());
-         System.out.println("The chance of a better card coming out is: " + chanceOfBetterCard);
+        // System.out.println("The chance of a better card coming out is: " + chanceOfBetterCard);
         // Calculates the number of possible cards that could be played this round
         int possibleCards = pHand.size() * playersLeft;
-
 
         // 1 - losing chance
         double winChance = Math.pow((1 - (chanceOfBetterCard)),(possibleCards));
 
+        if((winChance*100) < 0.01){
+            System.out.println("Almost impossible to win");
+        }
+
         return winChance;
     }
 
+    private void addSuitToSeen(int suit, boolean first, int trumpSuit, int leadSuit){
+        ArrayList<Card> suitSet = new ArrayList<Card>();
+
+        for ( int i = 2; i<15; i++){
+            suitSet.add(new Card(i, suit));
+        }
+
+        assignCardScore(suitSet, first, trumpSuit, leadSuit);
+
+        seenCards.removeAll(suitSet);
+        seenCards.addAll(suitSet);
+    }
+
+    private Card getLowestFromHashMap (HashMap<Card, Double> cardBand){
+        Set set = cardBand.entrySet();
+        Iterator iterator = set.iterator();
+        Double winChanceLow = 999.00;
+        Card cardLow = new Card(-1,-1);
+        while(iterator.hasNext()) {
+            Map.Entry mentry = (Map.Entry)iterator.next();
+            if((Double) mentry.getValue() < winChanceLow){
+                winChanceLow = (Double) mentry.getValue();
+                cardLow = (Card) mentry.getKey();
+            }
+        }
+
+        return cardLow;
+    }
+
+    private Card getHighestFromHashMap (HashMap<Card, Double> cardBand){
+        Set set = cardBand.entrySet();
+        Iterator iterator = set.iterator();
+        Double winChanceHigh = -999.00;
+        Card cardHigh = new Card(-1,-1);
+        while(iterator.hasNext()) {
+            Map.Entry mentry = (Map.Entry)iterator.next();
+            if((Double) mentry.getValue() > winChanceHigh){
+                winChanceHigh = (Double) mentry.getValue();
+                cardHigh = (Card) mentry.getKey();
+            }
+        }
+
+        return cardHigh;
+    }
 }

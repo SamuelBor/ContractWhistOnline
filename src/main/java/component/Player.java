@@ -133,5 +133,5 @@ public abstract class Player {
     return cardSets;
   }
 
-  public abstract Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards);
+  public abstract Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards, int handSize);
 }

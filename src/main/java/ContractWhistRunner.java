@@ -14,7 +14,7 @@ class ContractWhistRunner {
         int fullGames;
         players = p;
 
-        for(fullGames = 0; fullGames<100; fullGames++){
+        for(fullGames = 0; fullGames<1000; fullGames++){
 
             for(int handSize = 7; handSize>0; handSize--){
                 HAND_SIZE = handSize;
