@@ -110,7 +110,7 @@ public class MonteCarloPlayer extends Player {
             }
         }
 
-        // System.out.println("Winning Cards: " + winningCards);
+        System.out.println("Winning Cards: " + winningCards);
         if(winningCards.size()>0){
             //Selects the highest card if playing first, otherwise the lowest winning card
             if(first){
@@ -122,55 +122,43 @@ public class MonteCarloPlayer extends Player {
                     /*
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     Calculate probability of each winning card winning against future played cards, using cards seen and chance of better cards being used
-                    First split the winning cards into 4 bands
-                    Band1: 0%-25% , Band2: 25%-50% , Band3: 50% - 75% , Band4: 75%+
-                    As agent is trying to win the bottom band should be avoided if possible, otherwise pick the highest
-                    If there are multiple cards in the top band pick the lowest, otherwise pick the lowest in band 2 if one exists
-                    If none exist in band 2, pick the highest in band 3
-                    If choosing between band 1 and band 4, pick band 1 to maximise win chance and build knowledge base
-                    Aim to get the probability as close to 50% as possible, these are reasonable odds given the randomness and number of cards not dealt
+                    First split the winning cards into 2 bands
+                    Band1: 0%-50% , Band2: 75%-100%
+
+                    If the distance to the agent's prediction is greater than 1 then play the card most likely to win in order to raise the agent's score
+                    When the agent is only one away from the prediction start playing lower percentage cards in order to avoid overshooting the prediction
                     */
 
                     HashMap<Card, Double> band1 = new HashMap<>();
                     HashMap<Card, Double> band2 = new HashMap<>();
-                    HashMap<Card, Double> band3 = new HashMap<>();
-                    HashMap<Card, Double> band4 = new HashMap<>();
 
                     for (Card c : winningCards) {
                         double winChance = getWinChance(getBetterCards(c, trumpSuit, leadSuit), getPlayersLeft());
                         winChance = winChance * 100;
                         System.out.println("Chance of " + c.toMiniString() + " winning is " + String.format("%.2f", winChance) + "%");
 
-                        if ( winChance >= 0.00 && winChance < 25.00 ) {
+                        if ( winChance >= 0.00 && winChance < 50.00 ) {
                             band1.put(c, winChance);
-                        } else if ( winChance >= 25.00 && winChance < 50.00 ) {
-                            band1.put(c, winChance);
-                        } else if ( winChance >= 50.00 && winChance < 75.00 ) {
-                            band1.put(c, winChance);
-                        } else if ( winChance >= 75.00 && winChance <= 100.00 ) {
-                            band1.put(c, winChance);
+                        } else if ( winChance >= 50.00 && winChance <=100.00 ) {
+                            band2.put(c, winChance);
                         } else {
                             System.out.println("WinChance is not between 0 and 100.");
                         }
                     }
 
-                    returnCard = getLowestFromHashMap(band1);
-
-                    /*
-                        if ( band4.size() > 1 ) {
-                            returnCard = getLowestFromHashMap(band4);
-                        } else if ( band3.size() > 0 ) {
-                            returnCard = getLowestFromHashMap(band3);
-                        } else if ( band2.size() > 0 ) {
+                    if ( getPrediction()-getScore() > 1 ) {
+                        if ( band2.size() > 0 ){
                             returnCard = getHighestFromHashMap(band2);
-                        } else if ( band4.size() > 0 ) {
-                            returnCard = getLowestFromHashMap(band4);
-                        } else if ( band1.size() > 0 ) {
-                            returnCard = getHighestFromHashMap(band1);
                         } else {
-                            System.out.println("Unknown scenario.");
+                            returnCard = getHighestFromHashMap(band1);
                         }
-                    */
+                    } else {
+                        if ( band1.size() > 0 ){
+                            returnCard = getLowestFromHashMap(band1);
+                        } else {
+                            returnCard = getLowestFromHashMap(band2);
+                        }
+                    }
                 } else {
                     if( winningCards.size() < pHand.size() ) {
                         ArrayList<Card> losingCards = new ArrayList<Card>(pHand);
@@ -178,12 +166,11 @@ public class MonteCarloPlayer extends Player {
                         returnCard = getHighest(losingCards);
                     } else {
                         // A win here is guaranteed so even though the agent has met their trick they might as well
-                        // Aim for as many hands as they can, so pick the lowest of the winning cards
+                        // Aim for as many hands as they can, so pick the lowest of the winning cards in order to minimax it
                         returnCard = getLowest(winningCards);
                     }
                 }
             }
-
         }
 
         if(first){

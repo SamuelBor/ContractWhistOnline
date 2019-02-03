@@ -2,23 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ac8c16a-9f4a-424c-9aa9-6287f6fa746f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/ajt_2_9.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ContractWhistOnline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ContractWhistOnline.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ContractWhistRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ContractWhistRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GameTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Predictor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Predictor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Trumps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Trumps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/component/MaxPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/component/MaxPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/component/MiniWinPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/component/MiniWinPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/component/MonteCarloPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/component/MonteCarloPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/component/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/component/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/component/RandomPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/component/RandomPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/component/VaryingTrumpPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/component/VaryingTrumpPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/csv/trainingTemplate.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/ContractWhistRunner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ContractWhistRunner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Trumps.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Trumps.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/component/MaxPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/component/MaxPlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Predictor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Predictor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/component/MiniWinPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/component/MiniWinPlayer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/component/MonteCarloPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/component/MonteCarloPlayer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/component/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/component/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/component/RandomPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/component/RandomPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/component/VaryingTrumpPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/component/VaryingTrumpPlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/public/csv/trainingTemplate.csv" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -33,8 +33,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ContractWhistOnline.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1197">
-              <caret line="23" column="54" lean-forward="true" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+            <state relative-caret-position="214">
+              <caret line="44" column="44" lean-forward="true" selection-start-line="44" selection-start-column="44" selection-end-line="44" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#phase2Update#0;class#ContractWhistOnline#0" />
@@ -49,65 +49,30 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ContractWhistRunner.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Predictor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="24" lean-forward="true" selection-start-column="24" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Trumps.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="88" selection-start-line="88" selection-end-line="88" />
+            <state relative-caret-position="289">
+              <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5130#5131#0" expanded="true" />
-                <element signature="e#5190#5191#0" expanded="true" />
+                <element signature="e#5830#5831#0" expanded="true" />
+                <element signature="e#5861#5862#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/component/MonteCarloPlayer.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ContractWhistRunner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="171" column="25" lean-forward="true" selection-start-line="171" selection-start-column="25" selection-end-line="171" selection-end-column="25" />
+            <state relative-caret-position="353">
+              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
               <folding>
-                <element signature="e#451#457#0" expanded="true" />
-                <element signature="e#432#433#0" expanded="true" />
-                <element signature="e#472#473#0" expanded="true" />
-                <element signature="method#addSuitToSeen#0;class#MonteCarloPlayer#0" />
-                <element signature="e#11819#11825#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/component/MiniWinPlayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="115" column="61" lean-forward="true" selection-start-line="115" selection-start-column="61" selection-end-line="115" selection-end-column="61" />
-              <folding>
-                <element signature="e#359#360#0" expanded="true" />
-                <element signature="e#397#398#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#3868#3869#0" expanded="true" />
+                <element signature="method#dealCards#0;class#ContractWhistRunner#0" />
+                <element signature="method#scorePlayers#0;class#ContractWhistRunner#0" />
               </folding>
             </state>
           </provider>
@@ -116,12 +81,58 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/component/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1037">
-              <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
+            <state relative-caret-position="259">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
               <folding>
-                <element signature="method#getLowest#0;class#Player#0" />
-                <element signature="method#getHighest#0;class#Player#0" />
-                <element signature="method#getValidCards#0;class#Player#0" />
+                <element signature="e#1163#1164#0" expanded="true" />
+                <element signature="e#1191#1192#0" expanded="true" />
+                <element signature="e#1518#1519#0" expanded="true" />
+                <element signature="e#1547#1548#0" expanded="true" />
+                <element signature="e#1613#1614#0" expanded="true" />
+                <element signature="e#1641#1642#0" expanded="true" />
+                <element signature="e#1584#1585#0" expanded="true" />
+                <element signature="e#1613#1614#0" expanded="true" />
+                <element signature="e#2246#2457#0" />
+                <element signature="e#2461#2677#0" />
+                <element signature="e#2681#3085#0" />
+                <element signature="e#3089#3721#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/component/Card.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="159">
+              <caret line="72" column="31" lean-forward="true" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
+              <folding>
+                <element signature="method#toMiniString#0;class#Card#0" />
+                <element signature="method#valueToString#0;class#Card#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Predictor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/GameTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="5" lean-forward="true" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -165,6 +176,8 @@
       <find>HAND_SIZE</find>
       <find>seenCards</find>
       <find>myPlayedLeadCards</find>
+      <find>restartGame</find>
+      <find>getTrump</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -189,21 +202,21 @@
         <option value="$PROJECT_DIR$/src/main/java/gameTask.java" />
         <option value="$PROJECT_DIR$/src/main/resources/public/css/styles.css" />
         <option value="$PROJECT_DIR$/src/main/java/WhistWebSocketHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/GameTask.java" />
         <option value="$PROJECT_DIR$/src/main/java/component/Deck.java" />
         <option value="$PROJECT_DIR$/src/main/resources/velocity/whist.vm" />
-        <option value="$PROJECT_DIR$/src/main/java/component/Card.java" />
         <option value="$PROJECT_DIR$/src/main/resources/public/js/gameInfo.js" />
-        <option value="$PROJECT_DIR$/src/main/java/Predictor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/component/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/component/MaxPlayer.java" />
         <option value="$PROJECT_DIR$/src/main/java/component/VaryingTrumpPlayer.java" />
         <option value="$PROJECT_DIR$/src/main/java/component/RandomPlayer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ContractWhistOnline.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Trumps.java" />
-        <option value="$PROJECT_DIR$/src/main/java/component/MonteCarloPlayer.java" />
         <option value="$PROJECT_DIR$/src/main/java/component/MiniWinPlayer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/component/MonteCarloPlayer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ContractWhistOnline.java" />
+        <option value="$PROJECT_DIR$/src/main/java/GameTask.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Trumps.java" />
+        <option value="$PROJECT_DIR$/src/main/java/component/Card.java" />
+        <option value="$PROJECT_DIR$/src/main/java/component/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/ContractWhistRunner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Predictor.java" />
       </list>
     </option>
   </component>
@@ -299,9 +312,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="project.structure.side.proportion" value="0.21609196" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
@@ -430,7 +443,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32891566" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49785408" weight="0.29638556" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49928468" visible="true" weight="0.32771084" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49928468" visible="true" weight="0.3048193" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -486,25 +499,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/component/MonteCarloPlayer.java</url>
-          <line>246</line>
+          <line>233</line>
           <properties />
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/component/MonteCarloPlayer.java</url>
-          <line>170</line>
-          <properties />
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/component/MonteCarloPlayer.java</url>
-          <line>152</line>
+          <line>144</line>
           <properties />
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/component/MonteCarloPlayer.java</url>
-          <line>194</line>
+          <line>181</line>
           <properties />
           <option name="timeStamp" value="35" />
         </line-breakpoint>
@@ -582,13 +589,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/velocity/editTodo.vm" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/velocity/todoScraps.vm" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/GameTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/target/classes/component/Deck.class">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -648,18 +648,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/component/Card.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="46" column="9" lean-forward="true" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
-          <folding>
-            <element signature="method#toMiniString#0;class#Card#0" />
-            <element signature="method#suitToString#0;class#Card#0" />
-            <element signature="method#valueToString#0;class#Card#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/public/js/gameInfo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="395">
@@ -695,18 +683,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/public/cards/king_of_clubs.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/component/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
-          <folding>
-            <element signature="method#getLowest#0;class#Player#0" />
-            <element signature="method#getHighest#0;class#Player#0" />
-            <element signature="method#getValidCards#0;class#Player#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-9.0.1.jdk/Contents/Home/lib/src.zip!/java.base/jdk/internal/misc/Unsafe.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="765">
@@ -714,10 +690,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/component/MiniWinPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+          <folding>
+            <element signature="e#359#360#0" expanded="true" />
+            <element signature="e#397#398#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/GameTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="5" lean-forward="true" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ContractWhistOnline.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1197">
-          <caret line="23" column="54" lean-forward="true" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+        <state relative-caret-position="214">
+          <caret line="44" column="44" lean-forward="true" selection-start-line="44" selection-start-column="44" selection-end-line="44" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#phase2Update#0;class#ContractWhistOnline#0" />
@@ -731,56 +728,80 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Predictor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/component/MonteCarloPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="24" lean-forward="true" selection-start-column="24" selection-end-column="24" />
+        <state relative-caret-position="-1816">
+          <caret line="160" column="21" lean-forward="true" selection-start-line="160" selection-start-column="21" selection-end-line="160" selection-end-column="21" />
+          <folding>
+            <element signature="e#1591#1597#0" expanded="true" />
+            <element signature="method#addSuitToSeen#0;class#MonteCarloPlayer#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Trumps.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="88" selection-start-line="88" selection-end-line="88" />
+        <state relative-caret-position="289">
+          <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5130#5131#0" expanded="true" />
-            <element signature="e#5190#5191#0" expanded="true" />
+            <element signature="e#5830#5831#0" expanded="true" />
+            <element signature="e#5861#5862#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/component/MiniWinPlayer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Predictor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="115" column="61" lean-forward="true" selection-start-line="115" selection-start-column="61" selection-end-line="115" selection-end-column="61" />
+        <state relative-caret-position="117">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
-            <element signature="e#359#360#0" expanded="true" />
-            <element signature="e#397#398#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/component/MonteCarloPlayer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/component/Card.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="171" column="25" lean-forward="true" selection-start-line="171" selection-start-column="25" selection-end-line="171" selection-end-column="25" />
+        <state relative-caret-position="159">
+          <caret line="72" column="31" lean-forward="true" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
           <folding>
-            <element signature="e#451#457#0" expanded="true" />
-            <element signature="e#432#433#0" expanded="true" />
-            <element signature="e#472#473#0" expanded="true" />
-            <element signature="method#addSuitToSeen#0;class#MonteCarloPlayer#0" />
-            <element signature="e#11819#11825#0" expanded="true" />
+            <element signature="method#toMiniString#0;class#Card#0" />
+            <element signature="method#valueToString#0;class#Card#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/component/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="e#1163#1164#0" expanded="true" />
+            <element signature="e#1191#1192#0" expanded="true" />
+            <element signature="e#1518#1519#0" expanded="true" />
+            <element signature="e#1547#1548#0" expanded="true" />
+            <element signature="e#1613#1614#0" expanded="true" />
+            <element signature="e#1641#1642#0" expanded="true" />
+            <element signature="e#1584#1585#0" expanded="true" />
+            <element signature="e#1613#1614#0" expanded="true" />
+            <element signature="e#2246#2457#0" />
+            <element signature="e#2461#2677#0" />
+            <element signature="e#2681#3085#0" />
+            <element signature="e#3089#3721#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ContractWhistRunner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+        <state relative-caret-position="353">
+          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#3868#3869#0" expanded="true" />
+            <element signature="method#dealCards#0;class#ContractWhistRunner#0" />
+            <element signature="method#scorePlayers#0;class#ContractWhistRunner#0" />
           </folding>
         </state>
       </provider>
@@ -794,7 +815,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.21609196" />
               </list>
             </option>
           </splitter-proportions>
@@ -806,7 +827,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.21609196" />
               </list>
             </option>
           </splitter-proportions>
@@ -817,7 +838,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.21609196" />
               </list>
             </option>
           </splitter-proportions>
@@ -829,7 +850,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.21609196" />
               </list>
             </option>
           </splitter-proportions>
@@ -837,12 +858,11 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>SparkWithInterface</last-edited>
+          <last-edited>oss-parent</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
-                <option value="0.6" />
+                <option value="0.21609196" />
               </list>
             </option>
           </splitter-proportions>
@@ -850,11 +870,11 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: com.j2html:j2html:1.2.0</last-edited>
+          <last-edited>ajt-2.9</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.21609196" />
               </list>
             </option>
           </splitter-proportions>

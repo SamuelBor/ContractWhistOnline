@@ -2,6 +2,8 @@ import component.*;
 import spark.*;
 import static spark.Spark.*;
 import spark.template.velocity.*;
+
+import java.io.IOException;
 import java.util.*;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
@@ -39,7 +41,7 @@ public class ContractWhistOnline {
         pool.submit(new GameTask());
     }
 
-    public static void startGame() throws InterruptedException{
+    public static void startGame() throws InterruptedException, IOException {
         System.out.println("STARTING GAME");
 
         ContractWhistRunner.playContractWhist(t, players);

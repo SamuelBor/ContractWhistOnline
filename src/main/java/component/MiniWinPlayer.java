@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @SuppressWarnings("Duplicates")
 public class MiniWinPlayer extends Player {
     public MiniWinPlayer(String name, int id){
-        super(name, id, "MIN");
+        super(name, id, "MINIMAX");
     }
 
     public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards, int handSize){

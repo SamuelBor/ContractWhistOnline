@@ -11,6 +11,17 @@ public abstract class Player {
   private int score = 0; // Score based on the accuracy of the agent's prediction
   private int id;
   private String agentType;
+  private int sameSuitSum;
+  private int handPointsSum;
+  private int aceCount;
+  private int kingCount;
+  private int queenCount;
+  private int jackCount;
+  private int trumpCallMin;
+  private int chosenTrump = 0;
+  private double p1Confidence;
+  private double p2Confidence;
+
 
   Player(String name, int id, String type){
     this.name = name;
@@ -46,12 +57,64 @@ public abstract class Player {
     return id;
   }
 
+  public int getSameSuitSum() {
+    return sameSuitSum;
+  }
+
+  public int getHandPointsSum() {
+    return handPointsSum;
+  }
+
+  public int getAceCount() {
+    return aceCount;
+  }
+
+  public int getKingCount() {
+    return kingCount;
+  }
+
+  public int getQueenCount() {
+    return queenCount;
+  }
+
+  public int getJackCount() {
+    return jackCount;
+  }
+
+  public int getTrumpCallMin() {
+    return trumpCallMin;
+  }
+
+  public int getChosenTrump() {
+    return chosenTrump;
+  }
+
+  public double getP1Confidence() {
+    return p1Confidence;
+  }
+
+  public double getP2Confidence() {
+    return p2Confidence;
+  }
+
   public void increaseScore(int amount){
     score += amount;
   }
 
   public void setPrediction(int p) {
     prediction = p;
+  }
+
+  public void setTrumpCallMin(int t) {
+    this.trumpCallMin = t;
+  }
+
+  public void setP1Confidence(double c){
+    p1Confidence = c;
+  }
+
+  public void setP2Confidence(double c){
+    p2Confidence = c;
   }
 
   public void addToHand(Card c){
@@ -131,6 +194,86 @@ public abstract class Player {
     }
 
     return cardSets;
+  }
+
+  public void analyseHand(){
+    int cSum = 0;
+    int hSum = 0;
+    int dSum = 0;
+    int sSum = 0;
+    int maxSum;
+
+    this.handPointsSum = 0;
+    this.aceCount = 0;
+    this.kingCount = 0;
+    this.queenCount = 0;
+    this.jackCount = 0;
+
+    for(Card card : pHand){
+      switch(card.getSuit()){
+        case 1:
+          cSum += card.getValue();
+          break;
+        case 2:
+          hSum += card.getValue();
+          break;
+        case 3:
+          dSum += card.getValue();
+          break;
+        case 4:
+          sSum += card.getValue();
+          break;
+      }
+
+      switch(card.getValue()){
+        case 14:
+          this.aceCount++;
+          break;
+        case 13:
+          this.kingCount++;
+          break;
+        case 12:
+          this.queenCount++;
+          break;
+        case 11:
+          this.jackCount++;
+          break;
+      }
+
+      this.handPointsSum += card.getValue();
+    }
+
+    maxSum = Math.max(cSum, hSum);
+    maxSum = Math.max(maxSum, dSum);
+    maxSum = Math.max(maxSum, sSum);
+
+    if ( maxSum == cSum) {
+      this.chosenTrump = 1;
+    } else if ( maxSum == hSum) {
+      this.chosenTrump = 2;
+    } else if ( maxSum == dSum) {
+      this.chosenTrump = 3;
+    } else {
+      this.chosenTrump = 4;
+    }
+
+      this.sameSuitSum = maxSum;
+  }
+
+  @Override
+  public boolean equals(Object anObject) {
+    if (!(anObject instanceof Player)) {
+      return false;
+    }
+
+    boolean isEqual = true;
+    Player testPlayer = (Player) anObject;
+
+    if (this.name != testPlayer.getName() || !this.getAgentType().equals(testPlayer.getAgentType())) {
+      isEqual = false;
+    }
+
+    return isEqual;
   }
 
   public abstract Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards, int handSize);

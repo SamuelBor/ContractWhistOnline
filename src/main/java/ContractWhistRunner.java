@@ -1,5 +1,6 @@
 import component.*;
 
+import java.io.*;
 import java.util.ArrayList;
 
 class ContractWhistRunner {
@@ -9,55 +10,113 @@ class ContractWhistRunner {
     private static ArrayList<Player> players;
     static int TIME_DELAY = 1250;
 
-    static void playContractWhist(Trumps t, ArrayList p) throws InterruptedException {
+    static void playContractWhist(Trumps t, ArrayList p) throws InterruptedException, IOException {
         System.out.println("Playing Contract whist");
         int fullGames;
         players = p;
 
-        for(fullGames = 0; fullGames<1000; fullGames++){
-
+        for(fullGames = 0; fullGames<3; fullGames++){
             for(int handSize = 7; handSize>0; handSize--){
-                HAND_SIZE = handSize;
-                d = new Deck();
-                dealCards(d);
-
-                ContractWhistOnline.newHand();
-
-                // Prediction
-                Predictor.newPrediction(players, TIME_DELAY);
-
-                // Game Stage
-                t.runTrumps(handSize, players);
-
-//                for (Player player : players) {
-////                    System.out.println(player.getName() + " won " + player.getPoints() + " hands.");
-////                }
-
-                // Scoring
-                scorePlayers();
+                singleRound(handSize, t);
             }
 
             for(int handSize = 1; handSize<8; handSize++){
-                HAND_SIZE = handSize;
-                d = new Deck();
-                dealCards(d);
-
-                ContractWhistOnline.newHand();
-
-                // Prediction
-                Predictor.newPrediction(players, TIME_DELAY);
-
-                // Game Stage
-                t.runTrumps(handSize, players);
-
-//                for (Player player : players) {
-////                    System.out.println(player.getName() + " won " + player.getPoints() + " hands.");
-////                }
-
-                // Scoring
-                scorePlayers();
+                singleRound(handSize, t);
             }
         }
+    }
+
+    static void singleRound(int handSize, Trumps t) throws InterruptedException, IOException {
+        int trumpCallMin;
+        int highCall = -1;
+        int chosenTrumpSuit;
+        String trumpStr = "";
+        Player highCallPlayer = null;
+
+        HAND_SIZE = handSize;
+        d = new Deck();
+        dealCards(d);
+
+        ContractWhistOnline.newHand();
+
+        for(Player player : players) {
+            player.setPrediction(-1);
+            player.setP1Confidence(-1.00);
+            player.setP1Confidence(-1.00);
+            player.analyseHand();
+            System.out.println("Hand Analysed.");
+        }
+
+        for (Player player : players) {
+            trumpCallMin = Math.min(handSize, highCall+1);
+            player.setTrumpCallMin(trumpCallMin);
+            for (Player subplayer : players){
+                if(!subplayer.equals(player)){
+                    double confidence = (double) subplayer.getPrediction() / handSize;
+                    if(confidence < 0){
+                        confidence = 0;
+                    }
+
+                    if(player.getP1Confidence()<0){
+                        player.setP1Confidence(confidence);
+                    } else {
+                        player.setP2Confidence(confidence);
+                    }
+                }
+            }
+
+            // Prediction
+            System.out.println("Going into prediction phase.");
+            Predictor.newPrediction(player, TIME_DELAY);
+            System.out.println("Got out of prediction phase.");
+            if ( highCall < player.getPrediction() ) {
+                highCall = player.getPrediction();
+                highCallPlayer = player;
+            }
+        }
+
+        // High call player will never be null as all players will predict at least 0
+        assert highCallPlayer != null;
+        chosenTrumpSuit = highCallPlayer.getChosenTrump();
+
+        switch(chosenTrumpSuit){
+            case 1:  trumpStr = "♣";
+                break;
+            case 2:  trumpStr = "♥";
+                break;
+            case 3:  trumpStr = "♦";
+                break;
+            case 4:  trumpStr = "♠";
+                break;
+        }
+        
+        System.out.println(highCallPlayer.getName() + " set the trump as " + trumpStr);
+        
+        // Game Stage
+        t.runTrumps(handSize, players, chosenTrumpSuit);
+
+        for (Player player : players) {
+
+            outputToTrainingSet(
+                    player.getAgentType(),
+                    handSize,
+                    player.getSameSuitSum(),
+                    player.getHandPointsSum(),
+                    player.getAceCount(),
+                    player.getKingCount(),
+                    player.getQueenCount(),
+                    player.getJackCount(),
+                    (handSize*PLAYER_COUNT),
+                    player.getTrumpCallMin(),
+                    player.getP1Confidence(),
+                    player.getP2Confidence(),
+                    player.getPoints(),
+                    player.getPrediction()
+                    );
+        }
+
+        // Scoring
+        scorePlayers();
     }
 
     static Deck getDeck() {
@@ -103,4 +162,54 @@ class ContractWhistRunner {
         }
 
     }
+
+    static void outputToTrainingSet(String agentType, int cardsInHand, int sameSuitSum, int handPointSum, int aceCount, int kingCount, int queenCount, int jackCount, int cardsInPlay, int trumpCallMin, double p1Confidence, double p2Confidence, int handsWon, int prediction) {
+        BufferedWriter writer = null;
+        String filename;
+        String outRow = "";
+
+        filename = "src/main/resources/ml/training" + agentType + ".csv";
+
+        outRow += cardsInHand;
+        outRow += ",";
+        outRow += sameSuitSum;
+        outRow += ",";
+        outRow += handPointSum;
+        outRow += ",";
+        outRow += aceCount;
+        outRow += ",";
+        outRow += kingCount;
+        outRow += ",";
+        outRow += queenCount;
+        outRow += ",";
+        outRow += jackCount;
+        outRow += ",";
+        outRow += cardsInPlay;
+        outRow += ",";
+        outRow += trumpCallMin;
+        outRow += ",";
+        outRow += p1Confidence;
+        outRow += ",";
+        outRow += p2Confidence;
+        outRow += ",";
+        outRow += prediction;
+        outRow += ",";
+        outRow += handsWon;
+        outRow += "\n";
+
+        try {
+            File trainingFile = new File(filename);
+            writer = new BufferedWriter(new FileWriter(trainingFile, true));
+            writer.write(outRow);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Close the writer regardless of success
+                writer.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
 }

@@ -14,8 +14,9 @@ class Trumps {
   private ArrayList<Player> players = new ArrayList<>();
   private int trumpSuit;
 
-  Player runTrumps(int handSize, ArrayList<Player> p) throws InterruptedException{
+  Player runTrumps(int handSize, ArrayList<Player> p, int trump) throws InterruptedException{
      HAND_SIZE = handSize;
+     this.trumpSuit = trump;
      this.players = p;
 
      PLAYER_COUNT = players.size();
@@ -38,7 +39,6 @@ class Trumps {
   private Player restartGame() throws InterruptedException{
     playedCards = new Stack<>();
     allPlayedCards = new ArrayList<Card>();
-    trumpSuit = getTrump();
     turn = 1;
 
     for(int i = PLAYER_COUNT - 1; i>-1; i--){
@@ -129,14 +129,6 @@ class Trumps {
     ContractWhistOnline.updateCurrentHands(topScorer, players.get(topScorer).getPoints());
 
     return endTurn(topScorer);
-  }
-
-
-  private int getTrump(){
-    // Removes a card from the top of the deck and takes its suit to be the trump card
-    Card c = ContractWhistRunner.getDeck().getTopCard();
-
-    return c.getSuit();
   }
 
   private Player endTurn(int turnWinner) throws InterruptedException{
