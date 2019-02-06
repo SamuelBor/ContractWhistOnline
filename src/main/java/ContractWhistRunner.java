@@ -17,7 +17,9 @@ class ContractWhistRunner {
         int fullGames;
         players = p;
 
-        for(fullGames = 0; fullGames<3; fullGames++){
+        for(fullGames = 0; fullGames<1000; fullGames++){
+            System.out.println("Starting Game: " + fullGames);
+
             for(int handSize = 7; handSize>0; handSize--){
                 singleRound(handSize, t);
             }
@@ -75,7 +77,7 @@ class ContractWhistRunner {
             // Once a prediction is made check that it obeys the required constraints
             // If not then try to deviate by as little as possible, either towards the trump control or below with a pessimistic view
             System.out.println("Going into prediction phase.");
-            int pred = Predictor.newPrediction(player, TIME_DELAY);
+            int pred = Predictor.newPrediction(player, PLAYER_COUNT);
 
             if ( pred == 0 && player.getZeroesCalled()>ZERO_LIMIT){
                 pred = 1;
@@ -89,6 +91,10 @@ class ContractWhistRunner {
                 } else {
                     pred = pred - 1;
                 }
+            }
+
+            if (pred==0) {
+                player.incrementZeroesCalled();
             }
 
             player.setPrediction(pred);
@@ -136,8 +142,7 @@ class ContractWhistRunner {
                     player.getTrumpCallMin(),
                     player.getP1Confidence(),
                     player.getP2Confidence(),
-                    player.getPoints(),
-                    player.getPrediction()
+                    player.getPoints()
                     );
         }
 
@@ -189,7 +194,7 @@ class ContractWhistRunner {
 
     }
 
-    static void outputToTrainingSet(String agentType, int cardsInHand, int sameSuitSum, int handPointSum, int aceCount, int kingCount, int queenCount, int jackCount, int cardsInPlay, int trumpCallMin, double p1Confidence, double p2Confidence, int handsWon, int prediction) {
+    static void outputToTrainingSet(String agentType, int cardsInHand, int sameSuitSum, int handPointSum, int aceCount, int kingCount, int queenCount, int jackCount, int cardsInPlay, int trumpCallMin, double p1Confidence, double p2Confidence, int handsWon) {
         BufferedWriter writer = null;
         String filename;
         String outRow = "";
@@ -207,7 +212,6 @@ class ContractWhistRunner {
         outRow += trumpCallMin + ",";
         outRow += p1Confidence + ",";
         outRow += p2Confidence + ",";
-        outRow += prediction + ",";
         outRow += handsWon;
         outRow += "\n";
 

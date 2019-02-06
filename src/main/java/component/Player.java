@@ -3,6 +3,7 @@ package component;
 import java.util.Stack;
 import java.util.ArrayList;
 
+@SuppressWarnings("Duplicates")
 public abstract class Player {
   ArrayList<Card> pHand = new ArrayList<>();
   private String name;
@@ -210,8 +211,6 @@ public abstract class Player {
       }
     }
   }
-
-
 
   public void analyseHand(){
     int cSum = 0;
