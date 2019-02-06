@@ -21,6 +21,7 @@ public abstract class Player {
   private int chosenTrump = 0;
   private double p1Confidence;
   private double p2Confidence;
+  private int zeroesCalled = 0;
 
 
   Player(String name, int id, String type){
@@ -89,6 +90,10 @@ public abstract class Player {
     return chosenTrump;
   }
 
+  public int getZeroesCalled(){
+    return zeroesCalled;
+  }
+
   public double getP1Confidence() {
     return p1Confidence;
   }
@@ -97,8 +102,62 @@ public abstract class Player {
     return p2Confidence;
   }
 
+  ArrayList[] getValidCards(int leadSuit, boolean first){
+    ArrayList[] cardSets = new ArrayList[2];
+
+    // Initialises arraylists so they can actually be used
+    cardSets[0] = new ArrayList<Card>();
+    cardSets[1] = new ArrayList<Card>();
+
+    // System.out.println("Getting valid cards.");
+
+    for(Card card : pHand){
+      int currentSuit;
+
+      // System.out.println("Looking at " + card.toMiniString());
+
+      currentSuit = card.getSuit();
+      if(currentSuit==leadSuit || first){
+        // Valid Cards
+        cardSets[0].add(card);
+      } else {
+        cardSets[1].add(card);
+      }
+    }
+
+    return cardSets;
+  }
+
+  Card getLowest(ArrayList<Card> cardSet){
+    Card lowest = cardSet.get(0);
+
+    for(Card card : cardSet){
+      if(card.getScore()<lowest.getScore()){
+        lowest = card;
+      }
+    }
+
+    return lowest;
+  }
+
+  Card getHighest(ArrayList<Card> cardSet){
+    Card highest = cardSet.get(0);
+
+    for(Card card : cardSet){
+      if(card.getScore()>highest.getScore()){
+        highest = card;
+      }
+    }
+
+    return highest;
+  }
+
   public void increaseScore(int amount){
     score += amount;
+  }
+
+  public void incrementZeroesCalled(){
+    zeroesCalled++;
   }
 
   public void setPrediction(int p) {
@@ -129,33 +188,15 @@ public abstract class Player {
     points = 0;
   }
 
+  public void resetZeroesCalled(){
+    zeroesCalled = 0;
+  }
+
   public void setPoints(int points){
     this.points = points;
   }
 
-  Card getLowest(ArrayList<Card> cardSet){
-    Card lowest = cardSet.get(0);
 
-    for(Card card : cardSet){
-      if(card.getScore()<lowest.getScore()){
-        lowest = card;
-      }
-    }
-
-    return lowest;
-  }
-
-  Card getHighest(ArrayList<Card> cardSet){
-    Card highest = cardSet.get(0);
-
-    for(Card card : cardSet){
-      if(card.getScore()>highest.getScore()){
-        highest = card;
-      }
-    }
-
-    return highest;
-  }
 
   void assignCardScore(ArrayList<Card> hand, boolean first, int trumpSuit, int leadSuit){
     for (Card card : hand) {
@@ -170,31 +211,7 @@ public abstract class Player {
     }
   }
 
-  ArrayList[] getValidCards(int leadSuit, boolean first){
-    ArrayList[] cardSets = new ArrayList[2];
 
-    // Initialises arraylists so they can actually be used
-    cardSets[0] = new ArrayList<Card>();
-    cardSets[1] = new ArrayList<Card>();
-
-    // System.out.println("Getting valid cards.");
-
-    for(Card card : pHand){
-      int currentSuit;
-
-      // System.out.println("Looking at " + card.toMiniString());
-
-      currentSuit = card.getSuit();
-      if(currentSuit==leadSuit || first){
-        // Valid Cards
-        cardSets[0].add(card);
-      } else {
-        cardSets[1].add(card);
-      }
-    }
-
-    return cardSets;
-  }
 
   public void analyseHand(){
     int cSum = 0;

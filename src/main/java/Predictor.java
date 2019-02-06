@@ -15,6 +15,7 @@ public class Predictor {
         Classifier knn = new KNearestNeighbors(7);
 
         String filename = "src/main/resources/ml/training" + player.getAgentType() + ".csv";
+
         Dataset trainingData;
         try{
             trainingData = FileHandler.loadDataset(new File(filename), 12, ",");
@@ -31,12 +32,6 @@ public class Predictor {
         }
 
         System.out.println("    Made prediction: " + prediction);
-
-        // Set prediction as 2 for now to observe change in behaviour from trying to win to trying to lose
-        player.setPrediction(prediction);
-
-        ContractWhistOnline.makePrediction(player.getID(), player.getPrediction());
-        Thread.sleep(TIME_DELAY);
         return prediction;
     }
 }

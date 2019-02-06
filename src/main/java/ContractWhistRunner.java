@@ -3,10 +3,12 @@ import component.*;
 import java.io.*;
 import java.util.ArrayList;
 
+@SuppressWarnings("Duplicates")
 class ContractWhistRunner {
     private static Deck d = new Deck();
-    private static int PLAYER_COUNT = 3;
+    final private static int PLAYER_COUNT = 3;
     private static int HAND_SIZE = 7;
+    final private static int ZERO_LIMIT = 5;
     private static ArrayList<Player> players;
     static int TIME_DELAY = 1250;
 
@@ -39,36 +41,60 @@ class ContractWhistRunner {
 
         ContractWhistOnline.newHand();
 
-        for(Player player : players) {
+        for ( Player player : players ) {
             player.setPrediction(-1);
             player.setP1Confidence(-1.00);
             player.setP1Confidence(-1.00);
             player.analyseHand();
-            System.out.println("Hand Analysed.");
         }
 
-        for (Player player : players) {
+        // Make sure this sum variable is not equal to HAND_SIZE
+        int predSum = 0;
+        int playerCount = 0;
+
+        for ( Player player : players ) {
+            playerCount++;
             trumpCallMin = Math.min(handSize, highCall+1);
-            player.setTrumpCallMin(trumpCallMin);
-            for (Player subplayer : players){
-                if(!subplayer.equals(player)){
+            player.setTrumpCallMin( trumpCallMin );
+            for ( Player subplayer : players ){
+                if ( !subplayer.equals(player) ){
                     double confidence = (double) subplayer.getPrediction() / handSize;
-                    if(confidence < 0){
+                    if ( confidence < 0 ){
                         confidence = 0;
                     }
 
-                    if(player.getP1Confidence()<0){
-                        player.setP1Confidence(confidence);
+                    if( player.getP1Confidence() < 0 ){
+                        player.setP1Confidence( confidence );
                     } else {
-                        player.setP2Confidence(confidence);
+                        player.setP2Confidence( confidence );
                     }
                 }
             }
 
             // Prediction
+            // Once a prediction is made check that it obeys the required constraints
+            // If not then try to deviate by as little as possible, either towards the trump control or below with a pessimistic view
             System.out.println("Going into prediction phase.");
-            Predictor.newPrediction(player, TIME_DELAY);
-            System.out.println("Got out of prediction phase.");
+            int pred = Predictor.newPrediction(player, TIME_DELAY);
+
+            if ( pred == 0 && player.getZeroesCalled()>ZERO_LIMIT){
+                pred = 1;
+            }
+
+            predSum += pred;
+
+            if ( playerCount== PLAYER_COUNT && predSum == HAND_SIZE) {
+                if( (pred+1)==player.getTrumpCallMin() ){
+                    pred = pred + 1;
+                } else {
+                    pred = pred - 1;
+                }
+            }
+
+            player.setPrediction(pred);
+            ContractWhistOnline.makePrediction(player.getID(), player.getPrediction());
+            Thread.sleep(TIME_DELAY);
+
             if ( highCall < player.getPrediction() ) {
                 highCall = player.getPrediction();
                 highCallPlayer = player;
@@ -76,7 +102,7 @@ class ContractWhistRunner {
         }
 
         // High call player will never be null as all players will predict at least 0
-        assert highCallPlayer != null;
+        // assert highCallPlayer != null;
         chosenTrumpSuit = highCallPlayer.getChosenTrump();
 
         switch(chosenTrumpSuit){
@@ -170,30 +196,18 @@ class ContractWhistRunner {
 
         filename = "src/main/resources/ml/training" + agentType + ".csv";
 
-        outRow += cardsInHand;
-        outRow += ",";
-        outRow += sameSuitSum;
-        outRow += ",";
-        outRow += handPointSum;
-        outRow += ",";
-        outRow += aceCount;
-        outRow += ",";
-        outRow += kingCount;
-        outRow += ",";
-        outRow += queenCount;
-        outRow += ",";
-        outRow += jackCount;
-        outRow += ",";
-        outRow += cardsInPlay;
-        outRow += ",";
-        outRow += trumpCallMin;
-        outRow += ",";
-        outRow += p1Confidence;
-        outRow += ",";
-        outRow += p2Confidence;
-        outRow += ",";
-        outRow += prediction;
-        outRow += ",";
+        outRow += cardsInHand + ",";
+        outRow += sameSuitSum + ",";
+        outRow += handPointSum + ",";
+        outRow += aceCount + ",";
+        outRow += kingCount + ",";
+        outRow += queenCount + ",";
+        outRow += jackCount + ",";
+        outRow += cardsInPlay + ",";
+        outRow += trumpCallMin + ",";
+        outRow += p1Confidence + ",";
+        outRow += p2Confidence + ",";
+        outRow += prediction + ",";
         outRow += handsWon;
         outRow += "\n";
 
