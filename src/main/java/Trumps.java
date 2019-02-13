@@ -187,7 +187,7 @@ class Trumps {
         ContractWhistRunner.TIME_DELAY = 300;
         break;
       case 5:
-        ContractWhistRunner.TIME_DELAY = 1;
+        ContractWhistRunner.TIME_DELAY = 0;
         break;
       default:
         System.out.println("Error Changing Speed. Level " + level + " not recognised.");

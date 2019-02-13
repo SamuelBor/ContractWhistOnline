@@ -55,6 +55,8 @@ public class Predictor {
         } else {
             // Once there are 10 entries in the field, the svm builds a classifier on the training data
             svm.buildClassifier(trainingData);
+
+            System.out.println("Built Classifier");
             // Then classifies based on the test data stored in the instance double
             Object classValue = svm.classify(instance);
             // Finally tries to cast into an int
@@ -62,6 +64,8 @@ public class Predictor {
                 prediction = Integer.parseInt((String) classValue);
             } catch (Exception e) {
                 System.out.println("Houston we have a problem");
+                System.out.println(e);
+                e.printStackTrace();
                 prediction = (int) Math.floor((double) classValue);
             }
         }

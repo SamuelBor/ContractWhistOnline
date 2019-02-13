@@ -2,6 +2,7 @@ import component.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 @SuppressWarnings("Duplicates")
 class ContractWhistRunner {
@@ -12,30 +13,50 @@ class ContractWhistRunner {
     private static ArrayList<Player> players;
     static int TIME_DELAY = 1250;
 
+
     static void playContractWhist(Trumps t, ArrayList p) throws InterruptedException, IOException {
         System.out.println("Playing Contract whist");
-        int fullGames;
         players = p;
+        int fullGames;
+        Player firstCall;
+        Ring playerRing = new Ring(players);
+        Iterator playerIt = playerRing.iterator();
 
         for(fullGames = 0; fullGames<1000; fullGames++){
             System.out.println("Starting Game: " + fullGames);
 
             for(int handSize = 7; handSize>0; handSize--){
-                singleRound(handSize, t);
+                firstCall = (Player) playerIt.next();
+                singleRound(handSize, t, firstCall);
             }
 
             for(int handSize = 1; handSize<8; handSize++){
-                singleRound(handSize, t);
+                firstCall = (Player) playerIt.next();
+                singleRound(handSize, t, firstCall);
             }
         }
     }
 
-    static void singleRound(int handSize, Trumps t) throws InterruptedException, IOException {
+    static void singleRound(int handSize, Trumps t, Player firstCall) throws InterruptedException, IOException {
         int trumpCallMin;
         int highCall = -1;
         int chosenTrumpSuit;
         String trumpStr = "";
         Player highCallPlayer = null;
+        Ring playerRing = new Ring(players);
+        Iterator playerIt = playerRing.iterator();
+        Player queryPlayer = (Player) playerIt.next();
+        ArrayList<Player> playerCalls = new ArrayList<Player>();
+
+        for ( int i = 0; i<3; i++){
+            if(queryPlayer != firstCall){
+                queryPlayer = (Player) playerIt.next();
+            }
+        }
+
+        playerCalls.add(firstCall);
+        playerCalls.add((Player) playerIt.next());
+        playerCalls.add((Player) playerIt.next());
 
         HAND_SIZE = handSize;
         d = new Deck();
@@ -54,7 +75,7 @@ class ContractWhistRunner {
         int predSum = 0;
         int playerCount = 0;
 
-        for ( Player player : players ) {
+        for ( Player player : playerCalls ) {
             playerCount++;
             trumpCallMin = Math.min(handSize, highCall+1);
             player.setTrumpCallMin( trumpCallMin );

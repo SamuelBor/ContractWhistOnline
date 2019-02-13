@@ -13,9 +13,8 @@ public class ContractWhistOnline {
     public static Trumps t = new Trumps();
     static Map<Session, String> userUsernameMap = new ConcurrentHashMap<>();
     static int nextUserNumber = 1; //Assign to username for next connecting user
-    static ExecutorService threadPool = Executors.newFixedThreadPool(2);
-    static CompletionService<String> pool = new ExecutorCompletionService<>(threadPool);
-    static ContractWhistRunner c = new ContractWhistRunner();
+    private static ExecutorService threadPool = Executors.newFixedThreadPool(2);
+    private static CompletionService<String> pool = new ExecutorCompletionService<>(threadPool);
     static ArrayList<Player> players = new ArrayList();
 
     public static void main(String[] args){
