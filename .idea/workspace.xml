@@ -2,24 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ac8c16a-9f4a-424c-9aa9-6287f6fa746f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/component/Ring.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ContractWhistOnline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ContractWhistOnline.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ContractWhistRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ContractWhistRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Predictor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Predictor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Trumps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Trumps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lib/Jama-1.0.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lib/ajt-2.9.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lib/commons-math-1.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lib/javaml-0.1.7.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lib/libsvm.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lib/weka.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ml/trainingMAX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ml/trainingMAX.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ml/trainingMINIMAX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ml/trainingMINIMAX.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ml/trainingMONTE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ml/trainingMONTE.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/public/css/stylesOld.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ContractWhistRunner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ContractWhistRunner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Predictor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Predictor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Trumps.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Trumps.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ml/trainingMAX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ml/trainingMAX.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ml/trainingMINIMAX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ml/trainingMINIMAX.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ml/trainingMONTE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ml/trainingMONTE.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/css/stylesOld.css" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -34,17 +30,27 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ContractWhistOnline.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1149">
-              <caret line="20" column="53" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+            <state relative-caret-position="88">
+              <caret line="194" selection-start-line="194" selection-end-line="194" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#phase2Update#0;class#ContractWhistOnline#0" />
-                <element signature="method#showWinner#0;class#ContractWhistOnline#0" />
                 <element signature="method#newHand#0;class#ContractWhistOnline#0" />
                 <element signature="method#makePrediction#0;class#ContractWhistOnline#0" />
                 <element signature="method#updateCurrentHands#0;class#ContractWhistOnline#0" />
+                <element signature="method#updateScore#0;class#ContractWhistOnline#0" />
                 <element signature="method#updateGame#0;class#ContractWhistOnline#0" />
+                <element signature="method#renderInfo#0;class#ContractWhistOnline#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1005">
+              <caret line="67" column="20" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -52,12 +58,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Trumps.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="184" column="14" selection-start-line="184" selection-start-column="14" selection-end-line="184" selection-end-column="14" />
+            <state relative-caret-position="345">
+              <caret line="134" column="11" selection-start-line="134" selection-start-column="11" selection-end-line="134" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4999#5000#0" expanded="true" />
-                <element signature="e#5059#5060#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -66,29 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ContractWhistRunner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1224">
-              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
-              <folding>
-                <element signature="e#1683#1691#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/velocity/whist.vm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/component/Ring.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="22" column="35" lean-forward="true" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+            <state relative-caret-position="-1">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -96,30 +79,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Predictor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="51" column="41" lean-forward="true" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
+            <state relative-caret-position="364">
+              <caret line="69" column="13" lean-forward="true" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#412#451#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/component/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2618">
-              <caret line="213" selection-start-line="213" selection-end-line="213" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/GameTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -178,7 +142,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/sparki.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/model/Todo.java" />
         <option value="$PROJECT_DIR$/src/main/resources/velocity/todoList.vm" />
         <option value="$PROJECT_DIR$/src/main/java/BasicTodoList.java" />
@@ -200,12 +163,14 @@
         <option value="$PROJECT_DIR$/src/main/java/GameTask.java" />
         <option value="$PROJECT_DIR$/src/main/java/component/Card.java" />
         <option value="$PROJECT_DIR$/src/main/java/component/Player.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Trumps.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Predictor.java" />
         <option value="$PROJECT_DIR$/src/main/java/component/ring.java" />
         <option value="$PROJECT_DIR$/src/main/java/component/Ring.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ContractWhistRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/ContractWhistOnline.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Trumps.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ContractWhistRunner.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/main/java/Predictor.java" />
       </list>
     </option>
   </component>
@@ -216,9 +181,10 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="798" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -226,6 +192,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,30 +223,13 @@
               <item name="ContractWhistOnline" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="component" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ContractWhistOnline" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ContractWhistOnline" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ContractWhistOnline" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ContractWhistOnline" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="velocity" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -287,9 +237,9 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549525070998" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.43103448" />
+    <property name="project.structure.side.proportion" value="0.3873563" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
@@ -397,11 +347,13 @@
       <workItem from="1549388192194" duration="276000" />
       <workItem from="1549388492999" duration="784000" />
       <workItem from="1549457328957" duration="14978000" />
+      <workItem from="1550234043416" duration="58000" />
+      <workItem from="1550397421401" duration="4952000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16038000" />
+    <option name="totallyTimeSpent" value="21048000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -413,10 +365,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="797" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="798" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25107297" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2653791" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -426,7 +377,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32891566" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49785408" weight="0.29638556" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4978678" visible="true" weight="0.4028369" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.4978678" visible="true" weight="0.5651558" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -506,10 +457,10 @@
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ContractWhistRunner.java</url>
-          <line>77</line>
+          <url>file://$PROJECT_DIR$/src/main/java/ContractWhistOnline.java</url>
+          <line>102</line>
           <properties />
-          <option name="timeStamp" value="40" />
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -519,13 +470,6 @@
     <entry file="file://$USER_HOME$/Documents/cs310/ContractWhist/sparkTest.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/sparki.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/TodoList.java" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="52" column="21" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/Status.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/model/TodoDao.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/model/Todo.java" />
@@ -692,9 +636,16 @@
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/jdk/internal/misc/Unsafe.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/component/Ring.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/component/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2618">
+        <state relative-caret-position="625">
           <caret line="213" selection-start-line="213" selection-end-line="213" />
         </state>
       </provider>
@@ -706,65 +657,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/component/Ring.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="22" column="35" lean-forward="true" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Predictor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="51" column="41" lean-forward="true" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#412#451#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="153">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/velocity/whist.vm">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="67" column="20" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Predictor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="69" column="13" lean-forward="true" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ContractWhistRunner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
-          <folding>
-            <element signature="e#1683#1691#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-1">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Trumps.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="184" column="14" selection-start-line="184" selection-start-column="14" selection-end-line="184" selection-end-column="14" />
+        <state relative-caret-position="345">
+          <caret line="134" column="11" selection-start-line="134" selection-start-column="11" selection-end-line="134" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4999#5000#0" expanded="true" />
-            <element signature="e#5059#5060#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ContractWhistOnline.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1149">
-          <caret line="20" column="53" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+        <state relative-caret-position="88">
+          <caret line="194" selection-start-line="194" selection-end-line="194" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#phase2Update#0;class#ContractWhistOnline#0" />
-            <element signature="method#showWinner#0;class#ContractWhistOnline#0" />
             <element signature="method#newHand#0;class#ContractWhistOnline#0" />
             <element signature="method#makePrediction#0;class#ContractWhistOnline#0" />
             <element signature="method#updateCurrentHands#0;class#ContractWhistOnline#0" />
+            <element signature="method#updateScore#0;class#ContractWhistOnline#0" />
             <element signature="method#updateGame#0;class#ContractWhistOnline#0" />
+            <element signature="method#renderInfo#0;class#ContractWhistOnline#0" />
           </folding>
         </state>
       </provider>
@@ -809,7 +762,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>11</last-edited>
+          <last-edited>9</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -825,7 +778,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.43103448" />
+                <option value="0.3873563" />
                 <option value="0.6" />
               </list>
             </option>
@@ -838,7 +791,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.43103448" />
+                <option value="0.3873563" />
               </list>
             </option>
           </splitter-proportions>

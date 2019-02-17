@@ -48,7 +48,7 @@ class ContractWhistRunner {
         Player queryPlayer = (Player) playerIt.next();
         ArrayList<Player> playerCalls = new ArrayList<Player>();
 
-        for ( int i = 0; i<3; i++){
+        for ( int i = 0; i < PLAYER_COUNT; i++){
             if(queryPlayer != firstCall){
                 queryPlayer = (Player) playerIt.next();
             }
@@ -64,6 +64,7 @@ class ContractWhistRunner {
 
         ContractWhistOnline.newHand();
 
+        // Loops through players in a default order as order is irrelevant here
         for ( Player player : players ) {
             player.setPrediction(-1);
             player.setP1Confidence(-1.00);
@@ -75,6 +76,7 @@ class ContractWhistRunner {
         int predSum = 0;
         int playerCount = 0;
 
+        // Here loops through the players in an order as the first person to call their prediction has an advantage
         for ( Player player : playerCalls ) {
             playerCount++;
             trumpCallMin = Math.min(handSize, highCall+1);

@@ -5,9 +5,9 @@ import java.lang.Math;
 import java.util.*;
 
 class Trumps {
-  private static int HAND_SIZE;
+  private static int HAND_SIZE = 7;
   private static int PLAYER_COUNT = 3;
-  private int turn;
+  private int turn = 1;
   private Stack<Card> playedCards;
   private ArrayList<Card> allPlayedCards;
   private Stack<Integer> playersToGo = new Stack<>();
