@@ -241,16 +241,7 @@ public class ContractWhistOnline {
 
     public static String renderInfo(Request req) {
         Map<String, Object> model = new HashMap<>();
-        ArrayList<String> playerNames = new ArrayList();
-
-        for(int i=0; i<3;i++){
-            playerNames.add(players.get(i).getName());
-        }
-
-        model.put("cardsLeft", (t.getCardsLeft()));
-        model.put("player1", playerNames.get(0));
-        model.put("player2", playerNames.get(1));
-        model.put("player3", playerNames.get(2));
+        model.put("cardsLeft", "7");
 
         if ("true".equals(req.queryParams("ic-request"))) {
             return renderTemplate("velocity/whist.vm", model);

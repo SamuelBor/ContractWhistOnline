@@ -11,11 +11,10 @@
         #parse("/velocity/whist.vm")
     </section>
     <div id="info">
-        <p>Samuel Bor 2019</p>
+        Samuel Bor 2019
     </div>
     <script src="/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="/js/vendor/intercooler-0.9.6.min.js"></script>
-    <script src="/js/gameInfo.js"></script>
     <script src="/js/app.js"></script>
 </body>
 </html>

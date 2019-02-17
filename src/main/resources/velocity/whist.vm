@@ -1,25 +1,22 @@
-<header ic-include='{"status":"$status"}'>
+<header>
     <h1>Contract Whist Online</h1>
-
 </header>
 
-<section id="main" ic-include='{"status":"$status"}'>
-
-
+<section id="main">
     <div id="LeftBlock">
         <h2> Game Information </h2>
         <hr>
         <p> Cards Left: <strong id="cardsLeft">$cardsLeft</strong> </p>
         <p> Trump: <strong id="trumpLabel"></strong> </p>
-        <p> $player1's Prediction: <strong id="player1Prediction"></strong> </p>
-        <p> $player1's Current Hands Won: <strong id="player1Current">0</strong> </p>
-        <p> $player1's Score: <strong id="player1Score">0</strong> </p>
-        <p> $player2's Prediction: <strong id="player2Prediction"></strong> </p>
-        <p> $player2's Current Hands Won: <strong id="player2Current">0</strong> </p>
-        <p> $player2's Score: <strong id="player2Score">0</strong> </p>
-        <p> $player3's Prediction: <strong id="player3Prediction"></strong> </p>
-        <p> $player3's Current Hands Won: <strong id="player3Current">0</strong> </p>
-        <p> $player3's Score: <strong id="player3Score">0</strong> </p>
+        <p> <span id="player1Name">P1</span>'s Prediction: <strong id="player1Prediction"></strong> </p>
+        <p> <span id="player1Name">P1</span>'s Current Hands Won: <strong id="player1Current">0</strong> </p>
+        <p> <span id="player1Name">P1</span>'s Score: <strong id="player1Score">0</strong> </p>
+        <p> <span id="player2Name">P2</span>'s Prediction: <strong id="player2Prediction"></strong> </p>
+        <p> <span id="player2Name">P2</span>'s Current Hands Won: <strong id="player2Current">0</strong> </p>
+        <p> <span id="player2Name">P2</span>'s Score: <strong id="player2Score">0</strong> </p>
+        <p> <span id="player3Name">P3</span>'s Prediction: <strong id="player3Prediction"></strong> </p>
+        <p> <span id="player3Name">P3</span>'s Current Hands Won: <strong id="player3Current">0</strong> </p>
+        <p> <span id="player3Name">P3</span>'s Score: <strong id="player3Score">0</strong> </p>
 
         <p><strong>Set Speed: </strong> <span id="speedLabel">Normal</span></p>
           <div class="slidecontainer">
@@ -32,7 +29,7 @@
         </div>
         <div id=lowerGameArea>
         <div id="playerArea">
-            <h3 class="playerName">$player1</h3>
+            <h3 class="playerName"><span id="player1Name">P1</span></h3>
             <div class="playerHand" id="player1">
               <img class="fourRow" src="/cards/blank.png" id="player1card1" style="display:none;">
               <img class="card" src="/cards/blank.png" id="player1card2" style="display:none;">
@@ -43,8 +40,10 @@
               <img class="card" src="/cards/blank.png" id="player1card7" style="display:none;">
             </div>
         </div>
+
         <div id="playerArea">
-          <h3 class="playerName">$player2</h3>
+
+          <h3 class="playerName"><span id="player2Name">P2</span></h3>
           <div class="playerHand" id="player2">
             <img class="fourRow" src="/cards/blank.png" id="player2card1" style="display:none;">
             <img class="card" src="/cards/blank.png" id="player2card2" style="display:none;">
@@ -55,17 +54,37 @@
             <img class="card" src="/cards/blank.png" id="player2card7" style="display:none;">
           </div>
         </div>
+
         <div id="playerArea">
-          <h3 class="playerName">$player3</h3>
-          <div class="playerHand" id="player3">
-            <img class="fourRow" src="/cards/blank.png" id="player3card1" style="display:none;">
-            <img class="card" src="/cards/blank.png" id="player3card2" style="display:none;">
-            <img class="card" src="/cards/blank.png" id="player3card3" style="display:none;">
-            <img class="card" src="/cards/blank.png" id="player3card4" style="display:none;">
-            <img class="threeRow" src="/cards/blank.png" id="player3card5" style="display:none;">
-            <img class="card" src="/cards/blank.png" id="player3card6" style="display:none;">
-            <img class="card" src="/cards/blank.png" id="player3card7" style="display:none;">
-          </div>
+            <section class="gameStarted" style="display:none;">
+              <h3 class="playerName"> <span id="player3Name">P3</span> </h3>
+              <div class="playerHand" id="player3">
+                <img class="fourRow" src="/cards/blank.png" id="player3card1" style="display:none;">
+                <img class="card" src="/cards/blank.png" id="player3card2" style="display:none;">
+                <img class="card" src="/cards/blank.png" id="player3card3" style="display:none;">
+                <img class="card" src="/cards/blank.png" id="player3card4" style="display:none;">
+                <img class="threeRow" src="/cards/blank.png" id="player3card5" style="display:none;">
+                <img class="card" src="/cards/blank.png" id="player3card6" style="display:none;">
+                <img class="card" src="/cards/blank.png" id="player3card7" style="display:none;">
+              </div>
+            </section>
+            <section class="gameSetup">
+                <div class="dropdown">
+                    <button onclick="dropDown()" class="dropbtn" id="dropbtn3">Select Agent ▼</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <div onclick="agentSelect('Maximum', 3)">Maximum</div>
+                        <div onclick="agentSelect('MiniMax', 3)">MiniMax</div>
+                        <div onclick="agentSelect('Random', 3)">Random</div>
+                        <div onclick="agentSelect('Varying Trump', 3)">Varying Trump</div>
+                        <div onclick="agentSelect('Monte Carlo', 3)">Monte Carlo</div>
+                    </div>
+                    <form id="agentName" action="">
+                        Agent Name:<br>
+                        <input type="text" id="agentNameBox" value="Samuel">
+                    </form>
+                </div>
+
+            </section>
         </div>
         </div>
     </div>
