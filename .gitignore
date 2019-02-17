@@ -1,11 +1,9 @@
 
-.idea/misc.xml
-.idea/misc.xml
-.idea/workspace.xml
-.DS_Store
-src/.DS_Store
-src/main/.DS_Store
-src/main/resources/.DS_Store
-winChanceLog.txt
-src/main/.DS_Store
-target/
+/.idea/
+/.DS_Store
+/src/.DS_Store
+/src/main/.DS_Store
+/src/main/resources/.DS_Store
+/src/main/.DS_Store
+/target/
+src/main/resources/ml/.DS_Store
