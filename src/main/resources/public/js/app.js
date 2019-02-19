@@ -405,7 +405,29 @@ function dropDown(id) {
 }
 
 function agentSelect(agentType, player) {
-    id("dropbtn" + player).innerHTML = agentType + " ▼";
+    var agentString;
+
+    switch(agentType){
+        case "1":
+            agentString = "Maximum";
+            break;
+        case "2":
+            agentString = "Minimax";
+            break;
+        case "3":
+            agentString = "Random";
+            break;
+        case "4":
+            agentString = "Trump %";
+            break;
+        case "5":
+            agentString = "Monte Carlo";
+            break;
+        default:
+            agentString = "Unknown."
+    }
+
+    id("dropbtn" + player).innerHTML = agentString.concat(" ▼");
 
     switch (player) {
         case 1:
@@ -419,6 +441,68 @@ function agentSelect(agentType, player) {
             break;
     }
 
+}
+
+function startClicked(){
+    var accept = 1;
+
+    if ( p1AgentType===0 || p2AgentType===0 || p3AgentType===0){
+        alert("Please Ensure all 3 agent types have been assigned.");
+        accept = 0;
+    }
+
+    var p1Name = id("agentNameBox1").value;
+    var p2Name = id("agentNameBox2").value;
+    var p3Name = id("agentNameBox3").value;
+
+    if ( p1Name==="" || p2Name==="" || p3Name===""){
+        alert("Please Ensure all 3 agent have been given a name.");
+        accept = 0;
+    }
+
+    if (accept === 1) {
+        // Remove setup elements
+        var setups = document.getElementsByClassName("gameSetup");
+        var i;
+        for (i = 0; i < setups.length; i++) {
+            var openSetup = setups[i];
+            openSetup.style.display = "none";
+        }
+        id("start-btn").style.display = "none";
+
+        // Bring back game elements
+        var starters = document.getElementsByClassName("gameStarted");
+        for (i = 0; i < starters.length; i++) {
+            var openStartup = starters[i];
+            openStartup.style.display = "block";
+        }
+
+        id("lowerGameArea").style.marginTop = "260px";
+
+        // Change Player Name Labels
+        changePlayerName(1, p1Name);
+        changePlayerName(2, p2Name);
+        changePlayerName(3, p3Name);
+
+        // Initialise string to send to webserver
+        var socketString = "AGENTS:";
+        socketString = socketString.concat(p1AgentType + "," + p1Name + ",");
+        socketString = socketString.concat(p2AgentType + "," + p2Name + ",");
+        socketString = socketString.concat(p3AgentType + "," + p3Name);
+
+        // Communicate with web server and log message in the console
+        webSocket.send(socketString);
+        console.log(socketString);
+    }
+}
+
+function changePlayerName(player, name){
+    var labels = document.getElementsByClassName("player" + player + "Name");
+    var i;
+    for (i = 0; i < labels.length; i++) {
+        var label = labels[i];
+        label.innerHTML = name;
+    }
 }
 
 // Close the dropdown if the user clicks outside of it

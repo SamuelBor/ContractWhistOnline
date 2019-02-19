@@ -20,10 +20,6 @@ public class ContractWhistOnline {
     public static void main(String[] args){
         System.out.println("Initialising Application");
 
-        players.add(new MaxPlayer("Max", 0));
-        players.add(new MiniWinPlayer("Dave", 1));
-        players.add(new MonteCarloPlayer("Monte", 2));
-
         exception(Exception.class, (e, req, res) -> e.printStackTrace()); // print all exceptions
         staticFiles.location("/public");
 
@@ -36,17 +32,48 @@ public class ContractWhistOnline {
         get("/", (req, res) -> renderInfo(req));
     }
 
-    public static void startGameTask() throws InterruptedException {
+    static void addAgents(String agentString) {
+        String[] parts = agentString.split(",");
+
+        for(int i = 0; i<6 ; i=i+2){
+            String agentType = parts[i];
+            String agentName = parts[i+1];
+
+            switch(agentType){
+                case "1":
+                    players.add(new MaxPlayer(agentName, (i/2)));
+                    break;
+                case "2":
+                    players.add(new MiniWinPlayer(agentName, (i/2)));
+                    break;
+                case "3":
+                    players.add(new RandomPlayer(agentName, (i/2)));
+                    break;
+                case "4":
+                    players.add(new VaryingTrumpPlayer(agentName, (i/2)));
+                    break;
+                case "5":
+                    players.add(new MonteCarloPlayer(agentName, (i/2)));
+                    break;
+            }
+        }
+
+        // Now the agents are added to the game, start the game in a new thread
+        startGameTask();
+    }
+
+    // Creates a new thread to run the game
+    private static void startGameTask() {
         pool.submit(new GameTask());
     }
 
-    public static void startGame() throws InterruptedException, IOException {
+    // Starts the game
+    static void startGame() throws InterruptedException, IOException {
         System.out.println("STARTING GAME");
-
-        // ContractWhistRunner.playContractWhist(t, players);
+        ContractWhistRunner.playContractWhist(t, players);
     }
 
-    public static void phase1Update(int playerID, int trump, String cardsLeft) {
+    static void phase1Update(int playerID, int trump, String cardsLeft) {
         playerID++; // Account for 0 index
         String trumpString;
 
@@ -79,7 +106,7 @@ public class ContractWhistOnline {
         });
     }
 
-    public static void phase2Update(int playerID, int cardID) {
+    static void phase2Update(int playerID, int cardID) {
         playerID++; // Account for 0 index
         cardID++;
 
@@ -99,7 +126,7 @@ public class ContractWhistOnline {
         });
     }
 
-    public static void showWinner(int winnerID) {
+    static void showWinner(int winnerID) {
         winnerID++; // Account for 0 index
 
         String winner = Integer.toString(winnerID);
@@ -116,11 +143,11 @@ public class ContractWhistOnline {
         });
     }
 
-    public static void changeSpeed(int level){
+    static void changeSpeed(int level){
         t.changeSpeed(level);
     }
 
-    public static void newHand() {
+    static void newHand() {
         //Account for 0 index
         int playerID;
         ArrayList hand;
@@ -154,7 +181,7 @@ public class ContractWhistOnline {
         }
     }
 
-    public static void makePrediction(int playerID, int prediction) {
+    static void makePrediction(int playerID, int prediction) {
         playerID++; // Account for 0 index
 
         String playerStr = Integer.toString(playerID);
@@ -173,7 +200,7 @@ public class ContractWhistOnline {
         });
     }
 
-    public static void updateCurrentHands(int playerID, int currentHands) {
+    static void updateCurrentHands(int playerID, int currentHands) {
         playerID++; // Account for 0 index
 
         String playerStr = Integer.toString(playerID);
@@ -192,7 +219,7 @@ public class ContractWhistOnline {
         });
     }
 
-    public static void updateScore(int playerID, int score) {
+    static void updateScore(int playerID, int score) {
         playerID++; // Account for 0 index
 
         String playerStr = Integer.toString(playerID);
@@ -211,7 +238,7 @@ public class ContractWhistOnline {
         });
     }
 
-    public static void updateGame(String topCardSrc, int playerID, ArrayList hand) {
+    static void updateGame(String topCardSrc, int playerID, ArrayList hand) {
         //Account for 0 index
         playerID++;
 
@@ -239,7 +266,7 @@ public class ContractWhistOnline {
         });
     }
 
-    public static String renderInfo(Request req) {
+    private static String renderInfo(Request req) {
         Map<String, Object> model = new HashMap<>();
         model.put("cardsLeft", "7");
 

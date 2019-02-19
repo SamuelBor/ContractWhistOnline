@@ -5,11 +5,10 @@ import org.eclipse.jetty.websocket.api.annotations.*;
 public class WhistWebSocketHandler {
 
     @OnWebSocketConnect
-    public void onConnect(Session user) throws Exception {
+    public void onConnect(Session user) {
         String username = "User" + ContractWhistOnline.nextUserNumber++;
         System.out.println(username + " connected.");
         ContractWhistOnline.userUsernameMap.put(user, username);
-        ContractWhistOnline.startGameTask();
     }
 
     @OnWebSocketClose
@@ -24,6 +23,9 @@ public class WhistWebSocketHandler {
         switch(parts[0]){
             case "SPEED":
                 ContractWhistOnline.changeSpeed(Integer.parseInt(parts[1]));
+                break;
+            case "AGENTS":
+                ContractWhistOnline.addAgents(parts[1]);
                 break;
         }
     }
