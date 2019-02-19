@@ -43,7 +43,7 @@ public class ContractWhistOnline {
     public static void startGame() throws InterruptedException, IOException {
         System.out.println("STARTING GAME");
 
-        ContractWhistRunner.playContractWhist(t, players);
+        // ContractWhistRunner.playContractWhist(t, players);
     }
 
     public static void phase1Update(int playerID, int trump, String cardsLeft) {

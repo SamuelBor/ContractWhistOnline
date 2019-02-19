@@ -15,7 +15,8 @@ webSocket.onmessage = function (msg) {
     updateInfo(msg);
 };
 webSocket.onclose = function () { console.log("WebSocket Connection Closed"); };
-webSocket.onopen = function (event) {
+
+webSocket.onopen = function () {
     console.log("Connection established");
     webSocket.send('Connection established');
 };
@@ -50,6 +51,21 @@ slider.oninput = function() {
 };
 
 //Update the info-panel
+/**
+ * @param msg               Raw message passed from the back end
+ * @param msg.data          Data part of the message passed from the back end
+ * @param data              Data passed from the back end to be reflected to the front end.
+ * @param data.phase        Describes the type of message that is being passed
+ * @param data.trump        Shows what the current trump is to display in the information panel
+ * @param data.playerID     Contains the playerID to show which of the three players a change should be applied to
+ * @param data.cardsLeft    The number of cards left to be displayed in the information panel
+ * @param data.prediction   The prediction passed from the backend to be displayed in the info panel
+ * @param data.score        The player's current score
+ * @param data.current      The current number of hands the agent has won
+ * @param data.winnerID     The ID of the winning agent of a round
+ * @param data.topCard      The card most recently played, shown at the top of the screen
+ * @param data.cardID       The Id of the select
+ */
 function updateInfo(msg) {
     var data = JSON.parse(msg.data);
     switch(data.phase) {
@@ -99,7 +115,7 @@ function updateInfo(msg) {
             // New Hand - Display all the cards and the hands
             var hand = data.hand;
             handLayout(hand.length, hand, data);
-            showCards(hand.length);9
+            showCards(hand.length);
             break;
         case 6:
             // Player Submitting a prediction
@@ -127,7 +143,7 @@ function updateInfo(msg) {
 
             for (var i = 1; i < 4; i++) {
                 spanLabel = "player" + i + "Prediction";
-                element = document.getElementById(spanLabel);
+                var element = document.getElementById(spanLabel);
                 element.innerHTML = '';
             }
             break;
@@ -379,18 +395,13 @@ function showCards(cardCount) {
     }
 }
 
-//Helper function for inserting HTML as the first child of an element
-function insert(targetId, message) {
-    id(targetId).insertAdjacentHTML("afterbegin", message);
-}
-
 //Helper function for selecting element by id
 function id(id) {
     return document.getElementById(id);
 }
 
-function dropDown() {
-    document.getElementById("myDropdown").classList.toggle("show");
+function dropDown(id) {
+    document.getElementById("myDropdown" + id).classList.toggle("show");
 }
 
 function agentSelect(agentType, player) {
@@ -399,10 +410,13 @@ function agentSelect(agentType, player) {
     switch (player) {
         case 1:
             p1AgentType = agentType;
+            break;
         case 2:
             p2AgentType = agentType;
+            break;
         case 3:
             p3AgentType = agentType;
+            break;
     }
 
 }
@@ -420,4 +434,4 @@ window.onclick = function(event) {
             }
         }
     }
-}
+};

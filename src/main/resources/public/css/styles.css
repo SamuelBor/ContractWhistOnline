@@ -105,7 +105,7 @@ body {
     -moz-font-smoothing: antialiased;
     font-smoothing: antialiased;
     font-weight: 300;
-    padding: -10px 0 0 0;
+    padding: 20px 0 0 0;
     float:right;
     width: 75.5%;
     border-radius: 10px;
@@ -114,17 +114,19 @@ body {
 }
 
 #topCard {
-  margin-top: 20px;
   width: 15%;
   float: left;
   border-radius: 10px;
   border: 5px solid black;
-  margin-left: 42.5%;
   background-color: white;
 }
 
+#topGameArea {
+    margin-top: 20px;
+}
+
 #lowerGameArea {
- margin-top: 260px;
+ margin-top: 250px; /* change to 260 during main game */
 }
 
 .playerName {
@@ -136,23 +138,29 @@ body {
 }
 
 #playerArea {
-  margin-left: 2.3%;
+  margin-left: 2.3%; /*2.3% for the actual game */
   float: left;
   width: 30%;
 }
 
 #agentName{
-    font: 18px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 500;
-    text-align: center;
-    color: #f8f8ff;
+    font: 1.5vw 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    color: white;
     margin-top: 15px;
 }
 
 #agentNameBox{
-    color: black;
-    padding-left: 3px;
+    border-color: #cccccc;
+    border-style: hidden;
     border-radius: 4px;
+    border-width: 0;
+    padding: 8px;
+    font-size: 16px;
+    margin-top: 4px;
+    min-width: 75px;
+    max-width: 150px;
 }
 
 .playerHand{
@@ -282,17 +290,22 @@ input[type="checkbox"] {
 }
 
 .dropbtn {
-    background-color: #552960;
-    color: white;
+    background-color: white;
+    color: black;
     padding: 16px;
     font-size: 16px;
-    border: none;
     cursor: pointer;
     border-radius: 4px;
+    margin-top: 15px;
+    min-width: 166px;
 }
 
 .dropbtn:hover, .dropbtn:focus {
-    background-color: #5f2e6b;
+    background-color: #f2f2f2;
+}
+
+.gameSetup {
+    margin-left: 60px;
 }
 
 .dropdown {
@@ -304,8 +317,9 @@ input[type="checkbox"] {
     display: none;
     position: absolute;
     border-radius: 4px;
+    font: 1vw 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: #f1f1f1;
-    min-width: 160px;
+    min-width: 166px;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -316,6 +330,7 @@ input[type="checkbox"] {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    border-top: 1px solid slategray;
 }
 
 .dropdown-content div:hover {
@@ -324,3 +339,29 @@ input[type="checkbox"] {
 }
 
 .show {display: block;}
+
+.start-btn {
+    font: 1.5vw 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    margin-top: 11%;
+    margin-left: 27%;
+    background: #552960;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 3px 4px 3px 0 rgba(42,42,42,.70);
+    -moz-box-shadow: 3px 4px 3px 0 rgba(42,42,42,.70);
+    box-shadow: 3px 4px 3px 0 rgba(42,42,42,.70);
+    color: #ffffff;
+    font-size: 20px;
+    padding: 35px 80px 35px 80px;
+    text-decoration: none;
+    cursor: pointer;
+    position: absolute;
+}
+
+.start-btn:hover {
+    background: #5f2e6b;
+    text-decoration: none;
+}
+
