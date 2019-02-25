@@ -55,7 +55,7 @@ public class MonteCarloPlayer extends Player {
         }
 
         if(!win){
-            System.out.println(getName() + " is now trying to lose!");
+            // System.out.println(getName() + " is now trying to lose!");
         }
 
         // Compiles two array list of lead suit cards and non lead suit cards
@@ -110,7 +110,8 @@ public class MonteCarloPlayer extends Player {
             }
         }
 
-        System.out.println("Winning Cards: " + winningCards);
+        // System.out.println("Winning Cards: " + winningCards);
+
         if(winningCards.size()>0){
             //Selects the highest card if playing first, otherwise the lowest winning card
             if(first){
@@ -135,7 +136,7 @@ public class MonteCarloPlayer extends Player {
                     for (Card c : winningCards) {
                         double winChance = getWinChance(getBetterCards(c, trumpSuit, leadSuit), getPlayersLeft());
                         winChance = winChance * 100;
-                        System.out.println("Chance of " + c.toMiniString() + " winning is " + String.format("%.2f", winChance) + "%");
+                        // System.out.println("Chance of " + c.toMiniString() + " winning is " + String.format("%.2f", winChance) + "%");
 
                         if ( winChance >= 0.00 && winChance < 50.00 ) {
                             band1.put(c, winChance);

@@ -39,7 +39,7 @@ public abstract class Player {
     return points;
   }
 
-  public ArrayList getHand(){
+  public ArrayList<Card> getHand(){
     return pHand;
   }
 
@@ -106,7 +106,7 @@ public abstract class Player {
   ArrayList[] getValidCards(int leadSuit, boolean first){
     ArrayList[] cardSets = new ArrayList[2];
 
-    // Initialises arraylists so they can actually be used
+    // Initialises array lists so they can actually be used
     cardSets[0] = new ArrayList<Card>();
     cardSets[1] = new ArrayList<Card>();
 
@@ -196,8 +196,6 @@ public abstract class Player {
   public void setPoints(int points){
     this.points = points;
   }
-
-
 
   void assignCardScore(ArrayList<Card> hand, boolean first, int trumpSuit, int leadSuit){
     for (Card card : hand) {

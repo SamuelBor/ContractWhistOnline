@@ -1,13 +1,11 @@
 package component;
 
 import java.util.Stack;
-import java.util.Random;
 import java.util.ArrayList;
 
 //Similar to Max Player, but if no leadSuit cards exist in its hand and it has some trumps, only play the trump 70% of the time
+@SuppressWarnings("Duplicates")
 public class VaryingTrumpPlayer extends Player {
-  // Trump Chance Percentage:
-  double TRUMP_PLAY = 0.7;
 
   public VaryingTrumpPlayer(String name, int id){
     super(name, id, "VAR");
@@ -27,7 +25,9 @@ public class VaryingTrumpPlayer extends Player {
 
     // Random object
     double randCall = Math.random();
-    Boolean chooseTrump = (randCall<=TRUMP_PLAY);
+    // Trump Chance Percentage:
+    double TRUMP_PLAY = 0.7;
+    boolean chooseTrump = (randCall <= TRUMP_PLAY);
 
     for (Card card : pHand) {
       int currentSuit;

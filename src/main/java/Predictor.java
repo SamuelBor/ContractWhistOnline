@@ -27,8 +27,6 @@ public class Predictor {
             trainingData = new DefaultDataset();
         }
 
-        System.out.println("    Set trainingData");
-
         // Sets up the instance as the test data with all the relevant current game information
         double[] testValues = new double[] {
                 player.getHand().size(),
@@ -47,16 +45,12 @@ public class Predictor {
 
         Instance instance = new DenseInstance(testValues);
 
-        System.out.println("    Set testData");
-
         if ( trainingData.size() < 10 ) {
             // Provides some random values for the algorithm to learn from
             prediction = ThreadLocalRandom.current().nextInt(0, player.getHand().size());
         } else {
             // Once there are 10 entries in the field, the svm builds a classifier on the training data
             svm.buildClassifier(trainingData);
-
-            System.out.println("Built Classifier");
             // Then classifies based on the test data stored in the instance double
             Object classValue = svm.classify(instance);
             // Finally tries to cast into an int

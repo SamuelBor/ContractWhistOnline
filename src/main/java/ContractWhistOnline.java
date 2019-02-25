@@ -2,20 +2,19 @@ import component.*;
 import spark.*;
 import static spark.Spark.*;
 import spark.template.velocity.*;
-
 import java.io.IOException;
 import java.util.*;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
 import java.util.concurrent.*;
 
+@SuppressWarnings("Duplicates")
 public class ContractWhistOnline {
-    public static Trumps t = new Trumps();
     static Map<Session, String> userUsernameMap = new ConcurrentHashMap<>();
+    private static Map<Session, ContractWhistRunner> sessionGames = new ConcurrentHashMap<>();
     static int nextUserNumber = 1; //Assign to username for next connecting user
-    private static ExecutorService threadPool = Executors.newFixedThreadPool(2);
+    private static ExecutorService threadPool = Executors.newFixedThreadPool(4);
     private static CompletionService<String> pool = new ExecutorCompletionService<>(threadPool);
-    static ArrayList<Player> players = new ArrayList();
 
     public static void main(String[] args){
         System.out.println("Initialising Application");
@@ -24,7 +23,7 @@ public class ContractWhistOnline {
         staticFiles.location("/public");
 
         port(1816);
-        staticFiles.expireTime(600);
+        staticFiles.expireTime(900);
         webSocket("/updates", WhistWebSocketHandler.class);
         init();
 
@@ -32,48 +31,25 @@ public class ContractWhistOnline {
         get("/", (req, res) -> renderInfo(req));
     }
 
-    static void addAgents(String agentString) {
-        String[] parts = agentString.split(",");
-
-        for(int i = 0; i<6 ; i=i+2){
-            String agentType = parts[i];
-            String agentName = parts[i+1];
-
-            switch(agentType){
-                case "1":
-                    players.add(new MaxPlayer(agentName, (i/2)));
-                    break;
-                case "2":
-                    players.add(new MiniWinPlayer(agentName, (i/2)));
-                    break;
-                case "3":
-                    players.add(new RandomPlayer(agentName, (i/2)));
-                    break;
-                case "4":
-                    players.add(new VaryingTrumpPlayer(agentName, (i/2)));
-                    break;
-                case "5":
-                    players.add(new MonteCarloPlayer(agentName, (i/2)));
-                    break;
-            }
-        }
-
-        // Now the agents are added to the game, start the game in a new thread
-        startGameTask();
-    }
-
     // Creates a new thread to run the game
-    private static void startGameTask() {
-        pool.submit(new GameTask());
+    static void startGameTask(Session user) {
+        ContractWhistRunner c = new ContractWhistRunner();
+        ContractWhistOnline.sessionGames.put(user, c);
     }
 
     // Starts the game
-    static void startGame() throws InterruptedException, IOException {
+    static void startGameAgents(Session s, String agents) {
         System.out.println("STARTING GAME");
-        ContractWhistRunner.playContractWhist(t, players);
+        pool.submit(new GameTask(s, agents));
     }
 
-    static void phase1Update(int playerID, int trump, String cardsLeft) {
+    static void addAgents(Session s, String agents) throws InterruptedException {
+        ContractWhistRunner c = sessionGames.get(s);
+        System.out.println(s);
+        c.addAgents(agents, s);
+    }
+
+    static void phase1Update(int playerID, int trump, String cardsLeft, Session s) {
         playerID++; // Account for 0 index
         String trumpString;
 
@@ -92,159 +68,140 @@ public class ContractWhistOnline {
 
         String newPlayer = Integer.toString(playerID);
 
-        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
-            try {
-                session.getRemote().sendString(String.valueOf(new JSONObject()
-                        .put("phase", 1)
-                        .put("cardsLeft", cardsLeft)
-                        .put("playerID", newPlayer)
-                        .put("trump", trumpString)
-                ));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            s.getRemote().sendString(String.valueOf(new JSONObject()
+                    .put("phase", 1)
+                    .put("cardsLeft", cardsLeft)
+                    .put("playerID", newPlayer)
+                    .put("trump", trumpString)
+            ));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    static void phase2Update(int playerID, int cardID) {
+    static void phase2Update(int playerID, int cardID, Session s) {
         playerID++; // Account for 0 index
         cardID++;
 
         String playerStr = Integer.toString(playerID);
         String cardStr = Integer.toString(cardID);
 
-        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
-            try {
-                session.getRemote().sendString(String.valueOf(new JSONObject()
-                        .put("phase", 2)
-                        .put("playerID", playerStr)
-                        .put("cardID", cardStr)
-                ));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            s.getRemote().sendString(String.valueOf(new JSONObject()
+                    .put("phase", 2)
+                    .put("playerID", playerStr)
+                    .put("cardID", cardStr)
+            ));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    static void showWinner(int winnerID) {
+    static void showWinner(int winnerID, Session s) {
         winnerID++; // Account for 0 index
 
         String winner = Integer.toString(winnerID);
 
-        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
-            try {
-                session.getRemote().sendString(String.valueOf(new JSONObject()
-                        .put("phase", 4)
-                        .put("winnerID", winner)
-                ));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    static void changeSpeed(int level){
-        t.changeSpeed(level);
-    }
-
-    static void newHand() {
-        //Account for 0 index
-        int playerID;
-        ArrayList hand;
-
-        for(playerID = 0; playerID < 3; playerID++) {
-            hand = players.get(playerID).getHand();
-
-            int pID = playerID + 1; //0 index accounting
-
-            String playerStr = Integer.toString(pID);
-            String[] handPaths = new String[hand.size()];
-            int i = 0;
-
-            for (Object o : hand) {
-                Card c = (Card) o;
-                handPaths[i] = c.getFilename();
-                i++;
-            }
-
-            userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
-                try {
-                    session.getRemote().sendString(String.valueOf(new JSONObject()
-                            .put("phase", 5)
-                            .put("playerID", playerStr)
-                            .put("hand", handPaths)
-                    ));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+        try {
+            s.getRemote().sendString(String.valueOf(new JSONObject()
+                    .put("phase", 4)
+                    .put("winnerID", winner)
+            ));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    static void makePrediction(int playerID, int prediction) {
+    static void changeSpeed(Session s, int level){
+        ContractWhistRunner c = sessionGames.get(s);
+        c.changeSpeed(level);
+    }
+
+    static void newHand(Player player, Session s) {
+        ArrayList<Card> hand;
+
+        hand = player.getHand();
+        int pID = player.getID() + 1; // 0 index accounting
+
+        String playerStr = Integer.toString(pID);
+        String[] handPaths = new String[hand.size()];
+        int i = 0;
+
+        for (Card c : hand) {
+            handPaths[i] = c.getFilename();
+            i++;
+        }
+
+        try {
+            s.getRemote().sendStringByFuture(String.valueOf(new JSONObject()
+                    .put("phase", 5)
+                    .put("playerID", playerStr)
+                    .put("hand", handPaths)
+            ));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void makePrediction(int playerID, int prediction, Session s) {
         playerID++; // Account for 0 index
 
         String playerStr = Integer.toString(playerID);
         String predictStr = Integer.toString(prediction);
 
-        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
-            try {
-                session.getRemote().sendString(String.valueOf(new JSONObject()
-                        .put("phase", 6)
-                        .put("playerID", playerStr)
-                        .put("prediction", predictStr)
-                ));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            s.getRemote().sendStringByFuture(String.valueOf(new JSONObject()
+                    .put("phase", 6)
+                    .put("playerID", playerStr)
+                    .put("prediction", predictStr)
+            ));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    static void updateCurrentHands(int playerID, int currentHands) {
+    static void updateCurrentHands(int playerID, int currentHands, Session s) {
         playerID++; // Account for 0 index
 
         String playerStr = Integer.toString(playerID);
         String currentHandsStr = Integer.toString(currentHands);
 
-        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
-            try {
-                session.getRemote().sendString(String.valueOf(new JSONObject()
-                        .put("phase", 7)
-                        .put("playerID", playerStr)
-                        .put("current", currentHandsStr)
-                ));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            s.getRemote().sendString(String.valueOf(new JSONObject()
+                    .put("phase", 7)
+                    .put("playerID", playerStr)
+                    .put("current", currentHandsStr)
+            ));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    static void updateScore(int playerID, int score) {
+    static void updateScore(int playerID, int score, Session s) {
         playerID++; // Account for 0 index
 
         String playerStr = Integer.toString(playerID);
         String scoreStr = Integer.toString(score);
 
-        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
-            try {
-                session.getRemote().sendString(String.valueOf(new JSONObject()
-                        .put("phase", 8)
-                        .put("playerID", playerStr)
-                        .put("score", scoreStr)
-                ));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            s.getRemote().sendString(String.valueOf(new JSONObject()
+                    .put("phase", 8)
+                    .put("playerID", playerStr)
+                    .put("score", scoreStr)
+            ));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    static void updateGame(String topCardSrc, int playerID, ArrayList hand) {
+    static void updateGame(String topCardSrc, int playerID, ArrayList hand, Session s) {
         //Account for 0 index
         playerID++;
 
         String playerStr = Integer.toString(playerID);
         String[] handPaths = new String[hand.size()];
-        int i =0;
+        int i = 0;
 
         for (Object o : hand) {
             Card c = (Card) o;
@@ -252,18 +209,16 @@ public class ContractWhistOnline {
             i++;
         }
 
-        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
-            try {
-                session.getRemote().sendString(String.valueOf(new JSONObject()
-                        .put("phase", 3)
-                        .put("topCard", topCardSrc)
-                        .put("playerID", playerStr)
-                        .put("hand", handPaths)
-                ));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            s.getRemote().sendString(String.valueOf(new JSONObject()
+                    .put("phase", 3)
+                    .put("topCard", topCardSrc)
+                    .put("playerID", playerStr)
+                    .put("hand", handPaths)
+            ));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static String renderInfo(Request req) {

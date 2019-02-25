@@ -1,4 +1,5 @@
 import component.*;
+import org.eclipse.jetty.websocket.api.Session;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,20 +11,56 @@ class ContractWhistRunner {
     final private static int PLAYER_COUNT = 3;
     private static int HAND_SIZE = 7;
     final private static int ZERO_LIMIT = 5;
-    private static ArrayList<Player> players;
+    private static ArrayList<Player> players = new ArrayList<>();
     static int TIME_DELAY = 1250;
+    private static Trumps t = new Trumps();
+    public static Session s; // Stores the session of the user using the instance of the runner
 
+    void addAgents(String agentString, Session session) throws InterruptedException {
+        s = session;
+        players = new ArrayList<>();
+        String[] parts = agentString.split(",");
 
-    static void playContractWhist(Trumps t, ArrayList p) throws InterruptedException, IOException {
-        System.out.println("Playing Contract whist");
-        players = p;
+        for(int i = 0; i<6 ; i=i+2){
+            String agentType = parts[i];
+            String agentName = parts[i+1];
+
+            switch(agentType){
+                case "1":
+                    players.add(new MaxPlayer(agentName, (i/2)));
+                    break;
+                case "2":
+                    players.add(new MiniWinPlayer(agentName, (i/2)));
+                    break;
+                case "3":
+                    players.add(new RandomPlayer(agentName, (i/2)));
+                    break;
+                case "4":
+                    players.add(new VaryingTrumpPlayer(agentName, (i/2)));
+                    break;
+                case "5":
+                    players.add(new MonteCarloPlayer(agentName, (i/2)));
+                    break;
+            }
+        }
+
+        playContractWhist();
+    }
+
+    private static void playContractWhist() throws InterruptedException {
+        System.out.println(ContractWhistOnline.userUsernameMap.get(s) + ": Playing Contract whist");
         int fullGames;
         Player firstCall;
-        Ring playerRing = new Ring(players);
+        Ring<Player> playerRing = new Ring<>(players);
         Iterator playerIt = playerRing.iterator();
 
         for(fullGames = 0; fullGames<1000; fullGames++){
-            System.out.println("Starting Game: " + fullGames);
+            // Ensures that the players can call the ZERO_LIMIT on each game
+            for ( Player player : players ) {
+                player.resetZeroesCalled();
+            }
+
+            System.out.println(ContractWhistOnline.userUsernameMap.get(s) + ": Starting Game: " + fullGames);
 
             for(int handSize = 7; handSize>0; handSize--){
                 firstCall = (Player) playerIt.next();
@@ -37,16 +74,16 @@ class ContractWhistRunner {
         }
     }
 
-    static void singleRound(int handSize, Trumps t, Player firstCall) throws InterruptedException, IOException {
+    private static void singleRound(int handSize, Trumps t, Player firstCall) throws InterruptedException {
         int trumpCallMin;
         int highCall = -1;
         int chosenTrumpSuit;
         String trumpStr = "";
         Player highCallPlayer = null;
-        Ring playerRing = new Ring(players);
+        Ring<Player> playerRing = new Ring<>(players);
         Iterator playerIt = playerRing.iterator();
         Player queryPlayer = (Player) playerIt.next();
-        ArrayList<Player> playerCalls = new ArrayList<Player>();
+        ArrayList<Player> playerCalls = new ArrayList<>();
 
         for ( int i = 0; i < PLAYER_COUNT; i++){
             if(queryPlayer != firstCall){
@@ -62,10 +99,9 @@ class ContractWhistRunner {
         d = new Deck();
         dealCards(d);
 
-        ContractWhistOnline.newHand();
-
         // Loops through players in a default order as order is irrelevant here
         for ( Player player : players ) {
+            ContractWhistOnline.newHand(player, s);
             player.setPrediction(-1);
             player.setP1Confidence(-1.00);
             player.setP1Confidence(-1.00);
@@ -99,10 +135,13 @@ class ContractWhistRunner {
             // Prediction
             // Once a prediction is made check that it obeys the required constraints
             // If not then try to deviate by as little as possible, either towards the trump control or below with a pessimistic view
-            System.out.println("Going into prediction phase.");
-            int pred = Predictor.newPrediction(player, PLAYER_COUNT);
+            // System.out.println("Going into prediction phase.");
 
-            if ( pred == 0 && player.getZeroesCalled()>ZERO_LIMIT){
+            //TODO Swap basic assignment back to predictor call
+            //int pred = Predictor.newPrediction(player, PLAYER_COUNT);
+            int pred = 2; // Used for demonstration purposes while classifier trains elsewhere
+
+            if ( pred == 0 && player.getZeroesCalled()==ZERO_LIMIT ){
                 pred = 1;
             }
 
@@ -121,7 +160,7 @@ class ContractWhistRunner {
             }
 
             player.setPrediction(pred);
-            ContractWhistOnline.makePrediction(player.getID(), player.getPrediction());
+            ContractWhistOnline.makePrediction(player.getID(), player.getPrediction(), s);
             Thread.sleep(TIME_DELAY);
 
             if ( highCall < player.getPrediction() ) {
@@ -131,7 +170,6 @@ class ContractWhistRunner {
         }
 
         // High call player will never be null as all players will predict at least 0
-        // assert highCallPlayer != null;
         chosenTrumpSuit = highCallPlayer.getChosenTrump();
 
         switch(chosenTrumpSuit){
@@ -145,13 +183,12 @@ class ContractWhistRunner {
                 break;
         }
         
-        System.out.println(highCallPlayer.getName() + " set the trump as " + trumpStr);
+        System.out.println(ContractWhistOnline.userUsernameMap.get(s) + ": " + highCallPlayer.getName() + " set the trump as " + trumpStr);
         
         // Game Stage
-        t.runTrumps(handSize, players, chosenTrumpSuit);
+        t.runTrumps(handSize, players, chosenTrumpSuit, s);
 
         for (Player player : players) {
-
             outputToTrainingSet(
                     player.getAgentType(),
                     handSize,
@@ -188,7 +225,7 @@ class ContractWhistRunner {
         }
     }
 
-    static void scorePlayers(){
+    private static void scorePlayers(){
         int incrementAmount;
 
         for (Player player : players) {
@@ -207,17 +244,17 @@ class ContractWhistRunner {
 
             player.increaseScore(incrementAmount);
 
-            System.out.println(player.getName() + " scored " + incrementAmount + " points.");
-            System.out.println("Giving them a total of " + player.getScore() + " points.");
-            ContractWhistOnline.updateScore(player.getID(), player.getScore());
+            System.out.println(ContractWhistOnline.userUsernameMap.get(s) + ": " + player.getName() + " scored " + incrementAmount + " points.");
+            System.out.println(ContractWhistOnline.userUsernameMap.get(s) + ": Giving them a total of " + player.getScore() + " points.");
+            ContractWhistOnline.updateScore(player.getID(), player.getScore(), s);
 
             // Updates the on screen current hand winnings to 0 at the end of each game round
-            ContractWhistOnline.updateCurrentHands(player.getID(),0);
+            ContractWhistOnline.updateCurrentHands(player.getID(),0, s);
         }
 
     }
 
-    static void outputToTrainingSet(String agentType, int cardsInHand, int sameSuitSum, int handPointSum, int aceCount, int kingCount, int queenCount, int jackCount, int cardsInPlay, int trumpCallMin, double p1Confidence, double p2Confidence, int handsWon) {
+    private static void outputToTrainingSet(String agentType, int cardsInHand, int sameSuitSum, int handPointSum, int aceCount, int kingCount, int queenCount, int jackCount, int cardsInPlay, int trumpCallMin, double p1Confidence, double p2Confidence, int handsWon) {
         BufferedWriter writer = null;
         String filename;
         String outRow = "";
@@ -250,6 +287,28 @@ class ContractWhistRunner {
                 writer.close();
             } catch (Exception e) {
             }
+        }
+    }
+
+    void changeSpeed(int level){
+        switch(level){
+            case 1:
+                TIME_DELAY = 15000;
+                break;
+            case 2:
+                TIME_DELAY = 3500;
+                break;
+            case 3:
+                TIME_DELAY = 1250;
+                break;
+            case 4:
+                TIME_DELAY = 300;
+                break;
+            case 5:
+                TIME_DELAY = 0;
+                break;
+            default:
+                System.out.println(ContractWhistOnline.userUsernameMap.get(s) + ": Error Changing Speed. Level " + level + " not recognised.");
         }
     }
 

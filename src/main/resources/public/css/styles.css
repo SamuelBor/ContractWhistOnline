@@ -109,6 +109,7 @@ body {
     float:right;
     width: 75.5%;
     border-radius: 10px;
+    box-shadow: 0 0 250px rgba(0,0,0,0.7) inset;
     border: 2px solid black;
     height: 550px;
 }

@@ -12,8 +12,9 @@ var p3AgentType = 0;
 
 webSocket.onmessage = function (msg) {
     console.log('Server: ' + msg.data);
-    updateInfo(msg);
+    parseMsg(msg);
 };
+
 webSocket.onclose = function () { console.log("WebSocket Connection Closed"); };
 
 webSocket.onopen = function () {
@@ -66,7 +67,8 @@ slider.oninput = function() {
  * @param data.topCard      The card most recently played, shown at the top of the screen
  * @param data.cardID       The Id of the select
  */
-function updateInfo(msg) {
+
+function parseMsg(msg) {
     var data = JSON.parse(msg.data);
     switch(data.phase) {
         case 1:
@@ -114,8 +116,9 @@ function updateInfo(msg) {
         case 5:
             // New Hand - Display all the cards and the hands
             var hand = data.hand;
+
             handLayout(hand.length, hand, data);
-            showCards(hand.length);
+            showCards(hand.length, data.playerID);
             break;
         case 6:
             // Player Submitting a prediction
@@ -380,19 +383,19 @@ function hideCards(player, hand) {
 }
 
 //Shows card elements at the start of each new round
-function showCards(cardCount) {
+function showCards(cardCount, player) {
     var id;
     var element;
 
-    for(var player= 1; player<4; player++){
-        for (var i = 1; i < (cardCount+1); i++) {
-            id = "player" + player + "card" + i;
-            element = document.getElementById(id);
-            element.style.borderColor='#346029';
-            element.style.borderWidth = '2px';
-            element.style.display = 'block';
-        }
+    for (var i = 1; i < (cardCount+1); i++) {
+        id = "player" + player + "card" + i;
+        element = document.getElementById(id);
+        console.log(id);
+        element.style.borderColor='#346029';
+        element.style.borderWidth = '2px';
+        element.style.display = 'block';
     }
+
 }
 
 //Helper function for selecting element by id

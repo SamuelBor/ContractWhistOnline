@@ -28,7 +28,7 @@ public class MiniWinPlayer extends Player {
         //Used for selecting a non winning card to throw away
 
         if(!win){
-            System.out.println(getName() + " is now trying to lose!");
+            // System.out.println(getName() + " is now trying to lose!");
         }
 
         // Creates a reference of the playedCards Stack

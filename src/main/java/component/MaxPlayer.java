@@ -20,7 +20,7 @@ import java.util.ArrayList;
         boolean first = playedCards.empty();
 
         if(!win){
-          System.out.println(getName() + " is now trying to lose!");
+          // System.out.println(getName() + " is now trying to lose!");
         }
 
         //First Assign Card Scores
