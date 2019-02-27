@@ -2,7 +2,6 @@ import component.*;
 import spark.*;
 import static spark.Spark.*;
 import spark.template.velocity.*;
-import java.io.IOException;
 import java.util.*;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
@@ -11,9 +10,10 @@ import java.util.concurrent.*;
 @SuppressWarnings("Duplicates")
 public class ContractWhistOnline {
     static Map<Session, String> userUsernameMap = new ConcurrentHashMap<>();
-    private static Map<Session, ContractWhistRunner> sessionGames = new ConcurrentHashMap<>();
+    static Map<String, Session> userSessionMap = new ConcurrentHashMap<>();
+    static Map<Session, ContractWhistRunner> sessionGames = new ConcurrentHashMap<>();
     static int nextUserNumber = 1; //Assign to username for next connecting user
-    private static ExecutorService threadPool = Executors.newFixedThreadPool(4);
+    private static ExecutorService threadPool = Executors.newFixedThreadPool(3);
     private static CompletionService<String> pool = new ExecutorCompletionService<>(threadPool);
 
     public static void main(String[] args){
@@ -45,8 +45,10 @@ public class ContractWhistOnline {
 
     static void addAgents(Session s, String agents) throws InterruptedException {
         ContractWhistRunner c = sessionGames.get(s);
-        System.out.println(s);
-        c.addAgents(agents, s);
+
+        c.addAgents(agents, ContractWhistOnline.userUsernameMap.get(s));
+
+        c.playContractWhist();
     }
 
     static void phase1Update(int playerID, int trump, String cardsLeft, Session s) {
@@ -219,6 +221,10 @@ public class ContractWhistOnline {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    static Session getSession(String user){
+        return userSessionMap.get(user);
     }
 
     private static String renderInfo(Request req) {

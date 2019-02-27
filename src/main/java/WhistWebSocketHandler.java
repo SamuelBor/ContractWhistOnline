@@ -11,6 +11,7 @@ public class WhistWebSocketHandler {
         String username = "User" + ContractWhistOnline.nextUserNumber++;
         System.out.println(username + " connected.");
         ContractWhistOnline.userUsernameMap.put(user, username);
+        ContractWhistOnline.userSessionMap.put(username, user);
         ContractWhistOnline.startGameTask(user);
     }
 
