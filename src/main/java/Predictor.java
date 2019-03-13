@@ -7,8 +7,7 @@ import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
 import net.sf.javaml.tools.data.FileHandler;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("SameParameterValue")
@@ -17,12 +16,14 @@ public class Predictor {
         int prediction;
         Classifier svm = new SelfOptimizingLinearLibSVM();
 
-        String filename = "src/main/resources/ml/training" + player.getAgentType() + ".csv";
+        String filenameTrain = "src/main/resources/ml/training" + player.getAgentType() + ".csv";
+        String filenameClass = "src/main/resources/ml/classifier" + player.getAgentType() + ".ser";
+        // String filename = "src/main/resources/ml/trainingTEST.csv";
 
         Dataset trainingData;
         try{
             // Loads the relevant CSV file as the training data
-            trainingData = FileHandler.loadDataset(new File(filename), 11, ",");
+            trainingData = FileHandler.loadDataset(new File(filenameTrain), 11, ",");
         } catch(Exception e) {
             trainingData = new DefaultDataset();
         }
@@ -50,9 +51,42 @@ public class Predictor {
             prediction = ThreadLocalRandom.current().nextInt(0, player.getHand().size());
         } else {
             // Once there are 10 entries in the field, the svm builds a classifier on the training data
-            svm.buildClassifier(trainingData);
+            File f = new File(filenameClass);
+            if(!f.exists()) {
+                svm = new SelfOptimizingLinearLibSVM();
+                System.out.println("Building Classifier");
+                svm.buildClassifier(trainingData);
+                System.out.println("Built Classifier");
+
+                try {
+                    FileOutputStream fileOut =
+                            new FileOutputStream(filenameClass);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(svm);
+                    out.close();
+                    fileOut.close();
+                    System.out.println("Serialized data is saved in " + filenameClass);
+                } catch (IOException i) {
+                    i.printStackTrace();
+                }
+            } else {
+                try {
+                    FileInputStream fileIn = new FileInputStream(filenameClass);
+                    ObjectInputStream in = new ObjectInputStream(fileIn);
+                    svm = (SelfOptimizingLinearLibSVM) in.readObject();
+                    in.close();
+                    fileIn.close();
+                } catch (IOException i) {
+                    i.printStackTrace();
+                } catch (ClassNotFoundException c) {
+                    System.out.println("Classifier class not found");
+                    c.printStackTrace();
+                }
+            }
+
             // Then classifies based on the test data stored in the instance double
             Object classValue = svm.classify(instance);
+
             // Finally tries to cast into an int
             try{
                 prediction = Integer.parseInt((String) classValue);
@@ -64,7 +98,6 @@ public class Predictor {
             }
         }
 
-        System.out.println("    Made prediction: " + prediction);
         return prediction;
     }
 }

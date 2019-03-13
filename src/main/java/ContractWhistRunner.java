@@ -46,7 +46,7 @@ class ContractWhistRunner {
 
     }
 
-    void playContractWhist() throws InterruptedException {
+    void playContractWhist() throws InterruptedException, IOException {
         System.out.println(user + ": Playing Contract whist");
         int fullGames;
         Player firstCall;
@@ -73,7 +73,7 @@ class ContractWhistRunner {
         }
     }
 
-    private void singleRound(int handSize, Trumps t, Player firstCall) throws InterruptedException {
+    private void singleRound(int handSize, Trumps t, Player firstCall) throws InterruptedException, IOException {
         int trumpCallMin;
         int highCall = -1;
         int chosenTrumpSuit;
@@ -136,9 +136,12 @@ class ContractWhistRunner {
             // If not then try to deviate by as little as possible, either towards the trump control or below with a pessimistic view
             // System.out.println("Going into prediction phase.");
 
-            //TODO Swap basic assignment back to predictor call
-            //int pred = Predictor.newPrediction(player, PLAYER_COUNT);
-            int pred = 2; // Used for demonstration purposes while classifier trains elsewhere
+            int pred = Predictor.newPrediction(player, PLAYER_COUNT);
+            if(pred<0){
+                pred = 0;
+            }
+            System.out.println(user + ": " + player.getName() + " made prediction: " + pred);
+           //  int pred = 2; // Used for demonstration purposes while classifier trains elsewhere
 
             if ( pred == 0 && player.getZeroesCalled()==ZERO_LIMIT ){
                 pred = 1;
@@ -146,8 +149,8 @@ class ContractWhistRunner {
 
             predSum += pred;
 
-            if ( playerCount== PLAYER_COUNT && predSum == HAND_SIZE) {
-                if( (pred+1)==player.getTrumpCallMin() ){
+            if ( playerCount == PLAYER_COUNT && predSum == HAND_SIZE) {
+                if( (pred+1) == player.getTrumpCallMin() || pred == 0){
                     pred = pred + 1;
                 } else {
                     pred = pred - 1;

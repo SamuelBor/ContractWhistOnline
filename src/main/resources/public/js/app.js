@@ -390,7 +390,6 @@ function showCards(cardCount, player) {
     for (var i = 1; i < (cardCount+1); i++) {
         id = "player" + player + "card" + i;
         element = document.getElementById(id);
-        console.log(id);
         element.style.borderColor='#346029';
         element.style.borderWidth = '2px';
         element.style.display = 'block';

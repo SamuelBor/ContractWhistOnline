@@ -57,19 +57,6 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/net.sourceforge/javaml -->
-        <dependency>
-            <groupId>net.sourceforge</groupId>
-            <artifactId>javaml</artifactId>
-            <version>0.1.6-spnt</version>
-        </dependency>
 
     </dependencies>
 

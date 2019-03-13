@@ -2,6 +2,8 @@ import component.*;
 import spark.*;
 import static spark.Spark.*;
 import spark.template.velocity.*;
+
+import java.io.IOException;
 import java.util.*;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
@@ -43,7 +45,7 @@ public class ContractWhistOnline {
         pool.submit(new GameTask(s, agents));
     }
 
-    static void addAgents(Session s, String agents) throws InterruptedException {
+    static void addAgents(Session s, String agents) throws InterruptedException, IOException {
         ContractWhistRunner c = sessionGames.get(s);
 
         c.addAgents(agents, ContractWhistOnline.userUsernameMap.get(s));
