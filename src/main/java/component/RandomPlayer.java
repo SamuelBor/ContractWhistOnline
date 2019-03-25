@@ -14,23 +14,17 @@ public class RandomPlayer extends Player {
   public Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards, int handSize){
     ArrayList<Card> validCards = new ArrayList<Card>();
     Random rand = new Random();
-    int randomIndex =0;
+    int randomIndex = 0;
     Card returnCard;
+    boolean first = playedCards.empty();
 
-    for(int i =0; i<pHand.size(); i++){
-      int currentSuit;
-      Card c = (Card) pHand.get(i);
-      currentSuit = c.getSuit();
-      if(currentSuit==leadSuit){
-        validCards.add(c);
-      }
-    }
+    validCards = getValidCards(leadSuit, first)[0];
 
-    if(validCards.size()==0){
-      randomIndex = rand.nextInt(pHand.size());
+    randomIndex = rand.nextInt(pHand.size());
+
+    if(validCards.size() == 0){
       returnCard = (Card) pHand.get(randomIndex);
     } else {
-      randomIndex = rand.nextInt(validCards.size());
       returnCard = (Card) validCards.get(randomIndex);
     }
 

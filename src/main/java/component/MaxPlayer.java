@@ -16,7 +16,7 @@ import java.util.ArrayList;
         // Initialises the return Card as the Two of Clubs, but this will always be overwritten
         Card returnCard;
         // Flag showing whether or not the agent should aim to win or not, based on a comparison between current score and predicted winning
-        boolean win = getPrediction() > getPoints();
+        boolean win = getWinIntention();
         boolean first = playedCards.empty();
 
         if(!win){

@@ -21,7 +21,7 @@ public class VaryingTrumpPlayer extends Player {
     Card returnCard = new Card(9,9);
     int highestValue = 0;
     // Flag showing whether or not the agent should aim to win or not, based on a comparison between current score and predicted winning
-    boolean win = getPrediction() > getPoints();
+    boolean win = getWinIntention();
 
     // Random object
     double randCall = Math.random();

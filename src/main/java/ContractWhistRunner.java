@@ -224,6 +224,7 @@ class ContractWhistRunner {
         }
     }
 
+    // Facilitates the scoring stage of the game
     private void scorePlayers(){
         int incrementAmount;
 
@@ -231,15 +232,12 @@ class ContractWhistRunner {
             incrementAmount = 0;
 
             if(player.getPoints() == player.getPrediction()){
-                // System.out.println("Adding 10 for matching prediction");
                 incrementAmount += 10;
             } else if(player.getPoints() < player.getPrediction()) {
-                // System.out.println("Removing " + (player.getPrediction() - player.getPoints()) + " for not making prediction");
                 incrementAmount -= (player.getPrediction() - player.getPoints());
             }
 
             incrementAmount += (2* player.getPoints());
-            // System.out.println("Adding " + (2* player.getPoints()) + " for 2* number of hands.");
 
             player.increaseScore(incrementAmount);
 

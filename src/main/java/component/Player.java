@@ -3,7 +3,6 @@ package component;
 import java.util.Stack;
 import java.util.ArrayList;
 
-@SuppressWarnings("Duplicates")
 public abstract class Player {
   ArrayList<Card> pHand = new ArrayList<>();
   private String name;
@@ -106,22 +105,19 @@ public abstract class Player {
   ArrayList[] getValidCards(int leadSuit, boolean first){
     ArrayList[] cardSets = new ArrayList[2];
 
-    // Initialises array lists so they can actually be used
     cardSets[0] = new ArrayList<Card>();
     cardSets[1] = new ArrayList<Card>();
 
-    // System.out.println("Getting valid cards.");
-
+    // Iterates over the player's hand
     for(Card card : pHand){
       int currentSuit;
 
-      // System.out.println("Looking at " + card.toMiniString());
-
       currentSuit = card.getSuit();
       if(currentSuit==leadSuit || first){
-        // Valid Cards
+        // Leadsuit Cards
         cardSets[0].add(card);
       } else {
+        // Non-lead Cards
         cardSets[1].add(card);
       }
     }
@@ -151,6 +147,10 @@ public abstract class Player {
     }
 
     return highest;
+  }
+  
+  boolean getWinIntention(){
+    return getPrediction() > getPoints();
   }
 
   public void increaseScore(int amount){
@@ -200,10 +200,14 @@ public abstract class Player {
   void assignCardScore(ArrayList<Card> hand, boolean first, int trumpSuit, int leadSuit){
     for (Card card : hand) {
       card.setScore(card.getValue());
+
+      // Adds 13 points to a lead card's score
+      // If the player is first to lay a card then they are automatically the lead suit
       if(first || card.getSuit() == leadSuit){
         // Lead Card so extra points for setting suit
         card.setScore(card.getScore()+13);
       }
+      // Adds 26 points to a trump card's score
       if(card.getSuit()==trumpSuit){
         card.setScore(card.getScore()+26);
       }
