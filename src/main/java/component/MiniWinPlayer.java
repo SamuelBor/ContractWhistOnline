@@ -20,7 +20,7 @@ public class MiniWinPlayer extends Player {
         ArrayList<Card> validCards;
         ArrayList<Card> nonLeadCards;
         ArrayList<Card> winningCards = new ArrayList<Card>();
-        // Initialises the return Card as the Two of Clubs, but this will always be overwritten
+        // Initialises the return Card
         Card returnCard = pHand.get(0);
         int highestPlayedScore = 0;
         // Flag showing whether or not the agent should aim to win or not, based on a comparison between current score and predicted winning

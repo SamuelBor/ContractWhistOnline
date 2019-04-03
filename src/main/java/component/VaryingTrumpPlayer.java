@@ -23,7 +23,7 @@ public class VaryingTrumpPlayer extends Player {
     // Flag showing whether or not the agent should aim to win or not, based on a comparison between current score and predicted winning
     boolean win = getWinIntention();
 
-    // Random object
+    // Random number between 0 and 1
     double randCall = Math.random();
     // Trump Chance Percentage:
     double TRUMP_PLAY = 0.7;
@@ -53,7 +53,6 @@ public class VaryingTrumpPlayer extends Player {
     int lowestValue = 100;
 
     if(validCards.size()!=0){
-
       for (Card validCard : validCards) {
         if(win){
           if (validCard.getValue() > highestValue) {
@@ -111,7 +110,4 @@ public class VaryingTrumpPlayer extends Player {
     pHand.remove(returnCard);
     return returnCard;
   }
-
-
-
 }
