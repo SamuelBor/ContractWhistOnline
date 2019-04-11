@@ -1,5 +1,12 @@
 package component;
 
+import libsvm.SelfOptimizingLinearLibSVM;
+import net.sf.javaml.classification.Classifier;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Stack;
 import java.util.ArrayList;
 
@@ -22,12 +29,15 @@ public abstract class Player {
   private double p1Confidence;
   private double p2Confidence;
   private int zeroesCalled = 0;
-
+  private boolean classifierSet = false;
+  private Classifier classifier = new SelfOptimizingLinearLibSVM();
 
   Player(String name, int id, String type){
     this.name = name;
     this.id = id;
     this.agentType = type;
+
+    loadClassifier();
   }
 
   public String getName(){
@@ -153,12 +163,48 @@ public abstract class Player {
     return getPrediction() > getPoints();
   }
 
+  public Classifier getClassifier() {
+    if(classifierSet){
+      return classifier;
+    } else {
+      return null;
+    }
+  }
+
   public void increaseScore(int amount){
     score += amount;
   }
 
   public void incrementZeroesCalled(){
     zeroesCalled++;
+  }
+
+  private void loadClassifier() {
+    String filenameClass = "src/main/resources/ml/classifier" + getAgentType() + ".ser";
+
+    File f = new File(filenameClass);
+    if(f.exists()) {
+      try {
+        FileInputStream fileIn = new FileInputStream(filenameClass);
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        this.classifier = (SelfOptimizingLinearLibSVM) in.readObject();
+        classifierSet = true;
+        in.close();
+        fileIn.close();
+      } catch (IOException i) {
+        i.printStackTrace();
+      } catch (ClassNotFoundException c) {
+        System.out.println("Classifier class not found");
+        c.printStackTrace();
+      }
+    } else {
+        System.out.println("Serialized Classifier not found");
+    }
+  }
+
+  public void setClassifier(Classifier c) {
+    classifier = c;
+    classifierSet = true;
   }
 
   public void setPrediction(int p) {

@@ -42,6 +42,7 @@ public class ContractWhistOnline {
     // Starts the game
     static void startGameAgents(Session s, String agents) {
         System.out.println("STARTING GAME");
+        pool.submit(new heartbeatTask());
         pool.submit(new GameTask(s, agents));
     }
 
@@ -223,6 +224,19 @@ public class ContractWhistOnline {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // Used to keep sessions alive and from timing out
+    static void pulse() {
+        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
+            try {
+                session.getRemote().sendString(String.valueOf(new JSONObject()
+                        .put("phase", 9)
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     static Session getSession(String user){

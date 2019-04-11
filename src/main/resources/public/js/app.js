@@ -150,6 +150,11 @@ function parseMsg(msg) {
                 element.innerHTML = '';
             }
             break;
+        case 9:
+            // Pulse to stop sessions from timing out
+            console.log("HEARTBEAT");
+            webSocket.send("HEARTBEAT");
+            break;
         default:
             console.log("Error parsing phase data from web socket - Have you missed a break in the case statement?");
     }

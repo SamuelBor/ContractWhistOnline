@@ -31,7 +31,7 @@ public class Ring<T> implements Iterable<T> {
             @Override
             public T next() {
                 if ( !i.hasNext() ) {
-                    // Iterator is exhausted - make a new one!
+                    // Iterator is exhausted - make a new one
                     i = it.iterator();
                 }
                 return i.next();

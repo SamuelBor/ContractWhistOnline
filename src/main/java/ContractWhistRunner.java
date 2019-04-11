@@ -53,7 +53,7 @@ class ContractWhistRunner {
         Ring<Player> playerRing = new Ring<>(players);
         Iterator playerIt = playerRing.iterator();
 
-        for(fullGames = 0; fullGames<1000; fullGames++){
+        for(fullGames = 0; fullGames<5000; fullGames++){
             // Ensures that the players can call the ZERO_LIMIT on each game
             for ( Player player : players ) {
                 player.resetZeroesCalled();
@@ -163,7 +163,7 @@ class ContractWhistRunner {
 
             player.setPrediction(pred);
             ContractWhistOnline.makePrediction(player.getID(), player.getPrediction(), ContractWhistOnline.getSession(user));
-            Thread.sleep(TIME_DELAY);
+            Thread.sleep(TIME_DELAY/2);
 
             if ( highCall < player.getPrediction() ) {
                 highCall = player.getPrediction();
