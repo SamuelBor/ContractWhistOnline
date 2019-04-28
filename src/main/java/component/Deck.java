@@ -26,6 +26,7 @@ public class Deck {
     Boolean unique = false;
     Card c;
 
+    // Loops until 52 unique cards are placed into the deck
     do{
       int value = rand.nextInt(13) + 2;
       int suit = rand.nextInt(4) + 1;

@@ -3,7 +3,7 @@ import org.eclipse.jetty.websocket.api.Session;
 
 import java.lang.Math;
 
-///CHaDS
+///CHaDS - Order of suit enumeration
 import java.util.*;
 
 class Trumps {
@@ -38,7 +38,7 @@ class Trumps {
     }
   }
 
-
+  // Restarts game by reinitialising relevant variables and lists
   private Player restartGame() throws InterruptedException{
     playedCards = new Stack<>();
     allPlayedCards = new ArrayList<>();
@@ -72,10 +72,12 @@ class Trumps {
 
       cardInPlay.setScore(cardInPlay.getValue());
 
+      // If no lead suit has been selected, this card sets the new lead suit
       if(leadSuit==0){
         leadSuit = cardInPlay.getSuit();
       }
 
+      // Add point bonuses for being in the lead suit or trump suit
       if(cardInPlay.getSuit()==leadSuit){
         cardInPlay.setScore(cardInPlay.getScore()+14);
       }
@@ -103,6 +105,7 @@ class Trumps {
       Thread.sleep(getTimeDelay()/2);
     }
 
+    // Show the winner on the interface
     ContractWhistOnline.showWinner(topScorer, ContractWhistOnline.getSession(user));
     Thread.sleep(getTimeDelay()/2);
     System.out.println(user + ": " + players.get(topScorer).getName() + " has won this hand.");
@@ -114,9 +117,11 @@ class Trumps {
     return endTurn(topScorer);
   }
 
+  // End the turn
   private Player endTurn(int turnWinner) throws InterruptedException{
     turn++;
 
+    // Play the next turn if needed
     if(turn <= HAND_SIZE){
       for(int i = turnWinner-1; i>-1; i--){
         playersToGo.push(i);
@@ -130,9 +135,13 @@ class Trumps {
       takeTurn();
     }
 
+    // Otherwise end the game
     return endGame();
   }
 
+  // endGame method contains no spoilers for Avengers EndGame
+  // Although that movie was great
+  // Any similarity to movies living or dead is purely coincidental
   private Player endGame(){
     // Initialise with a blank random player to be overwritten
     Player winningPlayer = new RandomPlayer("", -1);

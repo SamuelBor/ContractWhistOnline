@@ -11,6 +11,7 @@ import java.util.concurrent.*;
 
 @SuppressWarnings("Duplicates")
 public class ContractWhistOnline {
+    // Stores hashmaps relating sessions, usernames and CWR instances
     static Map<Session, String> userUsernameMap = new ConcurrentHashMap<>();
     static Map<String, Session> userSessionMap = new ConcurrentHashMap<>();
     static Map<Session, ContractWhistRunner> sessionGames = new ConcurrentHashMap<>();
@@ -46,6 +47,7 @@ public class ContractWhistOnline {
         pool.submit(new GameTask(s, agents));
     }
 
+    // Adds the desired agents to the correct instance and starts the game
     static void addAgents(Session s, String agents) throws InterruptedException, IOException {
         ContractWhistRunner c = sessionGames.get(s);
 
@@ -54,6 +56,7 @@ public class ContractWhistOnline {
         c.playContractWhist();
     }
 
+    // Used to pass the trump, the number of cards left and the next player to play to the interface
     static void phase1Update(int playerID, int trump, String cardsLeft, Session s) {
         playerID++; // Account for 0 index
         String trumpString;
@@ -85,6 +88,7 @@ public class ContractWhistOnline {
         }
     }
 
+    // Facilitates a player playing a card
     static void phase2Update(int playerID, int cardID, Session s) {
         playerID++; // Account for 0 index
         cardID++;
@@ -103,6 +107,7 @@ public class ContractWhistOnline {
         }
     }
 
+    // Shows the winner of the previous trick
     static void showWinner(int winnerID, Session s) {
         winnerID++; // Account for 0 index
 
@@ -118,11 +123,13 @@ public class ContractWhistOnline {
         }
     }
 
+    // Changes the game speed
     static void changeSpeed(Session s, int level){
         ContractWhistRunner c = sessionGames.get(s);
         c.changeSpeed(level);
     }
 
+    // Shows a new hand for a passed player on the interface
     static void newHand(Player player, Session s) {
         ArrayList<Card> hand;
 
@@ -149,6 +156,7 @@ public class ContractWhistOnline {
         }
     }
 
+    // Passes player predictions from the game engine to the front end
     static void makePrediction(int playerID, int prediction, Session s) {
         playerID++; // Account for 0 index
 
@@ -166,6 +174,7 @@ public class ContractWhistOnline {
         }
     }
 
+    // Updates current hands, normally when a card has been removed from it
     static void updateCurrentHands(int playerID, int currentHands, Session s) {
         playerID++; // Account for 0 index
 
@@ -183,6 +192,7 @@ public class ContractWhistOnline {
         }
     }
 
+    // Update player score
     static void updateScore(int playerID, int score, Session s) {
         playerID++; // Account for 0 index
 
@@ -200,6 +210,7 @@ public class ContractWhistOnline {
         }
     }
 
+    // Update the top card and the hand of the player that just played
     static void updateGame(String topCardSrc, int playerID, ArrayList hand, Session s) {
         //Account for 0 index
         playerID++;

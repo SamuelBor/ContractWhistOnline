@@ -7,3 +7,8 @@
 /src/main/.DS_Store
 /target/
 src/main/resources/ml/.DS_Store
+src/main/resources/ml/trainingMAX.csv
+src/main/resources/ml/trainingMINIMAX.csv
+src/main/resources/ml/trainingMONTE.csv
+src/main/resources/ml/trainingRAN.csv
+src/main/resources/ml/trainingVAR.csv

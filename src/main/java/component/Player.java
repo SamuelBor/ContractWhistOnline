@@ -32,6 +32,7 @@ public abstract class Player {
   private boolean classifierSet = false;
   private Classifier classifier = new SelfOptimizingLinearLibSVM();
 
+  // Initialises agent with name, id and agent type, then loads its classifier
   Player(String name, int id, String type){
     this.name = name;
     this.id = id;
@@ -260,6 +261,7 @@ public abstract class Player {
     }
   }
 
+  // Analyses Hand for creation of training set for classifier
   public void analyseHand(){
     int cSum = 0;
     int hSum = 0;
@@ -340,5 +342,6 @@ public abstract class Player {
     return isEqual;
   }
 
+  // Abstract method for the agents to implement in order to use their respective strategy
   public abstract Card makeTurn(int leadSuit, int trumpSuit, Stack<Card> playedCards, ArrayList<Card> allPlayedCards, int handSize);
 }

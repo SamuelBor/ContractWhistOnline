@@ -141,7 +141,6 @@ class ContractWhistRunner {
                 pred = 0;
             }
             System.out.println(user + ": " + player.getName() + " made prediction: " + pred);
-           //  int pred = 2; // Used for demonstration purposes while classifier trains elsewhere
 
             if ( pred == 0 && player.getZeroesCalled()==ZERO_LIMIT ){
                 pred = 1;
