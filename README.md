@@ -6,7 +6,7 @@ Originally introduced to me by my father, Contract Whist is a trick-taking card 
 
 * Firstly, while we had theorised that a superior strategy existed, until now there had been no way to test one against another. This project aims to test this theory by simulated computer controlled agents playing the game many times. If such a superior strategy is found to exist, we will evaluate what factors influence it to be better than other strategies and judge to what extent it is so. 
 	
-* We discovered that there exist very few other investigations into this specific Whist variant. Previ- ous projects such as Fong (2005) or Chirko and Reitblat (2015) focus either exclusively on strategy research or on simulating gameplay, but none were found that explore both. Therefore, to be able to create a fully functioning game environment that agents can interact with - in the same capacity as humans can - while also investigating gameplay strategies, was thought to be an exciting prospect. 
+* We discovered that there exist very few other investigations into this specific Whist variant. Previous projects such as Fong (2005) or Chirko and Reitblat (2015) focus either exclusively on strategy research or on simulating gameplay, but none were found that explore both. Therefore, to be able to create a fully functioning game environment that agents can interact with - in the same capacity as humans can - while also investigating gameplay strategies, was thought to be an exciting prospect. 
 
 ## Project Description
 
@@ -14,7 +14,7 @@ We create an application capable of simulating computer-controlled agents playin
 
 We implement 5 separate agents, each of whom play the game with a different gameplay strategy. The strategy they incorporate is exclusively used in the gameplay stage, as this is where points are primarily won or lost. Their strategy is also isolated to the gameplay stage because the bidding stage uses a fixed prediction method amongst the agents as a control variable. 
 
-If the agents also varied in how they bid at the start of the game, the perception of a strategy’s effective- ness could be distorted and cause a successful strategy to go unnoticed due to an inaccurate prediction. The strategies implemented into the agents include both a winning strategy and a losing strategy, which they can switch between based on whether they are meeting their contract or not. 
+If the agents also varied in how they bid at the start of the game, the perception of a strategy’s effectiveness could be distorted and cause a successful strategy to go unnoticed due to an inaccurate prediction. The strategies implemented into the agents include both a winning strategy and a losing strategy, which they can switch between based on whether they are meeting their contract or not. 
 
 Through the examination of the implemented strategies, we can not only make a conclusion as to what factors contribute to a successful strategy, but also gain insight into whether an optimal strategy could exist. While investigations into optimal strategies for imperfect information games have been conducted in the past, this is one of the first to examine this specific Whist variant. 
 
