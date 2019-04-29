@@ -4,9 +4,9 @@
 
 Originally introduced to me by my father, Contract Whist is a trick-taking card game with a bidding aspect similar to that of the more popular game: Bridge. The game is comprised of 14 rounds, with each round made up of three distinct stages. Players are tasked with predicting how many tricks they will take in a round, and are scored on the accuracy of this prediction. After a decade of informal family play, the opportunity to create an application that could simulate the game presented itself with advantages being twofold. 
 
-	* Firstly, while we had theorised that a superior strategy existed, until now there had been no way to test one against another. This project aims to test this theory by simulated computer controlled agents playing the game many times. If such a superior strategy is found to exist, we will evaluate what factors influence it to be better than other strategies and judge to what extent it is so. 
+* Firstly, while we had theorised that a superior strategy existed, until now there had been no way to test one against another. This project aims to test this theory by simulated computer controlled agents playing the game many times. If such a superior strategy is found to exist, we will evaluate what factors influence it to be better than other strategies and judge to what extent it is so. 
 	
-	* We discovered that there exist very few other investigations into this specific Whist variant. Previ- ous projects such as Fong (2005) or Chirko and Reitblat (2015) focus either exclusively on strategy research or on simulating gameplay, but none were found that explore both. Therefore, to be able to create a fully functioning game environment that agents can interact with - in the same capacity as humans can - while also investigating gameplay strategies, was thought to be an exciting prospect. 
+* We discovered that there exist very few other investigations into this specific Whist variant. Previ- ous projects such as Fong (2005) or Chirko and Reitblat (2015) focus either exclusively on strategy research or on simulating gameplay, but none were found that explore both. Therefore, to be able to create a fully functioning game environment that agents can interact with - in the same capacity as humans can - while also investigating gameplay strategies, was thought to be an exciting prospect. 
 
 ## Project Description
 
